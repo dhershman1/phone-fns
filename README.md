@@ -184,7 +184,7 @@ console.log(isValid('8896'));
 
 ### identical(x, y)
 
-Validates if the phone number is valid or not
+Checks if the two provided numbers are identical or not
 
 #### Arguments
 
