@@ -2,7 +2,7 @@
 
 # phone-fns
 
-A small modern, and functional phone number library which gather inspiration from the fun [date-fns](https://github.com/date-fns/date-fns) library
+A small modern, and functional phone number library which gathers inspiration from the fun [date-fns](https://github.com/date-fns/date-fns) library
 
 ## How-To
 
