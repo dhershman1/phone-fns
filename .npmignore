@@ -1,0 +1,10 @@
+old-readmes/
+old-changelogs/
+.travis.yml
+bitbucket-pipelines.yml
+rollup.config.js
+.eslintrc.js
+.eslintignore
+.gitignore
+src/
+configs/

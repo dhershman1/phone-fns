@@ -2,7 +2,7 @@ import buble from 'rollup-plugin-buble';
 // import uglify from 'rollup-plugin-uglify';
 
 export default {
-	input: 'src/index.js',
+	input: 'src/esm/index.js',
 	name: 'phoneFns',
 	output: {
 		format: 'umd',

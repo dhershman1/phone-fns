@@ -2,8 +2,7 @@
   "name": "phone-fns",
   "version": "0.1.0",
   "description": "Silly simple phone functional library",
-  "main": "src/index.js",
-  "module": "src/esm/index.js",
+  "main": "dist/phone-fns.umd.js",
   "scripts": {
     "prepare": "rollup -c",
     "lint": "eslint ./src",

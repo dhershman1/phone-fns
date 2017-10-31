@@ -60,7 +60,7 @@ var formatCode = function (phone, n) {
 	return [currCode, phone.replace(codeReg, '')];
 };
 
-var breakdown = function (phone, type, layout) {
+var breakdown = function (phone, isLD, layout) {
 	var uglyPhone = uglify(phone);
 	var currPhone = uglyPhone;
 	var countryCode = '';
@@ -72,7 +72,7 @@ var breakdown = function (phone, type, layout) {
 		lengths = getLengths(layout);
 	}
 
-	if (type === 'longDistance') {
+	if (isLD) {
 		var assign;
 		(assign = formatCountryCode(uglyPhone, lengths), countryCode = assign[0], currPhone = assign[1]);
 	}
@@ -136,13 +136,13 @@ var format = function (layout, num, type) {
 	return results;
 };
 
-var index$1 = function (phone, layout, type) {
+var index$1 = function (phone, layout, isLD) {
 	if (!isValid(phone)) {
 		return phone;
 	}
 
 	var uglyPhone = uglify(phone);
-	var phoneObj = breakdown(uglyPhone, type, layout);
+	var phoneObj = breakdown(uglyPhone, isLD, layout);
 	var results = layout;
 
 	for (var prop in phoneObj) {
