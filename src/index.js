@@ -1,6 +1,15 @@
-export {default as breakdown} from './breakdown/index';
-export {default as uglify} from './uglify/index';
-export {default as isValid} from './isValid/index';
-export {default as identical} from './identical/index';
-export {default as format} from './format/index';
-export {default as find} from './find/index';
+const uglify = require('./uglify/index');
+const format = require('./format/index');
+const isValid = require('./isValid/index');
+const identical = require('./identical/index');
+const find = require('./find/index');
+const breakdown = require('./breakdown/index');
+
+module.exports = {
+	uglify,
+	format,
+	isValid,
+	identical,
+	find,
+	breakdown
+};

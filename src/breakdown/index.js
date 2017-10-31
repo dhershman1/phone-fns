@@ -1,4 +1,4 @@
-import uglify from '../uglify/index.js';
+import uglify from '../uglify/index';
 
 const getLengths = layout => {
 	const countryCodes = layout.match(/C/g);
