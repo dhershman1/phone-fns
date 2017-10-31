@@ -9,24 +9,24 @@ A small modern, and functional phone number library which gather inspiration fro
 Standard module system
 
 ```js
-import {isValid, find} from 'phone-fns';
-// Now you can use each as a function
-isValid(phone);
-find(phone, code);
+import { format } from 'phone-fns';
+
+format(phone, layout);
 ```
 
 Common JS
 
 ```js
-pPretty = require('phone-prettify');
-pPretty.dashed(phone);
+const { format } = require('phone-fns');
+
+format(phone, layout);
 ```
 
 Through the browser
 
 ```js
-<script src="path/to/location/dist/phone-prettify.umd.js"></script>
-phonePrettify.dashed(phone);
+<script src="path/to/location/dist/phone-fns.umd.js"></script>
+phoneFns.format(phone, layout);
 ```
 
 ## Methods
@@ -96,8 +96,108 @@ Find a piece of the phone number and return it
 #### Usage
 
 ```js
-import { find } from 'phone-prettify';
+import { find } from 'phone-fns';
 
 console.log(find('555-444-3333', 'areaCode'));
 // Output: 555
+```
+
+### breakdown(phone, isLD)
+
+Takes the provided phone string and breaks it down into an object like so:
+
+```js
+{
+  countryCode: '',
+  areaCode: '',
+  localCode: '',
+  lineNumber: '',
+  extension: ''
+}
+```
+
+#### Arguments
+
+- `phone` - `String`: the desired phone number to run against
+- `isLD` - `Boolean`: tell the function if the phone is using a long distance style or not
+
+#### Usage
+
+```js
+import { breakdown } from 'phone-fns';
+
+console.log(breakdown('555-444-3333'));
+// Output:
+/*
+{
+  countryCode: '',
+  areaCode: '555',
+  localCode: '444',
+  lineNumber: '3333',
+  extension: ''
+}
+*/
+
+console.log(breakdown('112555-444-3333', true));
+// Output:
+/*
+{
+  countryCode: '112',
+  areaCode: '555',
+  localCode: '444',
+  lineNumber: '3333',
+  extension: ''
+}
+*/
+
+console.log(breakdown('555-444-33338989'));
+// Output:
+/*
+{
+  countryCode: '',
+  areaCode: '555',
+  localCode: '444',
+  lineNumber: '3333',
+  extension: '8989'
+}
+*/
+```
+
+### isValid(phone)
+
+Validates if the phone number is valid or not
+
+#### Arguments
+
+- `phone` - `String`: the desired phone number to run against
+
+#### Usage
+
+```js
+import { isValid } from 'phone-fns';
+
+console.log(isValid('555-444-3333'));
+// Output: true
+console.log(isValid('8896'));
+// Output: false
+```
+
+### identical(x, y)
+
+Validates if the phone number is valid or not
+
+#### Arguments
+
+- `x` - `String`: the desired phone number to run against `y`
+- `y` - `String`: the desired phone number to run against `x`
+
+#### Usage
+
+```js
+import { identical } from 'phone-fns';
+
+console.log(identical('555-444-3333', '555-444-3333'));
+// Output: true
+console.log(identical('555-444-3333', '555-333-4444'));
+// Output: false
 ```

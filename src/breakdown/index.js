@@ -50,7 +50,7 @@ const formatCode = (phone, n) => {
 	return [currCode, phone.replace(codeReg, '')];
 };
 
-export default (phone, type, layout) => {
+export default (phone, isLD, layout) => {
 	const uglyPhone = uglify(phone);
 	let currPhone = uglyPhone;
 	let countryCode = '';
@@ -62,7 +62,7 @@ export default (phone, type, layout) => {
 		lengths = getLengths(layout);
 	}
 
-	if (type === 'longDistance') {
+	if (isLD) {
 		[countryCode, currPhone] = formatCountryCode(uglyPhone, lengths);
 	}
 

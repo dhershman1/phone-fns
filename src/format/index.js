@@ -30,13 +30,13 @@ const format = (layout, num, type) => {
 	return results;
 };
 
-export default (phone, layout, type) => {
+export default (phone, layout, isLD) => {
 	if (!isValid(phone)) {
 		return phone;
 	}
 
 	const uglyPhone = uglify(phone);
-	const phoneObj = breakdown(uglyPhone, type, layout);
+	const phoneObj = breakdown(uglyPhone, isLD, layout);
 	let results = layout;
 
 	for (const prop in phoneObj) {
