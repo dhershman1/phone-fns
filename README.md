@@ -48,7 +48,7 @@ console.log(uglify('555-444-1111'));
 // Output: 5554441111
 ```
 
-### format(phone, format, type)
+### format(phone, format, isLD)
 
 Customized formatting function allowing you to create your own custom formats
 
@@ -56,7 +56,7 @@ Customized formatting function allowing you to create your own custom formats
 
 - `phone` - `String`: The desired phone number to run against
 - `format` - `String`: The desired format to set the number into, see above
-- `type` - `String`: Mainly used for `longDistance` to tell `phone-fns` to run the number through that check as well
+- `isLD` - `Boolean`: Tell the function to run the long distance rule
 
 #### Formatting
 
@@ -76,7 +76,7 @@ format('4443332222', '(AAA) LLL-NNNN');
 // Output: (444) 333-2222
 
 // Long Distance
-format('1124443332222', 'CCC + (AAA)-LLL.NNNN', 'longDistance'); // <-- Notice we have to make sure to tell the module we want a long distance rule ran
+format('1124443332222', 'CCC + (AAA)-LLL.NNNN', true); // <-- Notice we have to make sure to tell the module we it is long distance
 // Output: 112 + (444)-333.2222
 
 // Extensions
