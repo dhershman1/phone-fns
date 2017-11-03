@@ -4,12 +4,17 @@ const isValid = require('./isValid/index');
 const identical = require('./identical/index');
 const find = require('./find/index');
 const breakdown = require('./breakdown/index');
+const findLocal = require('./findLocal/index');
+const getCode = require('./getCode/index');
 
+/* eslint-disable object-shorthand*/
 module.exports = {
-	uglify,
-	format,
-	isValid,
-	identical,
-	find,
-	breakdown
+	uglify: uglify,
+	format: format,
+	isValid: isValid,
+	identical: identical,
+	find: find,
+	breakdown: breakdown,
+	findLocal: findLocal,
+	getCode: getCode
 };

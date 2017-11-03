@@ -20,17 +20,9 @@ const formatCountryCode = (phone, { countryCode }) => {
 	const countryCodeLen = countryCode ? countryCode : phone.length - 10;
 	const codeReg = new RegExp(`([0-9]{${countryCodeLen}})`);
 	const [uglyCountryCode] = phone.match(codeReg);
-	let result = uglyCountryCode;
 
-	if (countryCodeLen > 4) {
-		result = `${uglyCountryCode.substr(0, 2)}-${uglyCountryCode.substr(2, 4)}`;
-	}
 
-	if (countryCodeLen === 4) {
-		result = `${uglyCountryCode.substr(0, 1)}-${uglyCountryCode.substr(1, 3)}`;
-	}
-
-	return [result, phone.replace(codeReg, '')];
+	return [uglyCountryCode, phone.replace(codeReg, '')];
 };
 
 /**

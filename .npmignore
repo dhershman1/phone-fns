@@ -3,6 +3,7 @@ old-changelogs/
 .travis.yml
 bitbucket-pipelines.yml
 rollup.config.js
+rollup.minify.js
 .eslintrc.js
 .eslintignore
 .gitignore

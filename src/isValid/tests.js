@@ -18,3 +18,15 @@ test('Test invalid type', t => {
 
 	t.falsy(results, 'Results returned back false');
 });
+
+test('Test Country Code Validation', t => {
+	const results = isValid('1 + (555) 444 3333', 'usa');
+
+	t.truthy(results, 'is a valid number & country code');
+});
+
+test('Test invalid country code', t => {
+	const results = isValid('9885554443333', 'usa');
+
+	t.falsy(results, '988 is not a valid country code for the US');
+});

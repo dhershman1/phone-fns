@@ -33,6 +33,6 @@ test('Test breakdown long distance', t => {
 	t.is(results.areaCode, '555', 'The area code in results was 555');
 	t.is(results.localCode, '444', 'The local code in results was 444');
 	t.is(results.lineNumber, '1111', 'The lineNumber in results was 3333');
-	t.is(results.countryCode, '1-787', 'The country code was 1-787');
+	t.is(results.countryCode, '1787', 'The country code was 1-787');
 	t.falsy(results.extension.length, 'The extension number was empty');
 });
