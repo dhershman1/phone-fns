@@ -1,9 +1,23 @@
 # Changelog
 
+## v0.3.0
+
+> - Consistancy Tweaks in some files
+> - Changed `getCode` to `getCountryCode`
+>   - Notice that this now means `getCode` is depricated
+>   - This is not yet a breaking change but may be in the future (1.0.0 release probably)
+> - Changed `findLocal` to `getCountries`
+>   - Notice that this now means `findLocal` is depricated
+>   - This is not yet a breaking change but may be in the future (1.0.0 release probably)
+> - Introduced webpack as the builder to help build out the public module
+>   - This shouldn't have any large effects, if you do see an issue please let me know asap!
+> - Updated all dependencies
+> - Text Tweaks in some error messages
+
 ## v0.2.0
 
 > - Tweaks to build process
-> - Added ability to call functional methods individually youc an do so using the following:
+> - Added ability to call functional methods individually you can do so using the following:
 >   - `phone-fns/format`
 >   - `phone-fns/find`
 >   - `phone-fns/breakdown`

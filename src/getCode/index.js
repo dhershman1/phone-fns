@@ -1,3 +1,1 @@
-import callingCodes from '../callingCodes.js';
-
-export default country => callingCodes[country.toLowerCase()];
+export { default } from '../getCountryCode/index';

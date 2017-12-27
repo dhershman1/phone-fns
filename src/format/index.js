@@ -10,7 +10,7 @@ import uglify from '../uglify/index';
  * C = Country Code
  * Example:
  *
- * format(phone, '(AAA)-LLL-nnnn');
+ * format(phone, '(AAA)-LLL-NNNN');
  */
 
 const format = (layout, num, type) => {

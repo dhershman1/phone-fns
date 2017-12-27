@@ -6,3 +6,5 @@ export { default as format } from '../format/index';
 export { default as find } from '../find/index';
 export { default as findLocal } from '../findLocal/index';
 export { default as getCode } from '../getCode/index';
+export { default as getCountries } from '../getCountries/index';
+export { default as getCountryCode } from '../getCountryCode/index';
