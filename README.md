@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/dhershman1/phone-fns.svg?branch=master)](https://travis-ci.org/dhershman1/phone-fns)
+[![npm](https://img.shields.io/npm/v/phone-fns.svg?style=for-the-badge)](https://www.npmjs.com/package/phone-fns) [![Downloads](https://img.shields.io/npm/dm/phone-fns.svg?style=for-the-badge)](https://www.npmjs.com/package/phone-fns) [![David](https://img.shields.io/david/dhershman1/phone-fns.svg?style=for-the-badge)](https://david-dm.org/dhershman1/phone-fns) [![David](https://img.shields.io/david/dev/dhershman1/phone-fns.svg?style=for-the-badge)](https://david-dm.org/dhershman1/phone-fns?type=dev) [![Travis](https://img.shields.io/travis/dhershman1/phone-fns.svg?style=for-the-badge)](https://travis-ci.org/dhershman1/phone-fns)
 
 # phone-fns
 
@@ -231,7 +231,9 @@ console.log(identical('555-444-3333', '555-333-4444'));
 // Output: false
 ```
 
-### getCode(country)
+### getCountryCode(country)
+
+`alias`: `getCode(country)` - Note that this is depricated and `getCountryCode` is the best way to call this method
 
 Grabs the calling code for the provided country from the `callingCodes.json`
 
@@ -252,7 +254,9 @@ console.log(getCode('ўзбекистон республикаси'));
 // Output: [ '998' ]
 ```
 
-### findLocal(code)
+### getCountries(code)
+
+`alias`: `findLocal(code)` - Note that this is depricated and `getCountries` is the best way to call this method
 
 Grabs all of the countrys (and their alternate names) for the provided country calling code
 
