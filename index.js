@@ -1,1 +1,13 @@
-module.exports = {"breakdown":"require(./breakdown)","callingCodes.js":"require(./callingCodes.js)","find":"require(./find)","findLocal":"require(./findLocal)","format":"require(./format)","getCode":"require(./getCode)","getCountries":"require(./getCountries)","getCountryCode":"require(./getCountryCode)","identical":"require(./identical)","isValid":"require(./isValid)","uglify":"require(./uglify)"}
+
+module.exports = {
+  breakdown: require('./breakdown/index.js').default,
+  find: require('./find/index.js').default,
+  findLocal: require('./findLocal/index.js').default,
+  format: require('./format/index.js').default,
+  getCode: require('./getCode/index.js').default,
+  getCountries: require('./getCountries/index.js').default,
+  getCountryCode: require('./getCountryCode/index.js').default,
+  identical: require('./identical/index.js').default,
+  isValid: require('./isValid/index.js').default,
+  uglify: require('./uglify/index.js').default
+}

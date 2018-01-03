@@ -1,5 +1,10 @@
 # Changelog
 
+## v0.3.2
+
+- Better(working) fix for webpack builds issue
+- Better Main JS generator
+
 ## v0.3.1
 
 - Fix for Webpack build issues when importing base module

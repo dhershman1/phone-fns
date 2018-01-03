@@ -1,8 +1,11 @@
 {
   "name": "phone-fns",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "description": "Small and simple functional phone library",
-  "main": "./index.js",
+  "main": "index.js",
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "build:all": "npm-run-all --parallel compile:*",
     "cleanup": "rimraf {esm,breakdown,find,format,identical,isValid,uglify,findLocal,getCode,getCountries,getCountryCode,main,callingCodes}",
