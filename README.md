@@ -1,4 +1,4 @@
-[![npm](https://img.shields.io/npm/v/phone-fns.svg?style=for-the-badge)](https://www.npmjs.com/package/phone-fns) [![Downloads](https://img.shields.io/npm/dm/phone-fns.svg?style=for-the-badge)](https://www.npmjs.com/package/phone-fns) [![David](https://img.shields.io/david/dhershman1/phone-fns.svg?style=for-the-badge)](https://david-dm.org/dhershman1/phone-fns) [![David](https://img.shields.io/david/dev/dhershman1/phone-fns.svg?style=for-the-badge)](https://david-dm.org/dhershman1/phone-fns?type=dev) [![Travis](https://img.shields.io/travis/dhershman1/phone-fns.svg?style=for-the-badge)](https://travis-ci.org/dhershman1/phone-fns)
+[![npm](https://img.shields.io/npm/v/phone-fns.svg?style=for-the-badge)](https://www.npmjs.com/package/phone-fns) [![David](https://img.shields.io/david/dhershman1/phone-fns.svg?style=for-the-badge)](https://david-dm.org/dhershman1/phone-fns) [![David](https://img.shields.io/david/dev/dhershman1/phone-fns.svg?style=for-the-badge)](https://david-dm.org/dhershman1/phone-fns?type=dev) [![Travis](https://img.shields.io/travis/dhershman1/phone-fns.svg?style=for-the-badge)](https://travis-ci.org/dhershman1/phone-fns)
 
 # phone-fns
 
@@ -71,7 +71,7 @@ console.log(uglify('555-444-3333'));
 #### Usage
 
 ```js
-import {uglify} from 'phone-fns';
+import uglify from 'phone-fns/uglify';
 
 console.log(uglify('555-444-1111'));
 // Output: 5554441111
@@ -98,7 +98,7 @@ Customized formatting function allowing you to create your own custom formats
 #### Usage
 
 ```js
-import { format } from 'phone-fns';
+import format from 'phone-fns/format';
 
 // Normal
 format('4443332222', '(AAA) LLL-NNNN');
@@ -125,7 +125,7 @@ Find a piece of the phone number and return it
 #### Usage
 
 ```js
-import { find } from 'phone-fns';
+import find from 'phone-fns/find';
 
 console.log(find('555-444-3333', 'areaCode'));
 // Output: 555
@@ -153,7 +153,7 @@ Takes the provided phone string and breaks it down into an object like so:
 #### Usage
 
 ```js
-import { breakdown } from 'phone-fns';
+import breakdown from 'phone-fns/breakdown';
 
 console.log(breakdown('555-444-3333'));
 // Output:
@@ -203,7 +203,7 @@ Validates if the phone number is valid or not
 #### Usage
 
 ```js
-import { isValid } from 'phone-fns';
+import isValid from 'phone-fns/isValid';
 
 console.log(isValid('555-444-3333'));
 // Output: true
@@ -223,7 +223,7 @@ Checks if the two provided numbers are identical or not
 #### Usage
 
 ```js
-import { identical } from 'phone-fns';
+import identical from 'phone-fns/identical';
 
 console.log(identical('555-444-3333', '555-444-3333'));
 // Output: true
@@ -244,13 +244,13 @@ Grabs the calling code for the provided country from the `callingCodes.json`
 #### Usage
 
 ```js
-import { getCode } from 'phone-fns';
+import getCountryCode from 'phone-fns/getCountryCode';
 
-console.log(getCode('USA'));
+console.log(getCountryCode('USA'));
 // Output: [ '1' ]
-console.log(getCode('united states of america'));
+console.log(getCountryCode('united states of america'));
 // Output: [ '1' ]
-console.log(getCode('ўзбекистон республикаси'));
+console.log(getCountryCode('ўзбекистон республикаси'));
 // Output: [ '998' ]
 ```
 
@@ -267,9 +267,9 @@ Grabs all of the countrys (and their alternate names) for the provided country c
 #### Usage
 
 ```js
-import { findLocal } from 'phone-fns';
+import getCountries from 'phone-fns/getCountries';
 
-console.log(findLocal('1'));
+console.log(getCountries('1'));
 /* Output: [
 		'canada',
 		'ca',

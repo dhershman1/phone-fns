@@ -1,5 +1,10 @@
 # Changelog
 
+## v0.3.1
+
+- Fix for Webpack build issues when importing base module
+- README typo fixes
+
 ## v0.3.0
 
 > - Consistancy Tweaks in some files

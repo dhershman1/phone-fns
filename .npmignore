@@ -9,3 +9,4 @@ rollup.minify.js
 .gitignore
 src/
 configs/
+scripts/
