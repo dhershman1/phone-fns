@@ -6,7 +6,7 @@
   "scripts": {
     "build:all": "npm-run-all --parallel compile:*",
     "cleanup": "rimraf {esm,breakdown,find,format,identical,isValid,uglify,findLocal,getCode,getCountries,getCountryCode,main,callingCodes}",
-    "prepare": "webpack",
+    "prepare": "node scripts/create-export.js && webpack",
     "postpublish": "npm run cleanup",
     "lint": "eslint ./src",
     "test:watch": "ava --watch",
