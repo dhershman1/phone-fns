@@ -1,5 +1,10 @@
 # Changelog
 
+## v0.3.2
+
+- Actual Fix for webpack bug in build
+- Made the create script cleaner
+
 ## v0.3.1
 
 - Fix for Webpack build issues when importing base module

@@ -1,6 +1,6 @@
 {
   "name": "phone-fns",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "description": "Small and simple functional phone library",
   "main": "./index.js",
   "scripts": {
@@ -57,6 +57,7 @@
     "babel-preset-env": "1.6.1",
     "babel-register": "6.26.0",
     "buble-loader": "0.4.1",
+    "del": "^3.0.0",
     "eslint": "4.14.0",
     "globby": "7.1.1",
     "npm-run-all": "4.1.2",
