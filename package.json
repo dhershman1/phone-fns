@@ -4,10 +4,10 @@
   "description": "Small and simple functional phone library",
   "main": "./index.js",
   "scripts": {
-    "build:all": "npm-run-all --parallel compile:*",
     "cleanup": "rimraf {esm,breakdown,find,format,identical,isValid,uglify,findLocal,getCode,getCountries,getCountryCode,main,callingCodes}",
     "prepare": "node scripts/create-export.js && webpack",
-    "postpublish": "npm run cleanup",
+    "clean": "node scripts/clean.js",
+    "postpublish": "npm run clean",
     "lint": "eslint ./src",
     "test:watch": "ava --watch",
     "test": "ava"
