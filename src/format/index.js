@@ -13,7 +13,7 @@ import uglify from '../uglify/index';
  * format(phone, '(AAA)-LLL-NNNN');
  */
 
-const format = (layout, num, type) => {
+const replaceLayout = (layout, num, type) => {
 	const letters = {
 		areaCode: 'A',
 		localCode: 'L',
@@ -30,7 +30,21 @@ const format = (layout, num, type) => {
 	return results;
 };
 
-export default (phone, layout, isLD) => {
+/**
+ * @name format
+ * @description Allows you to format phone numbers however you desire
+ *
+ * @param {String} phone The phone number to breakdown
+ * @param {String} layout The desired layout of the phone number
+ * @param {Boolean} isLD Boolean setting long distance to true of false
+ * @return {String} Returns a string which is the formatted phone number
+ *
+ * @example
+ * const results = format('444-555-6666', '(AAA) LLL.NNNN'); // => '(444) 555.6666'
+ * const results = format('1444-555-6666', 'C + (AAA) LLL.NNNN', true); // => '1 + (444) 555.6666'
+ * const results = format('444-555-66668989', '(AAA) LLL.NNNN x EEEE'); // => '(444) 555.6666 x 8989'
+ */
+const format = (phone, layout, isLD) => {
 	if (!isValid(phone)) {
 		return phone;
 	}
@@ -41,9 +55,11 @@ export default (phone, layout, isLD) => {
 
 	for (const prop in phoneObj) {
 		if (phoneObj[prop]) {
-			results = format(results, phoneObj[prop], prop);
+			results = replaceLayout(results, phoneObj[prop], prop);
 		}
 	}
 
 	return results;
 };
+
+export default format;

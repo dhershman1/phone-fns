@@ -10,12 +10,6 @@ const getLengths = layout => {
 	};
 };
 
-/**
- * Format a country code for long distance style numbers
- *
- * @param {String} phone The phone number to format
- * @returns Returns an array
- */
 const formatCountryCode = (phone, { countryCode }) => {
 	const countryCodeLen = countryCode ? countryCode : phone.length - 10;
 	const codeReg = new RegExp(`([0-9]{${countryCodeLen}})`);
@@ -25,12 +19,6 @@ const formatCountryCode = (phone, { countryCode }) => {
 	return [uglyCountryCode, phone.replace(codeReg, '')];
 };
 
-/**
- * Format every other piece of the phone number
- *
- * @param {String} phone The phone number to format
- * @returns Returns an array
- */
 const formatCode = (phone, n) => {
 	if (!phone) {
 		return ['', false];
@@ -42,7 +30,21 @@ const formatCode = (phone, n) => {
 	return [currCode, phone.replace(codeReg, '')];
 };
 
-export default (phone, isLD, layout) => {
+/**
+ * @name breakdown
+ * @description Takes a provided phone string and breaks it down into an object of codes
+ *
+ * @param {String} phone The phone number to breakdown
+ * @param {Boolean} isLD Boolean setting long distance to true of false
+ * @param {String} layout The layout from format to find country and extension codes
+ * @return {Object} Returns an object of the broken down phone number
+ *
+ * @example
+ * const obj = breakdown('111-222-3333'); // => { areaCode: '111', localCode: '222', lineNumber: '3333' }
+ * const obj = breakdown('17875554441111', 'longDistance'); // => { areaCode: '555', localCode: '444', lineNumber: '1111', countryCode: 1787 }
+ * const obj = breakdown('555-444-3333 x 8989'); // => { areaCode: '555', localCode: '444', lineNumber: '3333', extension: 8989 }
+ */
+const breakdown = (phone, isLD, layout) => {
 	const uglyPhone = uglify(phone);
 	let currPhone = uglyPhone;
 	let countryCode = '';
@@ -74,3 +76,5 @@ export default (phone, isLD, layout) => {
 		extension
 	};
 };
+
+export default breakdown;
