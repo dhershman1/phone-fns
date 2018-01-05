@@ -10,4 +10,4 @@ module.exports = {
   identical: require('./identical/index.js').default,
   isValid: require('./isValid/index.js').default,
   uglify: require('./uglify/index.js').default
-}
+};
