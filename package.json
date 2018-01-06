@@ -2,7 +2,10 @@
   "name": "phone-fns",
   "version": "0.3.2",
   "description": "Small and simple functional phone library",
-  "main": "./index.js",
+  "main": "index.js",
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "cleanup": "rimraf {esm,breakdown,find,format,identical,isValid,uglify,findLocal,getCode,getCountries,getCountryCode,main,callingCodes}",
     "prepare": "node scripts/create-export.js && webpack",
@@ -60,6 +63,7 @@
     "del": "^3.0.0",
     "eslint": "4.14.0",
     "globby": "7.1.1",
+    "jsdoc-to-markdown": "^3.0.3",
     "npm-run-all": "4.1.2",
     "rimraf": "2.6.2",
     "webpack": "3.10.0"

@@ -2,8 +2,8 @@
 
 ## v0.3.2
 
-- Actual Fix for webpack bug in build
-- Made the create script cleaner
+- Better(working) fix for webpack builds issue
+- Better Main JS generator
 
 ## v0.3.1
 
