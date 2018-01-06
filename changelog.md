@@ -1,5 +1,10 @@
 # Changelog
 
+## v0.3.3
+
+- Fix for automating docs file
+- Build files should appear again
+
 ## v0.3.2
 
 - Better(working) fix for webpack builds issue

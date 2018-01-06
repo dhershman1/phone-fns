@@ -4,7 +4,7 @@
 
 A small modern, and functional phone number library which gathers inspiration from the fun [date-fns](https://github.com/date-fns/date-fns) library
 
-Check out the documentation site here: [Documentation](https://dusty-demos.herokuapp.com/phone-fns)
+- [Documentation](https://dusty-demos.herokuapp.com/phone-fns)
 
 ## How-To
 
