@@ -31,24 +31,6 @@ Through the browser
 phoneFns.format(phone, layout);
 ```
 
-## Country Codes
-
-`phone-fns` has calling codes for countries built into a json file locally. Which you can access using `phone-fns/callingCodes.json`
-
-These country codes are from the [Countries Repo](https://github.com/mledoze/countries) on github
-
-Example:
-
-```js
-import callingCodes from 'phone-fns/callingCodes';
-
-// The json files property names are all lowercased
-console.log(callingCodes['us']);
-// Output: [ '1' ]
-```
-
-**Note: This is the only way to access the codes json**
-
 ## Methods
 
 You can either use import to destructure the module to bring in methods or you can call them directly using `phone-fns/methodName`
@@ -232,54 +214,3 @@ console.log(identical('555-444-3333', '555-444-3333'));
 console.log(identical('555-444-3333', '555-333-4444'));
 // Output: false
 ```
-
-### getCountryCode(country)
-
-`alias`: `getCode(country)` - Note that this is depricated and `getCountryCode` is the best way to call this method
-
-Grabs the calling code for the provided country from the `callingCodes.json`
-
-#### Arguments
-
-- `country` - `String`: the country to search for to find the calling code is `Case Insensitive`
-
-#### Usage
-
-```js
-import getCountryCode from 'phone-fns/getCountryCode';
-
-console.log(getCountryCode('USA'));
-// Output: [ '1' ]
-console.log(getCountryCode('united states of america'));
-// Output: [ '1' ]
-console.log(getCountryCode('ўзбекистон республикаси'));
-// Output: [ '998' ]
-```
-
-### getCountries(code)
-
-`alias`: `findLocal(code)` - Note that this is depricated and `getCountries` is the best way to call this method
-
-Grabs all of the countrys (and their alternate names) for the provided country calling code
-
-#### Arguments
-
-- `code` - `String`: the country calling code to use to search through the calling codes
-
-#### Usage
-
-```js
-import getCountries from 'phone-fns/getCountries';
-
-console.log(getCountries('1'));
-/* Output: [
-		'canada',
-		'ca',
-		'united states',
-		'us',
-		'usa',
-		'united states of america'
-  ]
-  */
-```
-

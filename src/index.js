@@ -1,10 +1,6 @@
 export { default as breakdown } from './breakdown';
 export { default as find } from './find';
-export { default as findLocal } from './findLocal';
 export { default as format } from './format';
-export { default as getCode } from './getCode';
-export { default as getCountries } from './getCountries';
-export { default as getCountryCode } from './getCountryCode';
 export { default as identical } from './identical';
 export { default as isValid } from './isValid';
 export { default as uglify } from './uglify';

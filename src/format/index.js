@@ -44,7 +44,7 @@ const replaceLayout = (layout, num, type) => {
  * const results = format('1444-555-6666', 'C + (AAA) LLL.NNNN', true); // => '1 + (444) 555.6666'
  * const results = format('444-555-66668989', '(AAA) LLL.NNNN x EEEE'); // => '(444) 555.6666 x 8989'
  */
-const format = (phone, layout, isLD) => {
+export default (phone, layout, isLD) => {
   if (!isValid(phone)) {
     return phone;
   }
@@ -61,5 +61,3 @@ const format = (phone, layout, isLD) => {
 
   return results;
 };
-
-export default format;

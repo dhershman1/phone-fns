@@ -44,7 +44,7 @@ const formatCode = (phone, n) => {
  * const obj = breakdown('17875554441111', 'longDistance'); // => { areaCode: '555', localCode: '444', lineNumber: '1111', countryCode: 1787 }
  * const obj = breakdown('555-444-3333 x 8989'); // => { areaCode: '555', localCode: '444', lineNumber: '3333', extension: 8989 }
  */
-const breakdown = (phone, isLD, layout) => {
+export default (phone, isLD, layout) => {
   const uglyPhone = uglify(phone);
   let currPhone = uglyPhone;
   let countryCode = '';
@@ -76,5 +76,3 @@ const breakdown = (phone, isLD, layout) => {
     extension
   };
 };
-
-export default breakdown;

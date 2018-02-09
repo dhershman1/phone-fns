@@ -10,10 +10,8 @@ import uglify from '../uglify/index';
  *
  * @example
  * const results = isValid('555-444-3333'); // => true
- * const results = isValid('1 + (555) 444 3333', 'usa'); // => true
- * const results = isValid('9885554443333', 'usa'); // => false
  */
-const isValid = phone => {
+export default phone => {
   let valid = false;
 
   if (phone && (/^[0-9]{7,}$/).test(uglify(phone))) {
@@ -24,5 +22,3 @@ const isValid = phone => {
 
   return valid;
 };
-
-export default isValid;

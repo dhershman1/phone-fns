@@ -12,12 +12,10 @@ import uglify from '../uglify/index';
  * @example
  * const results = identical('5554443333', '5554443333'); // => true
  */
-const identical = (x, y) => {
+export default (x, y) => {
   if (!isValid(x) || !isValid(y)) {
     return 'Invalid Numbers';
   }
 
   return uglify(x) === uglify(y);
 };
-
-export default identical;

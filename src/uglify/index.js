@@ -8,6 +8,4 @@
  * @example
  * const results = uglify('555-444-3333'); // => '5554443333'
  */
-const uglify = phone => phone.replace(/[a-z]\w?|\W/gi, '');
-
-export default uglify;
+export default phone => phone.replace(/[a-z]\w?|\W/gi, '');
