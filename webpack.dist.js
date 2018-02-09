@@ -6,8 +6,8 @@ module.exports = {
   entry: './src/index.js',
   output: {
     path: path.resolve(__dirname),
-    filename: 'dusty.min.js',
-    library: 'dusty',
+    filename: 'phonefns.min.js',
+    library: 'phoneFns',
     libraryTarget: 'umd'
   },
   plugins: [

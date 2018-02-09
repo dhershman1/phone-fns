@@ -4,13 +4,14 @@
   "description": "Small and simple functional phone library",
   "main": "index.js",
   "scripts": {
-    "cleanup": "rimraf {esm,breakdown,find,format,identical,isValid,uglify,findLocal,getCode,getCountries,getCountryCode,main,callingCodes}",
-    "prepare": "node scripts/create-export.js && webpack",
+    "prepare": "node scripts/create-export.js && webpack && npm run build:dist",
     "clean": "node scripts/clean.js",
-    "postpublish": "npm run clean",
+    "build": "webpack",
+    "build:dist": "webpack --config webpack.dist.js",
+    "postpublish": "node scripts/clean.js",
     "lint": "eslint ./src",
     "test:watch": "ava --watch",
-    "test": "ava"
+    "test": "ava --verbose"
   },
   "babel": {
     "presets": [
