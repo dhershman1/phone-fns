@@ -2,8 +2,8 @@ old-readmes/
 old-changelogs/
 .travis.yml
 bitbucket-pipelines.yml
-rollup.config.js
-rollup.minify.js
+webpack.config.js
+webpack.dist.js
 .eslintrc.js
 .eslintignore
 .gitignore
