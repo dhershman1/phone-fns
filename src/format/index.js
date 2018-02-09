@@ -50,7 +50,7 @@ export default (phone, layout, isLD) => {
   }
 
   const uglyPhone = uglify(phone);
-  const phoneObj = breakdown(uglyPhone, isLD, layout);
+  const phoneObj = breakdown(isLD, layout, uglyPhone);
   let results = layout;
 
   for (const prop in phoneObj) {

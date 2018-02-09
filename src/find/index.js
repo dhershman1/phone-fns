@@ -1,4 +1,5 @@
 import breakdown from '../breakdown/index';
+import curry from '../_internals/curry';
 
 /**
  * @name find
@@ -15,10 +16,4 @@ import breakdown from '../breakdown/index';
  * const results = find('1555-444-1111', 'countryCode'); // => '1'
  * const results = find('555-444-1111 8989', 'extension'); // => '8989'
  */
-export default (phone, type) => {
-  if (type === 'countryCode') {
-    return breakdown(phone, 'longDistance')[type];
-  }
-
-  return breakdown(phone)[type];
-};
+export default curry((phone, type) => breakdown(type === 'countryCode', '', phone)[type]);
