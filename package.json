@@ -54,10 +54,10 @@
   "devDependencies": {
     "ava": "0.24.0",
     "babel": "6.23.0",
+    "babel-loader": "7.1.2",
     "babel-preset-env": "1.6.1",
     "babel-register": "6.26.0",
-    "buble-loader": "0.4.1",
-    "del": "^3.0.0",
+    "del": "3.0.0",
     "eslint": "4.14.0",
     "globby": "7.1.1",
     "jsdoc-to-markdown": "^3.0.3",

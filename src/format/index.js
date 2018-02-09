@@ -14,20 +14,20 @@ import uglify from '../uglify/index';
  */
 
 const replaceLayout = (layout, num, type) => {
-	const letters = {
-		areaCode: 'A',
-		localCode: 'L',
-		lineNumber: 'N',
-		extension: 'E',
-		countryCode: 'C'
-	};
-	let results = layout;
+  const letters = {
+    areaCode: 'A',
+    localCode: 'L',
+    lineNumber: 'N',
+    extension: 'E',
+    countryCode: 'C'
+  };
+  let results = layout;
 
-	num.split('').forEach(n => {
-		results = results.replace(letters[type], n);
-	});
+  num.split('').forEach(n => {
+    results = results.replace(letters[type], n);
+  });
 
-	return results;
+  return results;
 };
 
 /**
@@ -45,21 +45,21 @@ const replaceLayout = (layout, num, type) => {
  * const results = format('444-555-66668989', '(AAA) LLL.NNNN x EEEE'); // => '(444) 555.6666 x 8989'
  */
 const format = (phone, layout, isLD) => {
-	if (!isValid(phone)) {
-		return phone;
-	}
+  if (!isValid(phone)) {
+    return phone;
+  }
 
-	const uglyPhone = uglify(phone);
-	const phoneObj = breakdown(uglyPhone, isLD, layout);
-	let results = layout;
+  const uglyPhone = uglify(phone);
+  const phoneObj = breakdown(uglyPhone, isLD, layout);
+  let results = layout;
 
-	for (const prop in phoneObj) {
-		if (phoneObj[prop]) {
-			results = replaceLayout(results, phoneObj[prop], prop);
-		}
-	}
+  for (const prop in phoneObj) {
+    if (phoneObj[prop]) {
+      results = replaceLayout(results, phoneObj[prop], prop);
+    }
+  }
 
-	return results;
+  return results;
 };
 
 export default format;

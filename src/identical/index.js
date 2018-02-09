@@ -13,11 +13,11 @@ import uglify from '../uglify/index';
  * const results = identical('5554443333', '5554443333'); // => true
  */
 const identical = (x, y) => {
-	if (!isValid(x) || !isValid(y)) {
-		return 'Invalid Numbers';
-	}
+  if (!isValid(x) || !isValid(y)) {
+    return 'Invalid Numbers';
+  }
 
-	return uglify(x) === uglify(y);
+  return uglify(x) === uglify(y);
 };
 
 export default identical;

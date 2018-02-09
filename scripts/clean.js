@@ -6,11 +6,11 @@ const fileList = fs.readdirSync(path.join(__dirname, '..'));
 
 const ignoredFiles = ['.git', '.gitignore', '.npmignore', 'node_modules', 'src', 'scripts', '.eslintignore', 'LICENSE'];
 const results = fileList.filter(f => {
-	const { ext, name } = path.parse(f);
+  const { ext, name } = path.parse(f);
 
-	return !ext && ignoredFiles.indexOf(name) === -1;
+  return !ext && ignoredFiles.indexOf(name) === -1;
 });
 
 del(results).then(() => {
-	console.info('Finished Cleaning Up');
+  console.info('Finished Cleaning Up');
 });

@@ -1,14 +1,14 @@
 module.exports = {
 	'extends': 'eslint:recommended',
 	'parserOptions': {
-		'ecmaVersion': 2017,
+		'ecmaVersion': 6,
 		'sourceType': 'module'
 	},
 	'rules': {
 
 		/* Possible Errors */
 		'getter-return': ['error'],
-		'no-extra-parens': ['error'],
+		'no-extra-parens': [0],
 		'no-prototype-builtins': ['error'],
 		'no-template-curly-in-string': ['error'],
 
@@ -95,6 +95,7 @@ module.exports = {
 		}],
 
 		/* Stylistic Issues */
+		'no-console': ['error', { allow: ['warn', 'error', 'info'] }],
 		'array-bracket-spacing': ['error'],
 		'block-spacing': ['error'],
 		'brace-style': ['error', '1tbs'],
@@ -110,9 +111,7 @@ module.exports = {
 		'func-name-matching': ['error'],
 		'func-names': ['error'],
 		'func-style': ['error'],
-		'indent': ['error', 'tab', {
-			"SwitchCase": 1
-		}],
+		'indent': ['error', 2, { 'SwitchCase': 1 }],
 		'key-spacing': ['error'],
 		'keyword-spacing': ['error', {
 			'before': true,
@@ -125,7 +124,7 @@ module.exports = {
 			'code': 120
 		}],
 		'max-params': ['error', {
-			'max': 3
+			'max': 4
 		}],
 		'multiline-ternary': ['error', 'never'],
 		'new-cap': ['error'],
@@ -133,7 +132,7 @@ module.exports = {
 		'newline-after-var': ['error'],
 		'newline-before-return': ['error'],
 		'no-array-constructor': ['error'],
-		'no-bitwise': ['error', { 'allow': ['^='] }],
+		'no-bitwise': ['error'],
 		'no-inline-comments': ['error'],
 		'no-lonely-if': ['error'],
 		'no-mixed-operators': ['error'],
@@ -156,7 +155,11 @@ module.exports = {
 		'semi-spacing': ['error'],
 		'semi': ['error'],
 		'space-before-blocks': ['error'],
-		'space-before-function-paren': ['error'],
+		'space-before-function-paren': ['error', {
+			'anonymous': 'always',
+			'named': 'never',
+			'asyncArrow': 'always'
+		}],
 		'space-in-parens': ['error'],
 		'space-infix-ops': ['error'],
 		'spaced-comment': ['error'],
