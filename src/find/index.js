@@ -15,5 +15,13 @@ import curry from '../_internals/curry';
  * const results = find('555-444-1111', 'lineNumber'); // => '1111'
  * const results = find('1555-444-1111', 'countryCode'); // => '1'
  * const results = find('555-444-1111 8989', 'extension'); // => '8989'
+ *
+ * // find is also curried
+ *
+ * const finder = find('555-444-1111');
+ *
+ * finder('areaCode'); // => '555'
+ * finder('localCode'); // => '444'
+ * finder('lineNumber'); // => '1111'
  */
 export default curry((phone, type) => breakdown(type === 'countryCode', '', phone)[type]);

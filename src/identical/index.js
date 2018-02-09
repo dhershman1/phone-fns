@@ -14,7 +14,7 @@ import uglify from '../uglify/index';
  */
 export default (x, y) => {
   if (!isValid(x) || !isValid(y)) {
-    return 'Invalid Numbers';
+    return false;
   }
 
   return uglify(x) === uglify(y);
