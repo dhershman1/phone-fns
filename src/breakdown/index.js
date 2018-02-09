@@ -1,33 +1,33 @@
 import uglify from '../uglify/index';
 
 const getLengths = layout => {
-	const countryCodes = layout.match(/C/g);
-	const extensionCodes = layout.match(/E/g);
+  const countryCodes = layout.match(/C/g);
+  const extensionCodes = layout.match(/E/g);
 
-	return {
-		countryCode: countryCodes ? countryCodes.length : 0,
-		extension: extensionCodes ? extensionCodes.length : 0
-	};
+  return {
+    countryCode: countryCodes ? countryCodes.length : 0,
+    extension: extensionCodes ? extensionCodes.length : 0
+  };
 };
 
 const formatCountryCode = (phone, { countryCode }) => {
-	const countryCodeLen = countryCode ? countryCode : phone.length - 10;
-	const codeReg = new RegExp(`([0-9]{${countryCodeLen}})`);
-	const [uglyCountryCode] = phone.match(codeReg);
+  const countryCodeLen = countryCode ? countryCode : phone.length - 10;
+  const codeReg = new RegExp(`([0-9]{${countryCodeLen}})`);
+  const [uglyCountryCode] = phone.match(codeReg);
 
 
-	return [uglyCountryCode, phone.replace(codeReg, '')];
+  return [uglyCountryCode, phone.replace(codeReg, '')];
 };
 
 const formatCode = (phone, n) => {
-	if (!phone) {
-		return ['', false];
-	}
+  if (!phone) {
+    return ['', false];
+  }
 
-	const codeReg = new RegExp(`([0-9]{${n}})`);
-	const [currCode] = phone.match(codeReg);
+  const codeReg = new RegExp(`([0-9]{${n}})`);
+  const [currCode] = phone.match(codeReg);
 
-	return [currCode, phone.replace(codeReg, '')];
+  return [currCode, phone.replace(codeReg, '')];
 };
 
 /**
@@ -45,36 +45,36 @@ const formatCode = (phone, n) => {
  * const obj = breakdown('555-444-3333 x 8989'); // => { areaCode: '555', localCode: '444', lineNumber: '3333', extension: 8989 }
  */
 const breakdown = (phone, isLD, layout) => {
-	const uglyPhone = uglify(phone);
-	let currPhone = uglyPhone;
-	let countryCode = '';
-	let areaCode = '';
-	let localCode = '';
-	let lengths = 0;
+  const uglyPhone = uglify(phone);
+  let currPhone = uglyPhone;
+  let countryCode = '';
+  let areaCode = '';
+  let localCode = '';
+  let lengths = 0;
 
-	if (layout) {
-		lengths = getLengths(layout);
-	}
+  if (layout) {
+    lengths = getLengths(layout);
+  }
 
-	if (isLD) {
-		[countryCode, currPhone] = formatCountryCode(uglyPhone, lengths);
-	}
+  if (isLD) {
+    [countryCode, currPhone] = formatCountryCode(uglyPhone, lengths);
+  }
 
-	if (uglyPhone.length >= 10) {
-		[areaCode, currPhone] = formatCode(currPhone, 3);
-	}
+  if (uglyPhone.length >= 10) {
+    [areaCode, currPhone] = formatCode(currPhone, 3);
+  }
 
-	[localCode, currPhone] = formatCode(currPhone, 3);
+  [localCode, currPhone] = formatCode(currPhone, 3);
 
-	const [lineNumber, extension] = formatCode(currPhone, 4);
+  const [lineNumber, extension] = formatCode(currPhone, 4);
 
-	return {
-		countryCode,
-		areaCode,
-		localCode,
-		lineNumber,
-		extension
-	};
+  return {
+    countryCode,
+    areaCode,
+    localCode,
+    lineNumber,
+    extension
+  };
 };
 
 export default breakdown;

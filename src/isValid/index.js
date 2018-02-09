@@ -3,9 +3,9 @@ import callingCodes from '../callingCodes.js';
 import uglify from '../uglify/index';
 
 const validateCountryCode = (phone, country) => {
-	const { countryCode } = breakdown(phone, true);
+  const { countryCode } = breakdown(phone, true);
 
-	return callingCodes[country.toLowerCase()].indexOf(countryCode) !== -1;
+  return callingCodes[country.toLowerCase()].indexOf(countryCode) !== -1;
 };
 
 /**
@@ -22,19 +22,19 @@ const validateCountryCode = (phone, country) => {
  * const results = isValid('9885554443333', 'usa'); // => false
  */
 const isValid = (phone, country) => {
-	let valid = false;
+  let valid = false;
 
-	if (phone && (/^[0-9]{7,}$/).test(uglify(phone))) {
-		valid = true;
-	} else {
-		return false;
-	}
+  if (phone && (/^[0-9]{7,}$/).test(uglify(phone))) {
+    valid = true;
+  } else {
+    return false;
+  }
 
-	if (country && !validateCountryCode(phone, country)) {
-		valid = false;
-	}
+  if (country && !validateCountryCode(phone, country)) {
+    valid = false;
+  }
 
-	return valid;
+  return valid;
 };
 
 export default isValid;

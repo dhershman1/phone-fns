@@ -19,15 +19,15 @@ import callingCodes from '../callingCodes.js';
 		]
  */
 const getCountries = code => {
-	const foundCountries = [];
+  const foundCountries = [];
 
-	for (const prop in callingCodes) {
-		if (callingCodes[prop].indexOf(String(code)) !== -1) {
-			foundCountries.push(prop);
-		}
-	}
+  for (const prop in callingCodes) {
+    if (callingCodes[prop].indexOf(String(code)) !== -1) {
+      foundCountries.push(prop);
+    }
+  }
 
-	return foundCountries;
+  return foundCountries;
 };
 
 export default getCountries;
