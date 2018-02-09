@@ -1,12 +1,4 @@
-import breakdown from '../breakdown/index';
-import callingCodes from '../callingCodes.js';
 import uglify from '../uglify/index';
-
-const validateCountryCode = (phone, country) => {
-  const { countryCode } = breakdown(phone, true);
-
-  return callingCodes[country.toLowerCase()].indexOf(countryCode) !== -1;
-};
 
 /**
  * @name isValid
@@ -21,17 +13,13 @@ const validateCountryCode = (phone, country) => {
  * const results = isValid('1 + (555) 444 3333', 'usa'); // => true
  * const results = isValid('9885554443333', 'usa'); // => false
  */
-const isValid = (phone, country) => {
+const isValid = phone => {
   let valid = false;
 
   if (phone && (/^[0-9]{7,}$/).test(uglify(phone))) {
     valid = true;
   } else {
     return false;
-  }
-
-  if (country && !validateCountryCode(phone, country)) {
-    valid = false;
   }
 
   return valid;
