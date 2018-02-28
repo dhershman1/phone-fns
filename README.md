@@ -1,4 +1,4 @@
-[![npm](https://img.shields.io/npm/v/phone-fns.svg?style=for-the-badge)](https://www.npmjs.com/package/phone-fns) [![David](https://img.shields.io/david/dhershman1/phone-fns.svg?style=for-the-badge)](https://david-dm.org/dhershman1/phone-fns) [![David](https://img.shields.io/david/dev/dhershman1/phone-fns.svg?style=for-the-badge)](https://david-dm.org/dhershman1/phone-fns?type=dev) [![Travis](https://img.shields.io/travis/dhershman1/phone-fns.svg?style=for-the-badge)](https://travis-ci.org/dhershman1/phone-fns)
+[![npm](https://img.shields.io/npm/v/phone-fns.svg?style=for-the-badge)](https://www.npmjs.com/package/phone-fns) [![David](https://img.shields.io/david/dhershman1/phone-fns.svg?style=for-the-badge)](https://david-dm.org/dhershman1/phone-fns) [![Travis](https://img.shields.io/travis/dhershman1/phone-fns.svg?style=for-the-badge)](https://travis-ci.org/dhershman1/phone-fns)
 
 # phone-fns
 
@@ -76,7 +76,7 @@ You can also bring in the functions individually if you want to.
 import uglify from 'phone-fns/uglify';
 
 console.log(uglify('555-444-1111'));
-// Output: 5554441111
+// Output: '5554441111'
 ```
 
 ### format(countryCode, layout, phone)
@@ -108,15 +108,15 @@ import format from 'phone-fns/format';
 
 // Without a country code
 format('', '(AAA) LLL-NNNN', '4443332222');
-// Output: (444) 333-2222
+// Output: '(444) 333-2222'
 
 // With a country code
 format('112', 'CCC + (AAA)-LLL.NNNN', '4443332222');
-// Output: 112 + (444)-333.2222
+// Output: '112 + (444)-333.2222'
 
 // Extensions
 format('', '(AAA).LLL.NNNN x EEEE', '44433322228989');
-// Output: (444).333.2222 x 8989
+// Output: '(444).333.2222 x 8989'
 ```
 
 `format` is also a curried function
@@ -129,30 +129,40 @@ const formatter = format('');
 // Or setting it to have no country code and a default layout
 const formatWithLayout = format('', '(AAA) LLL.NNNN');
 
-formatter('AAA.LLL.NNNN', '4443332222'); // => 444.333.2222
-formatWithLayout('4443332222'); // => (444) 333.2222
+formatter('AAA.LLL.NNNN', '4443332222'); // => '444.333.2222'
+formatWithLayout('4443332222'); // => '(444) 333.2222'
 
 ```
 
-### find(phone, code)
+### find(type, phone)
 
 Find a piece of the phone number and return it
 
 #### Arguments
 
 - `phone` - `String`: the desired phone number to run against
-- `code` - `String`: the piece of the phone number to return can be `areaCode`, `localCode`, `lineNumber`, `countryCode`, or `extension`
+- `type` - `String`: the piece of the phone number to return can be `areaCode`, `localCode`, `lineNumber`, `countryCode`, or `extension`
 
 #### Usage
 
 ```js
 import find from 'phone-fns/find';
 
-console.log(find('555-444-3333', 'areaCode'));
-// Output: 555
+find('areaCode', '555-444-3333'); // => '555'
 ```
 
-### breakdown(phone, isLD)
+`find` is also a curried function so we could also do
+
+```javascript
+import find from 'phone-fns/find';
+
+const finder = find('areaCode');
+
+finder('4445556666'); // => '444'
+finder('5554443333'); // => '555'
+```
+
+### breakdown(countryCode, phone)
 
 Takes the provided phone string and breaks it down into an object like so:
 
@@ -168,15 +178,15 @@ Takes the provided phone string and breaks it down into an object like so:
 
 #### Arguments
 
+- `countryCode` - `String`: The country code to use (Only required if you call `breakdown` individually)
 - `phone` - `String`: the desired phone number to run against
-- `isLD` - `Boolean`: tell the function if the phone is using a long distance style or not
 
 #### Usage
 
 ```js
 import breakdown from 'phone-fns/breakdown';
 
-console.log(breakdown('555-444-3333'));
+breakdown('', '555-444-3333');
 // Output:
 /*
 {
@@ -188,7 +198,7 @@ console.log(breakdown('555-444-3333'));
 }
 */
 
-console.log(breakdown('112555-444-3333', true));
+breakdown('112', '555-444-3333');
 // Output:
 /*
 {
@@ -200,7 +210,7 @@ console.log(breakdown('112555-444-3333', true));
 }
 */
 
-console.log(breakdown('555-444-33338989'));
+breakdown('', '555-444-33338989');
 // Output:
 /*
 {
@@ -213,9 +223,45 @@ console.log(breakdown('555-444-33338989'));
 */
 ```
 
+`breakdown` is also a curried function so we can use it like so
+
+```js
+import breakdown from 'phone-fns/breakdown';
+
+const breaker = breakdown('');
+
+breaker('555-444-3333');
+// Output:
+/*
+{
+  countryCode: '',
+  areaCode: '555',
+  localCode: '444',
+  lineNumber: '3333',
+  extension: ''
+}
+*/
+
+const ccBreaker = breakdown('1');
+
+ccBreaker('555-444-3333');
+// Output:
+/*
+{
+  countryCode: '1',
+  areaCode: '555',
+  localCode: '444',
+  lineNumber: '3333',
+  extension: ''
+}
+*/
+```
+
 ### isValid(phone)
 
-Validates if the phone number is valid or not
+Validates if the provided number is valid or not.
+
+**It is important to note that this only goes off the base phone number, it does NOT take extensions or country codes into consideration**
 
 #### Arguments
 
@@ -226,28 +272,39 @@ Validates if the phone number is valid or not
 ```js
 import isValid from 'phone-fns/isValid';
 
-console.log(isValid('555-444-3333'));
-// Output: true
-console.log(isValid('8896'));
-// Output: false
+isValid('555-444-3333'); // => true
+
+isValid('8896'); // => false
 ```
 
-### identical(x, y)
+### match(phoneOne, phoneTwo)
 
-Checks if the two provided numbers are identical or not
+Checks if the two provided numbers are valid numbers and matching
 
 #### Arguments
 
-- `x` - `String`: the desired phone number to run against `y`
-- `y` - `String`: the desired phone number to run against `x`
+- `phoneOne` - `String`: the desired phone number to run against `phoneTwo`
+- `phoneTwo` - `String`: the desired phone number to run against `phoneOne`
 
 #### Usage
 
 ```js
-import identical from 'phone-fns/identical';
+import match from 'phone-fns/match';
 
-console.log(identical('555-444-3333', '555-444-3333'));
-// Output: true
-console.log(identical('555-444-3333', '555-333-4444'));
-// Output: false
+match('555-444-3333', '555-444-3333'); // => true
+
+match('555-444-3333', '555-333-4444'); // => false
+```
+
+`match` is also a curried function so we can do something like this
+
+```js
+import match from 'phone-fns/match';
+
+const matcher = match('555-444-3333');
+
+matcher('5554443333'); // => true
+matcher('555-444-3333'); // => true
+matcher('555-333-4444'); // => false
+matcher('8898'); // => false
 ```

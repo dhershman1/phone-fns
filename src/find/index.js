@@ -11,18 +11,16 @@ import curry from '../_internals/curry';
  * @return {String} Returns a string from the desired part of the phone number
  *
  * @example
- * find('555-444-1111', 'areaCode'); // => '555'
- * find('555-444-1111', 'localCode'); // => '444'
- * find('555-444-1111', 'lineNumber'); // => '1111'
- * find('1555-444-1111', 'countryCode'); // => '1'
- * find('555-444-1111 8989', 'extension'); // => '8989'
+ * find('areaCode', '555-444-1111'); // => '555'
+ * find('localCode', '555-444-1111'); // => '444'
+ * find('lineNumber', '555-444-1111'); // => '1111'
+ * find('countryCode', '1555-444-1111'); // => '1'
+ * find('extension', '555-444-1111 8989'); // => '8989'
  *
  * // find is also curried
  *
- * const finder = find('555-444-1111');
+ * const finder = find('areaCode');
  *
- * finder('areaCode'); // => '555'
- * finder('localCode'); // => '444'
- * finder('lineNumber'); // => '1111'
+ * finder('555-444-1111'); // => '555'
  */
-export default curry((phone, type) => breakdown('', phone)[type]);
+export default curry((type, phone) => breakdown('', phone)[type]);
