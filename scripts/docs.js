@@ -1,7 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 const jsDocParser = require('jsdoc-to-markdown');
-const ignoredFiles = ['_internals', 'esm', 'callingCodes.js', 'tests.js', 'getCode', 'findLocal'];
+const ignoredFiles = ['_internals', 'esm', 'callingCodes.js', 'tests.js', 'getCode', 'findLocal', 'index.js'];
 
 const listFns = () => {
   const files = fs.readdirSync(path.join(process.cwd(), 'src'));
@@ -47,6 +47,8 @@ const generateSourceDocs = () => listFns().map(fn => jsDocParser.getTemplateData
   'no-cache': true
 })[0])
   .map(d => ({
+    since: d.since ? d.since : 'Unknown',
+    category: d.category,
     title: d.name,
     description: d.description,
     examples: d.examples,
@@ -58,6 +60,8 @@ let generated = generateSourceDocs();
 
 generated = generated.map(doc => ({
   title: doc.title,
+  since: doc.since,
+  category: doc.category,
   syntax: generateSyntax(doc.title, doc.params),
   usage: generateUsage(doc.title),
   desc: doc.description,

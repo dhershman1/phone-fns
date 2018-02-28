@@ -1,17 +1,17 @@
 {
   "name": "phone-fns",
-  "version": "0.3.3",
+  "version": "1.0.0",
   "description": "Small and simple functional phone library",
   "main": "index.js",
   "scripts": {
-    "prepare": "node scripts/create-export.js && webpack && npm run build:dist",
+    "prepack": "webpack && webpack --config webpack.dist.js && node scripts/docs.js",
     "clean": "node scripts/clean.js",
     "build": "webpack",
     "build:dist": "webpack --config webpack.dist.js",
     "postpublish": "node scripts/clean.js",
     "lint": "eslint ./src",
     "test:watch": "ava --watch",
-    "test": "ava --verbose"
+    "test": "ava"
   },
   "babel": {
     "presets": [
@@ -31,7 +31,8 @@
     "require": [
       "babel-register"
     ],
-    "babel": "inherit"
+    "babel": "inherit",
+    "failFast": true
   },
   "repository": {
     "type": "git",
@@ -53,17 +54,16 @@
   "license": "MIT",
   "private": false,
   "devDependencies": {
-    "ava": "0.24.0",
+    "ava": "0.25.0",
     "babel": "6.23.0",
     "babel-loader": "7.1.2",
     "babel-preset-env": "1.6.1",
     "babel-register": "6.26.0",
     "del": "3.0.0",
     "eslint": "4.14.0",
-    "globby": "7.1.1",
-    "jsdoc-to-markdown": "^3.0.3",
-    "npm-run-all": "4.1.2",
-    "rimraf": "2.6.2",
-    "webpack": "3.10.0"
+    "globby": "8.0.1",
+    "jsdoc-to-markdown": "4.0.1",
+    "webpack": "4.0.1",
+    "webpack-cli": "2.0.9"
   }
 }

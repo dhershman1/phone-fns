@@ -1,24 +1,30 @@
-import uglify from '../uglify/index';
+import breakdown from '../breakdown';
+import uglify from '../uglify';
+
+/* eslint-disable no-useless-escape */
 
 /**
  * @name isValid
- * @description Checks if the phone number is valid or not
- *
+ * @since v0.1.0
+ * @category Function
+ * @description
+ * Validates the base number, does not take the country code or extension into consideration for this validation
  * @param {String} phone The phone number to breakdown
  * @param {String} country The country name to validate with
  * @return {Boolean} Returns a boolean if the number provided is valid or not
- *
+ *phone && (/^\+?([0-9]{2})\)?[-. ]?([0-9]{4})[-. ]?([0-9]{4})$/).test(uglify(phone));
  * @example
- * const results = isValid('555-444-3333'); // => true
+ * isValid('555-444-3333'); // => true
  */
 export default phone => {
-  let valid = false;
+  const uglyPhone = uglify(phone);
 
-  if (phone && (/^[0-9]{7,}$/).test(uglify(phone))) {
-    valid = true;
-  } else {
+  if (!phone || uglyPhone.length < 10) {
     return false;
   }
 
-  return valid;
+  const { areaCode, localCode, lineNumber } = breakdown('', uglyPhone);
+
+  return phone && (/^\+?([0-9]{2})\)?[-. ]?([0-9]{4})[-. ]?([0-9]{4})$/)
+    .test(areaCode + localCode + lineNumber);
 };

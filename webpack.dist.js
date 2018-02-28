@@ -1,9 +1,9 @@
 const path = require('path');
 const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
-const webpack = require('webpack');
 
 module.exports = {
   entry: './src/index.js',
+  mode: 'production',
   output: {
     path: path.resolve(__dirname),
     filename: 'phonefns.min.js',
@@ -11,9 +11,6 @@ module.exports = {
     libraryTarget: 'umd'
   },
   plugins: [
-    new webpack.DefinePlugin({
-      'process.env.NODE_ENV': '"production"'
-    }),
     new UglifyJSPlugin()
   ],
   module: {

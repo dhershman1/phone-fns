@@ -11,38 +11,56 @@ A small modern, and functional phone number library which gathers inspiration fr
 Standard module system
 
 ```js
-import { format } from 'phone-fns';
-
-format(phone, layout);
+import phoneFns from 'phone-fns';
 ```
 
 Common JS
 
 ```js
-const { format } = require('phone-fns');
-
-format(phone, layout);
+const phoneFns = require('phone-fns');
 ```
 
 Through the browser
 
 ```js
-<script src="path/to/location/dist/phone-fns.umd.js"></script>
-phoneFns.format(phone, layout);
+<script src="path/to/location/dist/phone-fns.min.js"></script>
+```
+
+## Usage
+
+In v2.0.0 of Phone-Fns the main import is used to create separate instances in order to make usage easier as well as the library smaller.
+
+Basic usage can be done like so, this is without setting a country code for the instance we create.
+
+```javascript
+import phoneFns from 'phone-fns';
+
+const phoneLib = phoneFns();
+
+phoneLib.breakdown('4443332222');
+// => { countryCode: '', areaCode: '444', localCode: '333', lineNumber: '2222', extension: '' }
+
+phoneLib.format('(AAA) LLL-NNNN', '4443332222');
+// => '(444) 333-2222'
+```
+
+If you want to set a country code you can create an instance of the library around the country code like so.
+
+```javascript
+import phoneFns from 'phone-fns';
+
+const phoneLib = phoneFns('1');
+
+phoneLib.breakdown('4443332222');
+// => { countryCode: '1', areaCode: '444', localCode: '333', lineNumber: '2222', extension: '' }
+
+phoneLib.format('C + (AAA) LLL-NNNN', '4443332222');
+// => '1 + (444) 333-2222'
 ```
 
 ## Methods
 
-You can either use import to destructure the module to bring in methods or you can call them directly using `phone-fns/methodName`
-
-Example:
-
-```js
-import uglify from 'phone-fns/uglify';
-
-console.log(uglify('555-444-3333'));
-// Output: 5554443333
-```
+You can also bring in the functions individually if you want to.
 
 ### uglify(phone)
 
@@ -61,17 +79,21 @@ console.log(uglify('555-444-1111'));
 // Output: 5554441111
 ```
 
-### format(phone, format, isLD)
+### format(countryCode, layout, phone)
 
 Customized formatting function allowing you to create your own custom formats
 
+If you are not using an instance of the setup you will have to provide a country code to the format function if you call it by itself.
+
 #### Arguments
 
+- `countryCode` - `String`: The country code to use (Only required if you call `format` individually)
 - `phone` - `String`: The desired phone number to run against
 - `format` - `String`: The desired format to set the number into, see above
-- `isLD` - `Boolean`: Tell the function to run the long distance rule
 
 #### Formatting
+
+**NOTE you have to use capitalized letters when creating your layout string**
 
 - `A` - Area Code Number
 - `L` - Local Code Number (Usually the first three digits)
@@ -84,17 +106,32 @@ Customized formatting function allowing you to create your own custom formats
 ```js
 import format from 'phone-fns/format';
 
-// Normal
-format('4443332222', '(AAA) LLL-NNNN');
+// Without a country code
+format('', '(AAA) LLL-NNNN', '4443332222');
 // Output: (444) 333-2222
 
-// Long Distance
-format('1124443332222', 'CCC + (AAA)-LLL.NNNN', true); // <-- Notice we have to make sure to tell the module we it is long distance
+// With a country code
+format('112', 'CCC + (AAA)-LLL.NNNN', '4443332222');
 // Output: 112 + (444)-333.2222
 
 // Extensions
-format('44433322228989', '(AAA).LLL.NNNN x EEEE');
+format('', '(AAA).LLL.NNNN x EEEE', '44433322228989');
 // Output: (444).333.2222 x 8989
+```
+
+`format` is also a curried function
+
+```javascript
+import format from 'phone-fns/format';
+
+// Setting it to have no country code
+const formatter = format('');
+// Or setting it to have no country code and a default layout
+const formatWithLayout = format('', '(AAA) LLL.NNNN');
+
+formatter('AAA.LLL.NNNN', '4443332222'); // => 444.333.2222
+formatWithLayout('4443332222'); // => (444) 333.2222
+
 ```
 
 ### find(phone, code)

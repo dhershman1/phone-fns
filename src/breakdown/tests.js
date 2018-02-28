@@ -1,7 +1,7 @@
 import breakdown from './index';
 import test from 'ava';
 
-const breaker = breakdown(false, '');
+const breaker = breakdown('');
 
 test('Test breakdown normal', t => {
   const results = breaker('555-444-3333');
@@ -28,7 +28,7 @@ test('Test breakdown extension', t => {
 });
 
 test('Test breakdown long distance', t => {
-  const results = breakdown(true, '', '17875554441111');
+  const results = breakdown('1787', '5554441111');
 
   t.truthy(results, 'results came back');
   t.is(typeof results, 'object', 'results came back as an object');

@@ -22,14 +22,8 @@ test('Get the line number', t => {
   t.is(results, '1111', 'Returned only the line number');
 });
 
-test('Get the country code', t => {
-  const results = find('1555-444-1111', 'countryCode');
 
-  t.truthy(results, 'Results came back ok');
-  t.is(results, '1', 'Returned only the country code');
-});
-
-test('Get the country code', t => {
+test('Get the extension', t => {
   const results = find('555-444-1111 8989', 'extension');
 
   t.truthy(results, 'Results came back ok');

@@ -1,7 +1,8 @@
 /**
  * @name uglify
+ * @since v0.1.0
+ * @category Function
  * @description Strips all of the special characters from the given string
- *
  * @param {String} phone The phone number to trim and strip down
  * @return {String} Returns the newly created phone number string
  *
