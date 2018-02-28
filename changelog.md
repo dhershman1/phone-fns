@@ -2,6 +2,8 @@
 
 ## v1.0.0
 
+v1.0.0 is almost a total re write of how the library functions from v0.3.3 it is advised you migrate with caution
+
 ### BREAKING CHANGES
 
 - Removed `findLocal` function
@@ -15,7 +17,7 @@
     - This applies the country code to each method that needs it meaning you don't need to send it as a param
 - Changed the parameter of most of the functions
 - If using the individual functions you will have to provide a country code to those that need it
-
+- `find` parameters have been rotated
 
 ### New
 
