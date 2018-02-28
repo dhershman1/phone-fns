@@ -1,4 +1,4 @@
-[![npm](https://img.shields.io/npm/v/phone-fns.svg?style=for-the-badge)](https://www.npmjs.com/package/phone-fns) [![David](https://img.shields.io/david/dhershman1/phone-fns.svg?style=for-the-badge)](https://david-dm.org/dhershman1/phone-fns) [![David](https://img.shields.io/david/dev/dhershman1/phone-fns.svg?style=for-the-badge)](https://david-dm.org/dhershman1/phone-fns?type=dev) [![Travis](https://img.shields.io/travis/dhershman1/phone-fns.svg?style=for-the-badge)](https://travis-ci.org/dhershman1/phone-fns)
+[![npm](https://img.shields.io/npm/v/phone-fns.svg?style=for-the-badge)](https://www.npmjs.com/package/phone-fns) [![David](https://img.shields.io/david/dhershman1/phone-fns.svg?style=for-the-badge)](https://david-dm.org/dhershman1/phone-fns) [![Travis](https://img.shields.io/travis/dhershman1/phone-fns.svg?style=for-the-badge)](https://travis-ci.org/dhershman1/phone-fns)
 
 # phone-fns
 
@@ -11,56 +11,56 @@ A small modern, and functional phone number library which gathers inspiration fr
 Standard module system
 
 ```js
-import { format } from 'phone-fns';
-
-format(phone, layout);
+import phoneFns from 'phone-fns';
 ```
 
 Common JS
 
 ```js
-const { format } = require('phone-fns');
-
-format(phone, layout);
+const phoneFns = require('phone-fns');
 ```
 
 Through the browser
 
 ```js
-<script src="path/to/location/dist/phone-fns.umd.js"></script>
-phoneFns.format(phone, layout);
+<script src="path/to/location/dist/phone-fns.min.js"></script>
 ```
 
-## Country Codes
+## Usage
 
-`phone-fns` has calling codes for countries built into a json file locally. Which you can access using `phone-fns/callingCodes.json`
+In v2.0.0 of Phone-Fns the main import is used to create separate instances in order to make usage easier as well as the library smaller.
 
-These country codes are from the [Countries Repo](https://github.com/mledoze/countries) on github
+Basic usage can be done like so, this is without setting a country code for the instance we create.
 
-Example:
+```javascript
+import phoneFns from 'phone-fns';
 
-```js
-import callingCodes from 'phone-fns/callingCodes';
+const phoneLib = phoneFns();
 
-// The json files property names are all lowercased
-console.log(callingCodes['us']);
-// Output: [ '1' ]
+phoneLib.breakdown('4443332222');
+// => { countryCode: '', areaCode: '444', localCode: '333', lineNumber: '2222', extension: '' }
+
+phoneLib.format('(AAA) LLL-NNNN', '4443332222');
+// => '(444) 333-2222'
 ```
 
-**Note: This is the only way to access the codes json**
+If you want to set a country code you can create an instance of the library around the country code like so.
+
+```javascript
+import phoneFns from 'phone-fns';
+
+const phoneLib = phoneFns('1');
+
+phoneLib.breakdown('4443332222');
+// => { countryCode: '1', areaCode: '444', localCode: '333', lineNumber: '2222', extension: '' }
+
+phoneLib.format('C + (AAA) LLL-NNNN', '4443332222');
+// => '1 + (444) 333-2222'
+```
 
 ## Methods
 
-You can either use import to destructure the module to bring in methods or you can call them directly using `phone-fns/methodName`
-
-Example:
-
-```js
-import uglify from 'phone-fns/uglify';
-
-console.log(uglify('555-444-3333'));
-// Output: 5554443333
-```
+You can also bring in the functions individually if you want to.
 
 ### uglify(phone)
 
@@ -75,21 +75,24 @@ console.log(uglify('555-444-3333'));
 ```js
 import uglify from 'phone-fns/uglify';
 
-console.log(uglify('555-444-1111'));
-// Output: 5554441111
+uglify('555-444-1111'); // => '5554441111'
 ```
 
-### format(phone, format, isLD)
+### format(countryCode, layout, phone)
 
 Customized formatting function allowing you to create your own custom formats
 
+If you are not using an instance of the setup you will have to provide a country code to the format function if you call it by itself.
+
 #### Arguments
 
+- `countryCode` - `String`: The country code to use (Only required if you call `format` individually)
 - `phone` - `String`: The desired phone number to run against
 - `format` - `String`: The desired format to set the number into, see above
-- `isLD` - `Boolean`: Tell the function to run the long distance rule
 
 #### Formatting
+
+**NOTE you have to use capitalized letters when creating your layout string**
 
 - `A` - Area Code Number
 - `L` - Local Code Number (Usually the first three digits)
@@ -102,38 +105,60 @@ Customized formatting function allowing you to create your own custom formats
 ```js
 import format from 'phone-fns/format';
 
-// Normal
-format('4443332222', '(AAA) LLL-NNNN');
-// Output: (444) 333-2222
+// Without a country code
+format('', '(AAA) LLL-NNNN', '4443332222'); // => '(444) 333-2222'
 
-// Long Distance
-format('1124443332222', 'CCC + (AAA)-LLL.NNNN', true); // <-- Notice we have to make sure to tell the module we it is long distance
-// Output: 112 + (444)-333.2222
+// With a country code
+format('112', 'CCC + (AAA)-LLL.NNNN', '4443332222'); // => '112 + (444)-333.2222'
 
 // Extensions
-format('44433322228989', '(AAA).LLL.NNNN x EEEE');
-// Output: (444).333.2222 x 8989
+format('', '(AAA).LLL.NNNN x EEEE', '44433322228989'); // => '(444).333.2222 x 8989'
 ```
 
-### find(phone, code)
+`format` is also a curried function
+
+```javascript
+import format from 'phone-fns/format';
+
+// Setting it to have no country code
+const formatter = format('');
+// Or setting it to have no country code and a default layout
+const formatWithLayout = format('', '(AAA) LLL.NNNN');
+
+formatter('AAA.LLL.NNNN', '4443332222'); // => '444.333.2222'
+formatWithLayout('4443332222'); // => '(444) 333.2222'
+
+```
+
+### find(type, phone)
 
 Find a piece of the phone number and return it
 
 #### Arguments
 
 - `phone` - `String`: the desired phone number to run against
-- `code` - `String`: the piece of the phone number to return can be `areaCode`, `localCode`, `lineNumber`, `countryCode`, or `extension`
+- `type` - `String`: the piece of the phone number to return can be `areaCode`, `localCode`, `lineNumber`, `countryCode`, or `extension`
 
 #### Usage
 
 ```js
 import find from 'phone-fns/find';
 
-console.log(find('555-444-3333', 'areaCode'));
-// Output: 555
+find('areaCode', '555-444-3333'); // => '555'
 ```
 
-### breakdown(phone, isLD)
+`find` is also a curried function so we could also do
+
+```javascript
+import find from 'phone-fns/find';
+
+const finder = find('areaCode');
+
+finder('4445556666'); // => '444'
+finder('5554443333'); // => '555'
+```
+
+### breakdown(countryCode, phone)
 
 Takes the provided phone string and breaks it down into an object like so:
 
@@ -149,54 +174,40 @@ Takes the provided phone string and breaks it down into an object like so:
 
 #### Arguments
 
+- `countryCode` - `String`: The country code to use (Only required if you call `breakdown` individually)
 - `phone` - `String`: the desired phone number to run against
-- `isLD` - `Boolean`: tell the function if the phone is using a long distance style or not
 
 #### Usage
 
 ```js
 import breakdown from 'phone-fns/breakdown';
 
-console.log(breakdown('555-444-3333'));
-// Output:
-/*
-{
-  countryCode: '',
-  areaCode: '555',
-  localCode: '444',
-  lineNumber: '3333',
-  extension: ''
-}
-*/
+breakdown('', '555-444-3333'); // => { countryCode: '', areaCode: '555', localCode: '444', lineNumber: '3333', extension: '' }
 
-console.log(breakdown('112555-444-3333', true));
-// Output:
-/*
-{
-  countryCode: '112',
-  areaCode: '555',
-  localCode: '444',
-  lineNumber: '3333',
-  extension: ''
-}
-*/
+breakdown('112', '555-444-3333'); // => { countryCode: '112', areaCode: '555', localCode: '444', lineNumber: '3333', extension: '' }
 
-console.log(breakdown('555-444-33338989'));
-// Output:
-/*
-{
-  countryCode: '',
-  areaCode: '555',
-  localCode: '444',
-  lineNumber: '3333',
-  extension: '8989'
-}
-*/
+breakdown('', '555-444-33338989'); // => { countryCode: '', areaCode: '555', localCode: '444', lineNumber: '3333', extension: '8989' }
+```
+
+`breakdown` is also a curried function so we can use it like so
+
+```js
+import breakdown from 'phone-fns/breakdown';
+
+const breaker = breakdown('');
+
+breaker('555-444-3333'); // => { countryCode: '', areaCode: '555', localCode: '444', lineNumber: '3333', extension: '' }
+
+const ccBreaker = breakdown('1');
+
+ccBreaker('555-444-3333'); // => { countryCode: '1', areaCode: '555', localCode: '444', lineNumber: '3333', extension: '' }
 ```
 
 ### isValid(phone)
 
-Validates if the phone number is valid or not
+Validates if the provided number is valid or not.
+
+**It is important to note that this only goes off the base phone number, it does NOT take extensions or country codes into consideration**
 
 #### Arguments
 
@@ -207,79 +218,39 @@ Validates if the phone number is valid or not
 ```js
 import isValid from 'phone-fns/isValid';
 
-console.log(isValid('555-444-3333'));
-// Output: true
-console.log(isValid('8896'));
-// Output: false
+isValid('555-444-3333'); // => true
+
+isValid('8896'); // => false
 ```
 
-### identical(x, y)
+### match(phoneOne, phoneTwo)
 
-Checks if the two provided numbers are identical or not
+Checks if the two provided numbers are valid numbers and matching
 
 #### Arguments
 
-- `x` - `String`: the desired phone number to run against `y`
-- `y` - `String`: the desired phone number to run against `x`
+- `phoneOne` - `String`: the desired phone number to run against `phoneTwo`
+- `phoneTwo` - `String`: the desired phone number to run against `phoneOne`
 
 #### Usage
 
 ```js
-import identical from 'phone-fns/identical';
+import match from 'phone-fns/match';
 
-console.log(identical('555-444-3333', '555-444-3333'));
-// Output: true
-console.log(identical('555-444-3333', '555-333-4444'));
-// Output: false
+match('555-444-3333', '555-444-3333'); // => true
+
+match('555-444-3333', '555-333-4444'); // => false
 ```
 
-### getCountryCode(country)
-
-`alias`: `getCode(country)` - Note that this is depricated and `getCountryCode` is the best way to call this method
-
-Grabs the calling code for the provided country from the `callingCodes.json`
-
-#### Arguments
-
-- `country` - `String`: the country to search for to find the calling code is `Case Insensitive`
-
-#### Usage
+`match` is also a curried function so we can do something like this
 
 ```js
-import getCountryCode from 'phone-fns/getCountryCode';
+import match from 'phone-fns/match';
 
-console.log(getCountryCode('USA'));
-// Output: [ '1' ]
-console.log(getCountryCode('united states of america'));
-// Output: [ '1' ]
-console.log(getCountryCode('ўзбекистон республикаси'));
-// Output: [ '998' ]
+const matcher = match('555-444-3333');
+
+matcher('5554443333'); // => true
+matcher('555-444-3333'); // => true
+matcher('555-333-4444'); // => false
+matcher('8898'); // => false
 ```
-
-### getCountries(code)
-
-`alias`: `findLocal(code)` - Note that this is depricated and `getCountries` is the best way to call this method
-
-Grabs all of the countrys (and their alternate names) for the provided country calling code
-
-#### Arguments
-
-- `code` - `String`: the country calling code to use to search through the calling codes
-
-#### Usage
-
-```js
-import getCountries from 'phone-fns/getCountries';
-
-console.log(getCountries('1'));
-/* Output: [
-		'canada',
-		'ca',
-		'united states',
-		'us',
-		'usa',
-		'united states of america'
-  ]
-  */
-```
-

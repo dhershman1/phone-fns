@@ -1,5 +1,37 @@
 # Changelog
 
+## v1.0.0
+
+v1.0.0 is almost a total re write of how the library functions from v0.3.3 it is advised you migrate with caution
+
+### BREAKING CHANGES
+
+- Removed `findLocal` function
+- Removed `getCode` function
+- Removed `getCountries` function
+- Removed `getCountryCode` function
+- Removed `callingCodes`
+- Changed `identical` to `match`
+- Re org of entire library
+    - You can now create instances of the library with different country codes or none
+    - This applies the country code to each method that needs it meaning you don't need to send it as a param
+- Changed the parameter of most of the functions
+- If using the individual functions you will have to provide a country code to those that need it
+- `find` parameters have been rotated
+
+### New
+
+- Added the ability to call `phoneFns` as a function and provide a country code to create an instance around that country code, or not for only base phone number functionality
+- The `format` function is now curried
+- The `find` function is curried as well
+
+### Improved
+
+- The `breakdown` function to be a little more lightweight
+- The `format` function to be a bit more lightweight and functional
+- The `isValid` function to do decently better phone number validation
+
+
 ## v0.3.3
 
 - Fix for automating docs file

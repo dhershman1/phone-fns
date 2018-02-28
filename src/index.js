@@ -1,10 +1,23 @@
-export { default as breakdown } from './breakdown';
-export { default as find } from './find';
-export { default as findLocal } from './findLocal';
-export { default as format } from './format';
-export { default as getCode } from './getCode';
-export { default as getCountries } from './getCountries';
-export { default as getCountryCode } from './getCountryCode';
-export { default as identical } from './identical';
-export { default as isValid } from './isValid';
-export { default as uglify } from './uglify';
+import breakdown from './breakdown';
+import find from './find';
+import format from './format';
+import isValid from './isValid';
+import match from './match';
+import uglify from './uglify';
+
+const phoneFns = (countryCode = '') => {
+  if (typeof countryCode !== 'string') {
+    throw new TypeError('Country Code needs to be a string');
+  }
+
+  return {
+    breakdown: breakdown(countryCode),
+    format: format(countryCode),
+    find: find(countryCode),
+    isValid,
+    match,
+    uglify
+  };
+};
+
+export default phoneFns;

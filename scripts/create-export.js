@@ -1,6 +1,6 @@
 const fs = require('fs');
 const path = require('path');
-const ignoredFiles = ['_internals', 'esm', 'index.js', 'callingCodes.js'];
+const ignoredFiles = ['_internals', 'esm', 'index.js'];
 
 const listFns = () => {
   const files = fs.readdirSync(path.join(process.cwd(), 'src'));
