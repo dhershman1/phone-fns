@@ -75,8 +75,7 @@ You can also bring in the functions individually if you want to.
 ```js
 import uglify from 'phone-fns/uglify';
 
-console.log(uglify('555-444-1111'));
-// Output: '5554441111'
+uglify('555-444-1111'); // => '5554441111'
 ```
 
 ### format(countryCode, layout, phone)
@@ -107,16 +106,13 @@ If you are not using an instance of the setup you will have to provide a country
 import format from 'phone-fns/format';
 
 // Without a country code
-format('', '(AAA) LLL-NNNN', '4443332222');
-// Output: '(444) 333-2222'
+format('', '(AAA) LLL-NNNN', '4443332222'); // => '(444) 333-2222'
 
 // With a country code
-format('112', 'CCC + (AAA)-LLL.NNNN', '4443332222');
-// Output: '112 + (444)-333.2222'
+format('112', 'CCC + (AAA)-LLL.NNNN', '4443332222'); // => '112 + (444)-333.2222'
 
 // Extensions
-format('', '(AAA).LLL.NNNN x EEEE', '44433322228989');
-// Output: '(444).333.2222 x 8989'
+format('', '(AAA).LLL.NNNN x EEEE', '44433322228989'); // => '(444).333.2222 x 8989'
 ```
 
 `format` is also a curried function
@@ -186,41 +182,11 @@ Takes the provided phone string and breaks it down into an object like so:
 ```js
 import breakdown from 'phone-fns/breakdown';
 
-breakdown('', '555-444-3333');
-// Output:
-/*
-{
-  countryCode: '',
-  areaCode: '555',
-  localCode: '444',
-  lineNumber: '3333',
-  extension: ''
-}
-*/
+breakdown('', '555-444-3333'); // => { countryCode: '', areaCode: '555', localCode: '444', lineNumber: '3333', extension: '' }
 
-breakdown('112', '555-444-3333');
-// Output:
-/*
-{
-  countryCode: '112',
-  areaCode: '555',
-  localCode: '444',
-  lineNumber: '3333',
-  extension: ''
-}
-*/
+breakdown('112', '555-444-3333'); // => { countryCode: '112', areaCode: '555', localCode: '444', lineNumber: '3333', extension: '' }
 
-breakdown('', '555-444-33338989');
-// Output:
-/*
-{
-  countryCode: '',
-  areaCode: '555',
-  localCode: '444',
-  lineNumber: '3333',
-  extension: '8989'
-}
-*/
+breakdown('', '555-444-33338989'); // => { countryCode: '', areaCode: '555', localCode: '444', lineNumber: '3333', extension: '8989' }
 ```
 
 `breakdown` is also a curried function so we can use it like so
@@ -230,31 +196,11 @@ import breakdown from 'phone-fns/breakdown';
 
 const breaker = breakdown('');
 
-breaker('555-444-3333');
-// Output:
-/*
-{
-  countryCode: '',
-  areaCode: '555',
-  localCode: '444',
-  lineNumber: '3333',
-  extension: ''
-}
-*/
+breaker('555-444-3333'); // => { countryCode: '', areaCode: '555', localCode: '444', lineNumber: '3333', extension: '' }
 
 const ccBreaker = breakdown('1');
 
-ccBreaker('555-444-3333');
-// Output:
-/*
-{
-  countryCode: '1',
-  areaCode: '555',
-  localCode: '444',
-  lineNumber: '3333',
-  extension: ''
-}
-*/
+ccBreaker('555-444-3333'); // => { countryCode: '1', areaCode: '555', localCode: '444', lineNumber: '3333', extension: '' }
 ```
 
 ### isValid(phone)
