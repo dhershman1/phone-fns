@@ -6,7 +6,7 @@ module.exports = {
   mode: 'production',
   output: {
     path: path.resolve(__dirname),
-    filename: 'phonefns.min.js',
+    filename: 'phone-fns.min.js',
     library: 'phoneFns',
     libraryTarget: 'umd'
   },
