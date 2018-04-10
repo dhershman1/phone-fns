@@ -3,17 +3,6 @@ import curry from '../_internals/curry';
 import isValid from '../isValid/index';
 import uglify from '../uglify/index';
 
-/**
- * L = Local Code
- * A = Area Code
- * N = Line Number
- * E = Extension
- * C = Country Code
- * Example:
- *
- * format(phone, '(AAA)-LLL-NNNN');
- */
-
 const replaceLayout = (layout, num, type) => {
   const letters = {
     areaCode: 'A',
