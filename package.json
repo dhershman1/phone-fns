@@ -60,11 +60,17 @@
     "babel-loader": "7.1.2",
     "babel-preset-env": "1.6.1",
     "babel-register": "6.26.0",
+    "cz-conventional-changelog": "^2.1.0",
     "del": "3.0.0",
     "eslint": "4.14.0",
     "globby": "8.0.1",
     "jsdoc-to-markdown": "4.0.1",
     "webpack": "4.0.1",
     "webpack-cli": "2.0.9"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
   }
 }
