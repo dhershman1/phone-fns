@@ -1,38 +1,41 @@
 {
   "name": "phone-fns",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Small and simple functional phone library",
-  "main": "index.js",
+  "main": "dist/phone-fns.min.js",
   "scripts": {
-    "prepack": "webpack && webpack --config webpack.dist.js && node scripts/docs.js",
+    "prepack": "rollup -c && rollup -c rollup.split.js && node scripts/docs.js",
     "clean": "node scripts/clean.js",
-    "build": "webpack",
-    "build:dist": "webpack --config webpack.dist.js",
+    "build": "rollup -c",
+    "build:split": "rollup -c rollup.split.js",
     "postpublish": "node scripts/clean.js",
-    "lint": "eslint ./src",
+    "lint": "standard src/**/*.js",
     "test:watch": "ava --watch",
     "test": "ava"
   },
-  "babel": {
-    "presets": [
-      "env",
-      "@ava/stage-4",
-      "@ava/transform-test-files"
-    ]
-  },
   "ava": {
     "files": [
-      "src/**/tests.js"
+      "test/*.js"
     ],
-    "source": [
-      "src/**/*.js"
-    ],
-    "concurrency": 5,
     "require": [
-      "babel-register"
+      "@babel/register"
     ],
-    "babel": "inherit",
-    "failFast": true
+    "failFast": true,
+    "concurrency": 5,
+    "babel": {
+      "testOptions": {
+        "presets": [
+          "@ava/transform-test-files",
+          "@ava/stage-4"
+        ]
+      }
+    }
+  },
+  "standard": {
+    "ignore": [
+      "docs.js",
+      "dist/*"
+    ]
   },
   "repository": {
     "type": "git",
@@ -55,18 +58,21 @@
   "license": "MIT",
   "private": false,
   "devDependencies": {
-    "ava": "0.25.0",
-    "babel": "6.23.0",
-    "babel-loader": "7.1.2",
-    "babel-preset-env": "1.6.1",
-    "babel-register": "6.26.0",
-    "cz-conventional-changelog": "^2.1.0",
+    "@babel/core": "7.0.0-beta.46",
+    "@babel/preset-env": "7.0.0-beta.46",
+    "@babel/preset-stage-0": "7.0.0-beta.46",
+    "@babel/preset-stage-2": "7.0.0-beta.46",
+    "@babel/register": "7.0.0-beta.46",
+    "ava": "1.0.0-beta.4",
     "del": "3.0.0",
-    "eslint": "4.14.0",
     "globby": "8.0.1",
     "jsdoc-to-markdown": "4.0.1",
-    "webpack": "4.0.1",
-    "webpack-cli": "2.0.9"
+    "rollup": "0.58.1",
+    "rollup-plugin-babel": "4.0.0-beta.4",
+    "rollup-plugin-cleanup": "2.0.1",
+    "rollup-plugin-filesize": "1.5.0",
+    "rollup-plugin-uglify": "3.0.0",
+    "standard": "11.0.1"
   },
   "config": {
     "commitizen": {

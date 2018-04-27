@@ -1,5 +1,22 @@
 # Changelog
 
+## v1.0.1
+
+### New
+
+- Rebuilt the architecture of the main source (has no effect on usage)
+- Added in CDN info to documentation
+- Building using Rollup now instead of webpack decreasing the overall file size of our main file to 1.86kb (vs 3.83kb with webpack) and 970B gzipped
+  - This also benefits each individual functions build so they're also much smaller
+- Converting testing to latest babel versions
+- Convert linter from `eslint` to `standardjs`
+- Created an uncompressed build along with the compressed one which you can use in dev for easier debugging
+
+### Fixed
+
+- For some reason I didn't realize the package.json main was looking at a index.js file
+- Re built automated documentation script so it performs faster
+
 ## v1.0.0
 
 v1.0.0 is almost a total re write of how the library functions from v0.3.3 it is advised you migrate with caution

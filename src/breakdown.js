@@ -1,5 +1,5 @@
-import curry from '../_internals/curry';
-import uglify from '../uglify/index';
+import curry from './_internals/curry'
+import uglify from './uglify'
 
 /**
  * @name breakdown
@@ -27,7 +27,7 @@ import uglify from '../uglify/index';
  */
 export default curry((countryCode, phone) => {
   const [, areaCode, localCode, lineNumber, extension = ''] = uglify(phone)
-    .match(/([0-9]{3})?([0-9]{3})([0-9]{4})([0-9]{1,})?/);
+    .match(/([0-9]{3})?([0-9]{3})([0-9]{4})([0-9]{1,})?/)
 
   return {
     countryCode,
@@ -35,5 +35,5 @@ export default curry((countryCode, phone) => {
     localCode,
     lineNumber,
     extension
-  };
-});
+  }
+})

@@ -1,21 +1,16 @@
-const fs = require('fs');
-const path = require('path');
-const jsDocParser = require('jsdoc-to-markdown');
-const ignoredFiles = ['_internals', 'esm', 'callingCodes.js', 'tests.js', 'getCode', 'findLocal', 'index.js'];
+const fs = require('fs')
+const path = require('path')
+const { version } = require('../package.json')
+const jsDocParser = require('jsdoc-to-markdown')
+const ignoredFiles = ['_internals', 'esm', 'callingCodes.js', 'tests.js', 'getCode', 'findLocal', 'index.js']
 
 const listFns = () => {
-  const files = fs.readdirSync(path.join(process.cwd(), 'src'));
+  const files = fs.readdirSync(path.join(process.cwd(), 'src'))
 
   return files
     .filter(file => (/^[^._]/).test(file) && !ignoredFiles.includes(file))
-    .map(file => ({
-      name: file,
-      path: `./${file}`,
-      fullPath: `./src/${file}/index.js`
-    }));
-};
-
-const writeDocs = fileObj => fs.writeFileSync('docs.js', `module.exports = ${JSON.stringify(fileObj)}`);
+    .map(file => `./src/${file}`)
+}
 
 const generateUsage = name => ({
   'commonjs': {
@@ -26,48 +21,41 @@ const generateUsage = name => ({
     title: 'Standard',
     code: `import ${name} from 'phone-fns/${name}';`
   },
+  'cdn': {
+    title: 'CDN',
+    code: `<script src="https://cdn.jsdelivr.net/npm/phone-fns@${version}/${name}.js"></script>`
+  },
   'browser': {
     title: 'Browser',
-    code: `<script src="path/to/node_modules/phone-fns/${name}/index.js"></script>`
+    code: `<script src="path/to/node_modules/phone-fns/${name}.js"></script>`
   }
-});
+})
 
 const generateSyntax = (name, args) => {
   if (!args) {
-    return '';
+    return ''
   }
 
   const argsStr = args.map(a => a.optional ? `[${a.name}]` : a.name).join(', '); // eslint-disable-line
 
-  return `${name}(${argsStr})`;
-};
+  return `${name}(${argsStr})`
+}
 
-const generateSourceDocs = () => listFns().map(fn => jsDocParser.getTemplateDataSync({
-  'files': fn.fullPath,
+jsDocParser.getTemplateData({
+  'files': listFns(),
   'no-cache': true
-})[0])
-  .map(d => ({
+}).then((data) => {
+  const results = data.map(d => ({
     since: d.since ? d.since : 'Unknown',
     category: d.category,
     title: d.name,
-    description: d.description,
+    desc: d.description,
     examples: d.examples,
     returns: d.returns,
-    params: d.params
-  }));
+    params: d.params,
+    syntax: generateSyntax(d.name, d.params),
+    usage: generateUsage(d.name)
+  }))
 
-let generated = generateSourceDocs();
-
-generated = generated.map(doc => ({
-  title: doc.title,
-  since: doc.since,
-  category: doc.category,
-  syntax: generateSyntax(doc.title, doc.params),
-  usage: generateUsage(doc.title),
-  desc: doc.description,
-  examples: doc.examples,
-  params: doc.params,
-  returns: doc.returns
-}));
-
-writeDocs(generated);
+  fs.writeFileSync('docs.js', `module.exports = ${JSON.stringify(results)}`)
+})

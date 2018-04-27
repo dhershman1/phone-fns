@@ -1,7 +1,7 @@
-import breakdown from '../breakdown/index';
-import curry from '../_internals/curry';
-import isValid from '../isValid/index';
-import uglify from '../uglify/index';
+import breakdown from './breakdown'
+import curry from './_internals/curry'
+import isValid from './isValid'
+import uglify from './uglify'
 
 const replaceLayout = (layout, num, type) => {
   const letters = {
@@ -10,15 +10,15 @@ const replaceLayout = (layout, num, type) => {
     lineNumber: 'N',
     extension: 'E',
     countryCode: 'C'
-  };
-  let results = layout.concat();
+  }
+  let results = layout.concat()
 
   num.split('').forEach(n => {
-    results = results.replace(letters[type], n);
-  });
+    results = results.replace(letters[type], n)
+  })
 
-  return results;
-};
+  return results
+}
 
 /**
  * @name format
@@ -50,18 +50,18 @@ const replaceLayout = (layout, num, type) => {
  */
 export default curry((countryCode, layout, phone) => {
   if (!isValid(phone)) {
-    return phone;
+    return phone
   }
 
-  const uglyPhone = uglify(phone);
-  const phoneObj = breakdown(countryCode, uglyPhone);
-  let results = layout;
+  const uglyPhone = uglify(phone)
+  const phoneObj = breakdown(countryCode, uglyPhone)
+  let results = layout
 
   for (const prop in phoneObj) {
     if (phoneObj[prop]) {
-      results = replaceLayout(results, phoneObj[prop], prop);
+      results = replaceLayout(results, phoneObj[prop], prop)
     }
   }
 
-  return results;
-});
+  return results
+})

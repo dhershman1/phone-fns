@@ -1,5 +1,5 @@
-import breakdown from '../breakdown';
-import uglify from '../uglify';
+import breakdown from './breakdown'
+import uglify from './uglify'
 
 /* eslint-disable no-useless-escape */
 
@@ -17,14 +17,14 @@ import uglify from '../uglify';
  * isValid('555-444-3333'); // => true
  */
 export default phone => {
-  const uglyPhone = uglify(phone);
+  const uglyPhone = uglify(phone)
 
   if (!phone || uglyPhone.length < 10) {
-    return false;
+    return false
   }
 
-  const { areaCode, localCode, lineNumber } = breakdown('', uglyPhone);
+  const { areaCode, localCode, lineNumber } = breakdown('', uglyPhone)
 
   return phone && (/^\+?([0-9]{2})\)?[-. ]?([0-9]{4})[-. ]?([0-9]{4})$/)
-    .test(areaCode + localCode + lineNumber);
-};
+    .test(areaCode + localCode + lineNumber)
+}
