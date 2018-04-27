@@ -1,10 +1,12 @@
-[![npm](https://img.shields.io/npm/v/phone-fns.svg?style=for-the-badge)](https://www.npmjs.com/package/phone-fns) [![David](https://img.shields.io/david/dhershman1/phone-fns.svg?style=for-the-badge)](https://david-dm.org/dhershman1/phone-fns) [![Travis](https://img.shields.io/travis/dhershman1/phone-fns.svg?style=for-the-badge)](https://travis-ci.org/dhershman1/phone-fns)
+[![npm](https://img.shields.io/npm/v/phone-fns.svg?style=for-the-badge)](https://www.npmjs.com/package/phone-fns)
+[![David](https://img.shields.io/david/dhershman1/phone-fns.svg?style=for-the-badge)](https://david-dm.org/dhershman1/phone-fns)
+[![Travis](https://img.shields.io/travis/dhershman1/phone-fns.svg?style=for-the-badge)](https://travis-ci.org/dhershman1/phone-fns)
 
 # phone-fns
 
 A small modern, and functional phone number library which gathers inspiration from the fun [date-fns](https://github.com/date-fns/date-fns) library
 
-- [Documentation](https://dusty-demos.herokuapp.com/phone-fns)
+- [Documentation](https://www.dusty.codes/phone-fns)
 
 ## How-To
 
@@ -28,7 +30,7 @@ Through the browser
 
 ## Usage
 
-In v2.0.0 of Phone-Fns the main import is used to create separate instances in order to make usage easier as well as the library smaller.
+In v1.0.0 of Phone-Fns the main import is used to create separate instances in order to make usage easier as well as the library smaller.
 
 Basic usage can be done like so, this is without setting a country code for the instance we create.
 
