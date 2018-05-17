@@ -25,10 +25,12 @@ import uglify from './uglify'
  * matcher('555.444.3333'); // => true
  * matcher('555.444.2222'); // => false
  */
-export default curry((x, y) => {
+const match = (x, y) => {
   if (!isValid(x) || !isValid(y)) {
     return false
   }
 
   return uglify(x) === uglify(y)
-})
+}
+
+export default curry(match)

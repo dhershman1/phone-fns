@@ -5,29 +5,26 @@ const del = require('del')
 const fileList = fs.readdirSync(path.join(__dirname, '..'))
 
 const ignoredFiles = [
-  '.git',
-  '.gitignore',
-  '.npmignore',
-  '.github',
-  'node_modules',
-  'src',
-  'test',
-  'scripts',
-  '.babelrc',
-  '.eslintignore',
-  'LICENSE',
   'docs',
-  '.eslintrc',
   'rollup.config',
-  'rollup.split',
-  'dist'
+  'rollup.split'
 ]
 const results = fileList.filter(f => {
   const { ext, name } = path.parse(f)
 
-  return ignoredFiles.indexOf(name) === -1 && (!ext || ext === '.js')
+  if (ignoredFiles.indexOf(name) === -1 && ext === '.js') {
+    console.log(`Removing: ${name}`)
+
+    return true
+  }
+
+  return false
 })
 
-del(results).then(() => {
-  console.info('Finished Cleaning Up')
-})
+if (!results.length) {
+  console.log('Nothing to remove...')
+} else {
+  del(results).then(() => {
+    console.info('Finished Cleaning Up')
+  })
+}

@@ -25,7 +25,7 @@ import uglify from './uglify'
  *
  * breaker('222-333-4444'); // => { areaCode: '222', localCode: '333', lineNumber: '4444' }
  */
-export default curry((countryCode, phone) => {
+const breakdown = (countryCode, phone) => {
   const [, areaCode, localCode, lineNumber, extension = ''] = uglify(phone)
     .match(/([0-9]{3})?([0-9]{3})([0-9]{4})([0-9]{1,})?/)
 
@@ -36,4 +36,6 @@ export default curry((countryCode, phone) => {
     lineNumber,
     extension
   }
-})
+}
+
+export default curry(breakdown)

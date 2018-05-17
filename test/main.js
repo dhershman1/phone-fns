@@ -20,7 +20,7 @@ test('Able to run breakdown without providing country code to instance', t => {
 test('Able to run format without providing country code to instance', t => {
   const { format } = phoneFns()
 
-  t.is(format('AAA-LLL-NNNN', '4445556666'), '444-555-6666')
+  t.is(format('NNN-NNN-NNNN', '4445556666'), '444-555-6666')
 })
 
 test('Able to run isValid from instance', t => {

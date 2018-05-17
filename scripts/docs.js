@@ -47,6 +47,7 @@ jsDocParser.getTemplateData({
 }).then((data) => {
   const results = data.map(d => ({
     since: d.since ? d.since : 'Unknown',
+    deprecated: d.deprecated || false,
     category: d.category,
     title: d.name,
     desc: d.description,

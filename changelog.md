@@ -1,5 +1,22 @@
 # Changelog
 
+## v2.0.0 (Unreleased)
+
+### BREAKING CHANGES
+
+- The API usage for `format` is now different, you only need to use the letter `N` in your layout now in the order you want the numbers to fill in
+  - The letter `N` is case insensitive
+  - Example: an old layout may have looked like: `(AAA) LLL-NNNN` now it is: `(NNN) NNN-NNNN` or  `(nnn) nnn-nnNN` if you wanted to get creative
+
+### New
+
+- `find` has been deprecated and may be removed in later versions, please transition to `breakdown`
+- Added a 2nd validation level to `format` it will now validate the phone number has enough digits to fill out the layout properly
+
+### Fixed
+
+- JSdocs for format were backwards
+
 ## v1.0.1
 
 ### New
