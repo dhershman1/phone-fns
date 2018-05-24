@@ -67,10 +67,5 @@
     "standard": "11.0.1",
     "tap-spec": "4.1.1",
     "tape": "4.9.0"
-  },
-  "config": {
-    "commitizen": {
-      "path": "./node_modules/cz-conventional-changelog"
-    }
   }
 }
