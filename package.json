@@ -20,8 +20,7 @@
     ],
     "exclude": [
       "tests/**"
-    ],
-    "reporter": ["html"]
+    ]
   },
   "standard": {
     "ignore": [
