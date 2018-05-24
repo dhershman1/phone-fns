@@ -10,26 +10,18 @@
     "build:split": "rollup -c rollup.split.js",
     "postpublish": "node scripts/clean.js",
     "lint": "standard src/**/*.js",
-    "test:watch": "ava --watch",
-    "test": "ava"
+    "test": "tape -r esm tests/*.js | tap-spec",
+    "test:cov": "nyc npm test",
+    "coverage": "nyc report --reporter=text-lcov | coveralls"
   },
-  "ava": {
-    "files": [
-      "test/*.js"
+  "nyc": {
+    "include": [
+      "src/**"
     ],
-    "require": [
-      "@babel/register"
+    "exclude": [
+      "tests/**"
     ],
-    "failFast": true,
-    "concurrency": 5,
-    "babel": {
-      "testOptions": {
-        "presets": [
-          "@ava/transform-test-files",
-          "@ava/stage-4"
-        ]
-      }
-    }
+    "reporter": ["html"]
   },
   "standard": {
     "ignore": [
@@ -58,21 +50,24 @@
   "license": "MIT",
   "private": false,
   "devDependencies": {
-    "@babel/core": "7.0.0-beta.46",
-    "@babel/preset-env": "7.0.0-beta.46",
-    "@babel/preset-stage-0": "7.0.0-beta.46",
-    "@babel/preset-stage-2": "7.0.0-beta.46",
-    "@babel/register": "7.0.0-beta.46",
-    "ava": "1.0.0-beta.4",
+    "@babel/core": "7.0.0-beta.44",
+    "@babel/preset-env": "7.0.0-beta.44",
+    "@babel/preset-stage-0": "7.0.0-beta.44",
+    "@babel/preset-stage-2": "7.0.0-beta.44",
+    "coveralls": "3.0.1",
     "del": "3.0.0",
+    "esm": "3.0.37",
     "globby": "8.0.1",
     "jsdoc-to-markdown": "4.0.1",
-    "rollup": "0.58.1",
+    "nyc": "11.8.0",
+    "rollup": "0.59.3",
     "rollup-plugin-babel": "4.0.0-beta.4",
-    "rollup-plugin-cleanup": "2.0.1",
+    "rollup-plugin-cleanup": "3.0.0-beta.1",
     "rollup-plugin-filesize": "1.5.0",
-    "rollup-plugin-uglify": "3.0.0",
-    "standard": "11.0.1"
+    "rollup-plugin-uglify": "4.0.0",
+    "standard": "11.0.1",
+    "tap-spec": "4.1.1",
+    "tape": "4.9.0"
   },
   "config": {
     "commitizen": {
