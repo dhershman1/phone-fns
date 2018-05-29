@@ -1,6 +1,6 @@
-[![npm](https://img.shields.io/npm/v/phone-fns.svg?style=for-the-badge)](https://www.npmjs.com/package/phone-fns)
-[![David](https://img.shields.io/david/dhershman1/phone-fns.svg?style=for-the-badge)](https://david-dm.org/dhershman1/phone-fns)
-[![Travis](https://img.shields.io/travis/dhershman1/phone-fns.svg?style=for-the-badge)](https://travis-ci.org/dhershman1/phone-fns)
+[![npm](https://img.shields.io/npm/v/phone-fns.svg?style=flat-square)](https://www.npmjs.com/package/phone-fns)
+[![David](https://img.shields.io/david/dhershman1/phone-fns.svg?style=flat-square)](https://david-dm.org/dhershman1/phone-fns)
+[![Travis](https://img.shields.io/travis/dhershman1/phone-fns.svg?style=flat-square)](https://travis-ci.org/dhershman1/phone-fns)
 [![Coverage Status](https://img.shields.io/coveralls/github/dhershman1/phone-fns.svg?style=flat-square)](https://coveralls.io/github/dhershman1/phone-fns?branch=master)
 
 # phone-fns
