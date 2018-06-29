@@ -1,6 +1,6 @@
 # Changelog
 
-## v2.0.0 (Unreleased)
+## v2.0.0 (unreleased)
 
 ### BREAKING CHANGES
 
@@ -12,10 +12,12 @@
 
 - `find` has been deprecated and may be removed in later versions, please transition to `breakdown`
 - Added a 2nd validation level to `format` it will now validate the phone number has enough digits to fill out the layout properly
+- You can now pass country code as a number or string
 
 ### Fixed
 
 - JSdocs for format were backwards
+- Able to properly handle numbers without an area code now
 
 ## v1.0.1
 

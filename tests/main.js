@@ -52,9 +52,9 @@ test('Able to run uglify from instance', t => {
 
 test('It throws an error if a country code is incorrect', t => {
   try {
-    phoneFns(1)
+    phoneFns(null)
   } catch (err) {
-    t.is(err.message, 'Country Code needs to be a string')
+    t.is(err.message, 'Country Code needs to be a string or number')
     t.end()
   }
 })

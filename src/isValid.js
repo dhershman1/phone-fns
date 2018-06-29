@@ -15,12 +15,17 @@ import uglify from './uglify'
 export default phone => {
   const uglyPhone = uglify(phone)
 
-  if (!phone || uglyPhone.length < 10) {
+  if (!phone || uglyPhone.length < 7) {
     return false
   }
 
   const { areaCode, localCode, lineNumber } = breakdown('', uglyPhone)
 
-  return phone && (/^\+?([0-9]{2})\)?[-. ]?([0-9]{4})[-. ]?([0-9]{4})$/)
+  if (uglyPhone.length === 7) {
+    return (/^([0-9]{3})[-. ]?([0-9]{4})$/)
+      .test(localCode + lineNumber)
+  }
+
+  return (/^\+?([0-9]{2})\)?[-. ]?([0-9]{4})[-. ]?([0-9]{4})$/)
     .test(areaCode + localCode + lineNumber)
 }

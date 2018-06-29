@@ -6,14 +6,16 @@ import match from './match'
 import uglify from './uglify'
 
 const phoneFns = (countryCode = '') => {
-  if (typeof countryCode !== 'string') {
-    throw new TypeError('Country Code needs to be a string')
+  if (typeof countryCode !== 'string' && typeof countryCode !== 'number') {
+    throw new TypeError('Country Code needs to be a string or number')
   }
 
+  const ccStr = String(countryCode)
+
   return {
-    breakdown: breakdown(countryCode),
-    format: format(countryCode),
-    find: find(countryCode),
+    breakdown: breakdown(ccStr),
+    format: format(ccStr),
+    find: find(ccStr),
     isValid,
     match,
     uglify

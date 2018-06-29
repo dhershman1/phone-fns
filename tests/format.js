@@ -63,3 +63,10 @@ test('Is able to double curry', t => {
   t.is(d('4445556666'), '444.555.6666')
   t.end()
 })
+
+test('Handles numbers without area code', t => {
+  const results = format('', 'NNN.NNNN', '555-6666')
+
+  t.same(results, '555.6666')
+  t.end()
+})
