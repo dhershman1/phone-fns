@@ -1,5 +1,11 @@
 # Changelog
 
+## v2.0.1
+
+### Improved
+
+- A new script system in place for generating library documentation to make it easier for the main site to pull in the latest documentation
+
 ## v2.0.0
 
 ### BREAKING CHANGES

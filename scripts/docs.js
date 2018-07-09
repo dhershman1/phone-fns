@@ -1,44 +1,42 @@
 const fs = require('fs')
-const path = require('path')
-const { version } = require('../package.json')
+const globby = require('globby')
 const jsDocParser = require('jsdoc-to-markdown')
-const ignoredFiles = ['_internals', 'esm', 'callingCodes.js', 'tests.js', 'getCode', 'findLocal', 'index.js']
+const { name, version, description } = require('../package.json')
 
 const listFns = () => {
-  const files = fs.readdirSync(path.join(process.cwd(), 'src'))
+  const files = globby.sync(['src/*.js', '!src/index.js', '!src/_internals'])
 
   return files
-    .filter(file => (/^[^._]/).test(file) && !ignoredFiles.includes(file))
-    .map(file => `./src/${file}`)
+    .map(file => `./${file}`)
 }
 
-const generateUsage = name => ({
+const generateUsage = fnName => ({
   'commonjs': {
     title: 'CommonJs',
-    code: `const ${name} = require('phone-fns/${name}');`
+    code: `const ${fnName} = require('phone-fns/${fnName}');`
   },
   'standard': {
     title: 'Standard',
-    code: `import ${name} from 'phone-fns/${name}';`
+    code: `import ${fnName} from 'phone-fns/${fnName}';`
   },
   'cdn': {
     title: 'CDN',
-    code: `<script src="https://cdn.jsdelivr.net/npm/phone-fns@${version}/${name}.js"></script>`
+    code: `<script src="https://cdn.jsdelivr.net/npm/phone-fns@${version}/${fnName}.js"></script>`
   },
   'browser': {
     title: 'Browser',
-    code: `<script src="path/to/node_modules/phone-fns/${name}.js"></script>`
+    code: `<script src="path/to/node_modules/phone-fns/${fnName}.js"></script>`
   }
 })
 
-const generateSyntax = (name, args) => {
+const generateSyntax = (fnName, args) => {
   if (!args) {
     return ''
   }
 
-  const argsStr = args.map(a => a.optional ? `[${a.name}]` : a.name).join(', '); // eslint-disable-line
+  const argsStr = args.map(a => a.optional ? `[${a.fnName}]` : a.fnName).join(', '); // eslint-disable-line
 
-  return `${name}(${argsStr})`
+  return `${fnName}(${argsStr})`
 }
 
 jsDocParser.getTemplateData({
@@ -48,7 +46,7 @@ jsDocParser.getTemplateData({
   const results = data.map(d => ({
     since: d.since ? d.since : 'Unknown',
     deprecated: d.deprecated || false,
-    category: d.category,
+    category: d.category || 'Unknown',
     title: d.name,
     desc: d.description,
     examples: d.examples,
@@ -58,5 +56,10 @@ jsDocParser.getTemplateData({
     usage: generateUsage(d.name)
   }))
 
-  fs.writeFileSync('docs.js', `module.exports = ${JSON.stringify(results)}`)
+  fs.writeFileSync('info.json', JSON.stringify({
+    name,
+    version,
+    description,
+    docs: results
+  }))
 })
