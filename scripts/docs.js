@@ -34,7 +34,7 @@ const generateSyntax = (fnName, args) => {
     return ''
   }
 
-  const argsStr = args.map(a => a.optional ? `[${a.fnName}]` : a.fnName).join(', '); // eslint-disable-line
+  const argsStr = args.map(a => a.optional ? `[${a.name}]` : a.name).join(', '); // eslint-disable-line
 
   return `${fnName}(${argsStr})`
 }
