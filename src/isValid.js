@@ -19,7 +19,7 @@ export default phone => {
     return false
   }
 
-  const { areaCode, localCode, lineNumber } = breakdown('', uglyPhone)
+  const { areaCode, localCode, lineNumber } = breakdown(uglyPhone)
 
   if (uglyPhone.length === 7) {
     return (/^([0-9]{3})[-. ]?([0-9]{4})$/)
