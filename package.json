@@ -6,7 +6,7 @@
   "scripts": {
     "prepack": "rollup -c && rollup -c rollup.split.js && node scripts/docs.js",
     "clean": "node scripts/clean.js",
-    "scripts": "node scripts/docs.js",
+    "scripts": "node scripts/docs.js && node scripts/create-export.js",
     "build": "rollup -c",
     "build:split": "rollup -c rollup.split.js",
     "postpublish": "node scripts/clean.js",
