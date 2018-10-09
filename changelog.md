@@ -1,5 +1,21 @@
 # Changelog
 
+## v3.0.0
+
+### Breaking Changes
+
+- Removed `find` function since it was rather pointless
+- Removed `match` function since it was rather pointless
+- The main import is no longer a function but an object of functions
+- Re wrote how format works so it's easier to use and more light weight
+  - Specify country code in the layout with C. Example: `C + (NNN) NNN-NNNN`
+  - Usage example: `format('C + (NNN) NNN-NNNN', 14445556666) // => '1 + (444) 555-6666'`
+- `breakdown` no longer handles or accepts country codes
+
+### Improved
+
+- Using Kyanite to improve how format functions and better currying from the library
+
 ## v2.0.1
 
 ### Improved
