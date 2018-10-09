@@ -1,57 +1,66 @@
-import curry from './_internals/curry'
+import curry from 'kyanite/curry'
+import gt from 'kyanite/gt'
+import includes from 'kyanite/includes'
+import or from 'kyanite/or'
+import reduce from 'kyanite/reduce'
+import toLower from 'kyanite/toLower'
+
 import isValid from './isValid'
 import uglify from './uglify'
 
-const validFormat = (phone, layout) => {
+const validFormat = (layout, phone) => {
   const count = layout.split('').reduce((acc, v) => {
-    if (v.toLowerCase() === 'n') {
+    const val = toLower(v)
+
+    if (or(val === 'n', val === 'c')) {
       acc++
     }
 
     return acc
   }, 0)
 
-  return count === phone.length
+  return count === uglify(phone).length
 }
 
 /**
  * @name format
  * @since v0.1.0
  * @category Function
- * @description Allows you to format phone numbers however you desire using N as number placeholders this placeholder is case insensitive
- * @param {String} cc The provided country code for the number or an empty string if none provided
+ * @description Allows you to format phone numbers however you desire using N as number placeholders and C as country code placeholders these placeholders are case insensitive
  * @param {String} layout The desired layout of the phone number
  * @param {String} phone The phone number to breakdown
  * @return {String} Returns a string which is the formatted phone number
  *
  * @example
- * format('', '(NNN) NNN.NNNN', '444-555-6666'); // => '(444) 555.6666'
- * format('1', 'N + (NNN) NNN.NNNN', '444-555-6666'); // => '1 + (444) 555.6666'
- * format('', '(NNN) NNN.NNNN x NNNN', '444-555-66668989'); // => '(444) 555.6666 x 8989'
+ * format((NNN) NNN.NNNN', '444-555-6666') // => '(444) 555.6666'
+ * format('C + (NNN) NNN.NNNN', '1444-555-6666') // => '1 + (444) 555.6666'
+ * format('CC + NNN.NNN.NNNN', '163334445555') // => '16 + 333.444.5555'
+ * format('(NNN) NNN.NNNN x NNNN', '44455566668989') // => '(444) 555.6666 x 8989'
  *
  * // Format is case insensitive
- * format('', '(NNN) nnn-NNnn', '4445556666') // => (444) 555-6666
+ * format('(NNN) nnn-NNnn', '4445556666') // => (444) 555-6666
  *
  * // Format is also curried
- * const noCC = format('');
- * const withLayout = format('', 'NNN.NNN.NNNN');
+ * const fn = format('NNN.NNN.NNNN')
  *
- * noCC('NNN-NNN-NNNN', '4445556666'); // => '444-555-6666'
- * withLayout('4445556666'); // => '444.555.6666'
+ * fn('4445556666') // => '444.555.6666'
+ * fn('(333) 444-5555') // => '333.444.5555'
  */
-const format = (cc, layout, phone) => {
-  const fullPhone = `${cc}${uglify(phone)}`
+const format = (layout, phone) => {
+  const fullPhone = uglify(phone).split('')
+  const cCount = includes('C', layout) ? layout.match(/C/g).length : 0
 
-  if (!isValid(phone) || !validFormat(fullPhone, layout)) {
+  if (or(!isValid(phone), !validFormat(layout, phone))) {
     return phone
   }
-  const results = fullPhone.split('').reduce((acc, d) => {
-    const temp = acc.replace(/N/i, d)
 
-    return temp
-  }, layout)
+  return reduce((acc, d, i) => {
+    if (gt(i, cCount)) {
+      return acc.replace(/C/i, d)
+    }
 
-  return results
+    return acc.replace(/N/i, d)
+  }, layout, fullPhone)
 }
 
 export default curry(format)
