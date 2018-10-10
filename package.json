@@ -1,7 +1,7 @@
 {
   "name": "phone-fns",
   "version": "3.0.0",
-  "description": "Small and simple functional phone library",
+  "description": "A small, modern, and functional phone library for javascript",
   "main": "dist/phone-fns.min.js",
   "module": "src/index.js",
   "scripts": {
@@ -37,6 +37,7 @@
   "bugs": {
     "url": "https://github.com/dhershman1/phone-fns/issues"
   },
+  "homepage": "https://dusty.codes/documentation/phone-fns",
   "keywords": [
     "format",
     "phone number",
@@ -45,7 +46,8 @@
     "phone",
     "phone-fns",
     "functional library",
-    "formatting"
+    "formatting",
+    "modern"
   ],
   "author": "Dustin Hershman <dustinh17@gmail.com>",
   "license": "MIT",
