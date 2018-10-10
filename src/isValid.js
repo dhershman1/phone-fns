@@ -1,3 +1,5 @@
+import { branch, compose, identical, length } from 'kyanite'
+
 import breakdown from './breakdown'
 import uglify from './uglify'
 
@@ -12,7 +14,7 @@ import uglify from './uglify'
  * @example
  * isValid('555-444-3333'); // => true
  */
-export default phone => {
+const isValid = phone => {
   const uglyPhone = uglify(phone)
 
   if (!phone || uglyPhone.length < 7) {
@@ -21,11 +23,14 @@ export default phone => {
 
   const { areaCode, localCode, lineNumber } = breakdown(uglyPhone)
 
-  if (uglyPhone.length === 7) {
-    return (/^([0-9]{3})[-. ]?([0-9]{4})$/)
-      .test(localCode + lineNumber)
-  }
-
-  return (/^\+?([0-9]{2})\)?[-. ]?([0-9]{4})[-. ]?([0-9]{4})$/)
-    .test(areaCode + localCode + lineNumber)
+  return branch(
+    compose(identical(7), length),
+    () => (/^([0-9]{3})[-. ]?([0-9]{4})$/)
+      .test(localCode + lineNumber),
+    () => (/^\+?([0-9]{2})\)?[-. ]?([0-9]{4})[-. ]?([0-9]{4})$/)
+      .test(areaCode + localCode + lineNumber),
+    uglyPhone
+  )
 }
+
+export default isValid
