@@ -10,10 +10,16 @@ export default [{
     uglify(),
     filesize()
   ],
+  external: [
+    'kyanite'
+  ],
   output: {
     file: 'dist/phone-fns.min.js',
     format: 'umd',
-    name: 'phoneFns'
+    name: 'phoneFns',
+    globals: {
+      'kyanite': 'kyanite'
+    }
   }
 }, {
   input: './src/index.js',
@@ -22,9 +28,15 @@ export default [{
     cleanup(),
     filesize()
   ],
+  external: [
+    'kyanite'
+  ],
   output: {
     file: 'dist/phone-fns.js',
     format: 'umd',
-    name: 'phoneFns'
+    name: 'phoneFns',
+    globals: {
+      'kyanite': 'kyanite'
+    }
   }
 }]

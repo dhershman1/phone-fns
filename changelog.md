@@ -11,6 +11,7 @@
   - Specify country code in the layout with C. Example: `C + (NNN) NNN-NNNN`
   - Usage example: `format('C + (NNN) NNN-NNNN', 14445556666) // => '1 + (444) 555-6666'`
 - `breakdown` no longer handles or accepts country codes
+  - Technically the only function that cares about Country Codes is the `format` function this is to make functions easier to use
 
 ### Improved
 

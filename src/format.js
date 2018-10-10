@@ -1,9 +1,4 @@
-import curry from 'kyanite/curry'
-import gt from 'kyanite/gt'
-import includes from 'kyanite/includes'
-import or from 'kyanite/or'
-import reduce from 'kyanite/reduce'
-import toLower from 'kyanite/toLower'
+import { curry, gt, includes, or, reduce, toLower } from 'kyanite'
 
 import isValid from './isValid'
 import uglify from './uglify'
