@@ -4,6 +4,21 @@
   (factory((global.phoneFns = {}),global.kyanite));
 }(this, (function (exports,kyanite) { 'use strict';
 
+  function _defineProperty(obj, key, value) {
+    if (key in obj) {
+      Object.defineProperty(obj, key, {
+        value: value,
+        enumerable: true,
+        configurable: true,
+        writable: true
+      });
+    } else {
+      obj[key] = value;
+    }
+
+    return obj;
+  }
+
   function _slicedToArray(arr, i) {
     return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _nonIterableRest();
   }
@@ -42,9 +57,9 @@
     throw new TypeError("Invalid attempt to destructure non-iterable instance");
   }
 
-  var uglify = (function (phone) {
+  var uglify = function uglify(phone) {
     return String(phone).replace(/[a-z]\w?|\W/gi, '');
-  });
+  };
 
   var breakdown = function breakdown(phone) {
     var _uglify$match = uglify(phone).match(/([0-9]{3})?([0-9]{3})([0-9]{4})([0-9]{1,})?/),
@@ -62,7 +77,7 @@
     };
   };
 
-  var isValid = (function (phone) {
+  var isValid = function isValid(phone) {
     var uglyPhone = uglify(phone);
     if (!phone || uglyPhone.length < 7) {
       return false;
@@ -71,25 +86,26 @@
         areaCode = _breakdown.areaCode,
         localCode = _breakdown.localCode,
         lineNumber = _breakdown.lineNumber;
-    if (uglyPhone.length === 7) {
+    return kyanite.branch(kyanite.compose(kyanite.identical(7), kyanite.length), function () {
       return /^([0-9]{3})[-. ]?([0-9]{4})$/.test(localCode + lineNumber);
-    }
-    return /^\+?([0-9]{2})\)?[-. ]?([0-9]{4})[-. ]?([0-9]{4})$/.test(areaCode + localCode + lineNumber);
-  });
+    }, function () {
+      return /^\+?([0-9]{2})\)?[-. ]?([0-9]{4})[-. ]?([0-9]{4})$/.test(areaCode + localCode + lineNumber);
+    }, uglyPhone);
+  };
 
   var validFormat = function validFormat(layout, phone) {
-    var count = layout.split('').reduce(function (acc, v) {
-      var val = kyanite.toLower(v);
-      if (kyanite.or(val === 'n', val === 'c')) {
-        acc++;
-      }
-      return acc;
-    }, 0);
-    return count === uglify(phone).length;
+    var _compose = kyanite.compose(kyanite.reduce(function (acc, a) {
+      var k = kyanite.toUpper(a);
+      return kyanite.assign(acc, _defineProperty({}, k, kyanite.has(k, acc) ? acc[k] + 1 : 1));
+    }, {}), kyanite.split(''), layout),
+        N = _compose.N,
+        _compose$C = _compose.C,
+        C = _compose$C === void 0 ? 0 : _compose$C;
+    return kyanite.pipe([uglify, kyanite.length, kyanite.identical(kyanite.add(N, C))], phone);
   };
   var format = function format(layout, phone) {
-    var fullPhone = uglify(phone).split('');
-    var cCount = kyanite.includes('C', layout) ? layout.match(/C/g).length : 0;
+    var fullPhone = kyanite.compose(kyanite.split(''), uglify, phone);
+    var cCount = kyanite.includes('C', layout) ? kyanite.length(layout.match(/C/g)) : 0;
     if (kyanite.or(!isValid(phone), !validFormat(layout, phone))) {
       return phone;
     }
