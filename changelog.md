@@ -12,10 +12,13 @@
   - Usage example: `format('C + (NNN) NNN-NNNN', 14445556666) // => '1 + (444) 555-6666'`
 - `breakdown` no longer handles or accepts country codes
   - Technically the only function that cares about Country Codes is the `format` function this is to make functions easier to use
+- Scrapped modular functions
+  - There is no need for this anymore, since Rollup & webpack v2+ treeshaking support curried functions, destructing works much better now
 
 ### Improved
 
 - Using Kyanite to improve how format functions and better currying from the library
+- Replaced `uglify-js` with `terser` for performance gains
 
 ## v2.0.1
 
