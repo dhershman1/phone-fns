@@ -71,3 +71,9 @@ test('Handles numbers without area code', t => {
   t.same(results, '555.6666')
   t.end()
 })
+
+test('Catches letters when passed in', t => {
+  t.same(format('NNN.NNNN', 'abc1234'), 'abc1234')
+  t.same(format('NNN.NNNN', '1234abc'), '1234abc')
+  t.end()
+})

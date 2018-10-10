@@ -1,20 +1,22 @@
-import { curry, gt, includes, or, reduce, toLower } from 'kyanite'
+import { add, assign, compose, curry, gt, has, identical, includes, length, or, pipe, reduce, split, toUpper } from 'kyanite'
 
 import isValid from './isValid'
 import uglify from './uglify'
 
 const validFormat = (layout, phone) => {
-  const count = layout.split('').reduce((acc, v) => {
-    const val = toLower(v)
+  const { N, C = 0 } = compose(reduce((acc, a) => {
+    const k = toUpper(a)
 
-    if (or(val === 'n', val === 'c')) {
-      acc++
-    }
+    return assign(acc, {
+      [k]: has(k, acc) ? acc[k] + 1 : 1
+    })
+  }, {}), split(''), layout)
 
-    return acc
-  }, 0)
-
-  return count === uglify(phone).length
+  return pipe([
+    uglify,
+    length,
+    identical(add(N, C))
+  ], phone)
 }
 
 /**
@@ -42,8 +44,8 @@ const validFormat = (layout, phone) => {
  * fn('(333) 444-5555') // => '333.444.5555'
  */
 const format = (layout, phone) => {
-  const fullPhone = uglify(phone).split('')
-  const cCount = includes('C', layout) ? layout.match(/C/g).length : 0
+  const fullPhone = compose(split(''), uglify, phone)
+  const cCount = includes('C', layout) ? length(layout.match(/C/g)) : 0
 
   if (or(!isValid(phone), !validFormat(layout, phone))) {
     return phone
