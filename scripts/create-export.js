@@ -2,7 +2,7 @@ const fs = require('fs')
 const path = require('path')
 const globby = require('globby')
 
-const propertyRequireLines = globby.sync([`src/*.js`, `!src/index.js`])
+const propertyRequireLines = globby.sync(['src/*.js', '!src/index.js'])
   .map(file => {
     const { base, name } = path.parse(file)
 
