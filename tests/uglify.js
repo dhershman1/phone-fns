@@ -8,3 +8,8 @@ test('Test simple type', t => {
   t.is(results, '5554443333', 'results came back valid')
   t.end()
 })
+
+test('Handles when numbers are thrown at it', t => {
+  t.same(uglify(5556667777), '5556667777')
+  t.end()
+})
