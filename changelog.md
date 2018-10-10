@@ -19,6 +19,7 @@
 
 - Using Kyanite to improve how format functions and better currying from the library
 - Replaced `uglify-js` with `terser` for performance gains
+- `isValid` optimizations using Kyanite
 
 ## v2.0.1
 
