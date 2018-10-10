@@ -63,15 +63,3 @@ breakdown('4443332222')
 format('(NNN) NNN-NNNN', '4443332222')
 // => '(444) 333-2222'
 ```
-
-## Modular
-
-Phone Fns is a modular library meaning you can bring in individual functions to use if you need to
-
-For example:
-
-```js
-import format from 'phone-fns/format'
-
-format('(NNN) NNN-NNNN', '4443332222') // => '(444) 333-2222'
-```
