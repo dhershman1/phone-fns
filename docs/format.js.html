@@ -49,7 +49,7 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>import { add, assign, compose, curry, gt, has, identical, includes, length, or, pipe, reduce, split, toUpper } from 'kyanite'
+            <pre class="prettyprint source linenums"><code>import { add, amend, compose, curry, gt, has, eq, includes, length, or, pipe, reduce, split, toUpper } from 'kyanite'
 
 import isValid from './isValid'
 import uglify from './uglify'
@@ -64,7 +64,7 @@ const validFormat = (layout, phone) => {
   const { N, C = 0 } = compose(reduce((acc, a) => {
     const k = toUpper(a)
 
-    return assign(acc, {
+    return amend(acc, {
       [k]: has(k, acc) ? acc[k] + 1 : 1
     })
   }, {}), split(''), layout)
@@ -72,7 +72,7 @@ const validFormat = (layout, phone) => {
   return pipe([
     uglify,
     length,
-    identical(add(N, C))
+    eq(add(N, C))
   ], phone)
 }
 
