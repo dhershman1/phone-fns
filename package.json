@@ -2,8 +2,15 @@
   "name": "phone-fns",
   "version": "3.0.0",
   "description": "A small, modern, and functional phone library for javascript",
-  "main": "dist/phone-fns.min.js",
-  "module": "src/index.js",
+  "main": "common.js",
+  "module": "index.js",
+  "typings": "types/index.d.ts",
+  "files": [
+    "dist",
+    "index.d.ts",
+    "index.js",
+    "common.js"
+  ],
   "scripts": {
     "prepack": "npm run scripts && rollup -c",
     "scripts": "npm run docs && node scripts/create-export.js",
@@ -59,7 +66,7 @@
     "coveralls": "3.0.2",
     "esm": "3.0.84",
     "globby": "8.0.1",
-    "jsdoc": "^3.5.5",
+    "jsdoc": "3.5.5",
     "jsdoc-to-markdown": "4.0.1",
     "nyc": "13.0.1",
     "rollup": "0.66.6",
@@ -72,6 +79,6 @@
     "tape": "4.9.1"
   },
   "dependencies": {
-    "kyanite": "0.9.1"
+    "kyanite": "0.10.1"
   }
 }
