@@ -1,4 +1,4 @@
-import { branch, compose, identical, length } from 'kyanite'
+import { branch, compose, eq, length } from 'kyanite'
 
 import breakdown from './breakdown'
 import uglify from './uglify'
@@ -26,7 +26,7 @@ const isValid = phone => {
   const { areaCode, localCode, lineNumber } = breakdown(uglyPhone)
 
   return branch(
-    compose(identical(7), length),
+    compose(eq(7), length),
     () => (/^([0-9]{3})[-. ]?([0-9]{4})$/)
       .test(localCode + lineNumber),
     () => (/^\+?([0-9]{2})\)?[-. ]?([0-9]{4})[-. ]?([0-9]{4})$/)

@@ -1,4 +1,4 @@
-import { add, assign, compose, curry, gt, has, identical, includes, length, or, pipe, reduce, split, toUpper } from 'kyanite'
+import { add, compose, curry, gt, eq, includes, length, or, pipe, countBy, split, toUpper } from 'kyanite'
 
 import isValid from './isValid'
 import uglify from './uglify'
@@ -10,18 +10,12 @@ import uglify from './uglify'
  * @param {String} phone The phone number to validate against
  */
 const validFormat = (layout, phone) => {
-  const { N, C = 0 } = compose(reduce((acc, a) => {
-    const k = toUpper(a)
-
-    return assign(acc, {
-      [k]: has(k, acc) ? acc[k] + 1 : 1
-    })
-  }, {}), split(''), layout)
+  const { N, C = 0 } = compose(countBy(toUpper), split(''), layout)
 
   return pipe([
     uglify,
     length,
-    identical(add(N, C))
+    eq(add(N, C))
   ], phone)
 }
 
@@ -59,13 +53,13 @@ const format = (layout, phone) => {
     return phone
   }
 
-  return reduce((acc, d, i) => {
+  return fullPhone.reduce((acc, d, i) => {
     if (gt(i, cCount)) {
       return acc.replace(/C/i, d)
     }
 
     return acc.replace(/N/i, d)
-  }, layout, fullPhone)
+  }, layout)
 }
 
 export default curry(format)
