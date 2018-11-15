@@ -5,6 +5,7 @@
           "es6",
           "dom"
       ],
+      "declaration": true,
       "noImplicitAny": true,
       "noImplicitThis": false,
       "strictNullChecks": true,
@@ -17,8 +18,6 @@
       "noEmit": true,
       "forceConsistentCasingInFileNames": true
   },
-  "files": [
-      "../index.d.ts",
-      "tests.ts"
-  ]
+  "include": ["../index.d.ts", "./*.ts"],
+  "exclude": ["node_modules", "dist"]
 }
