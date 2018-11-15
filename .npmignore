@@ -10,3 +10,5 @@ webpack.dist.js
 src/
 configs/
 scripts/
+docs/
+jsdoc.json
