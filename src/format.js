@@ -3,6 +3,12 @@ import { add, assign, compose, curry, gt, has, identical, includes, length, or, 
 import isValid from './isValid'
 import uglify from './uglify'
 
+/**
+ * @private
+ * @function
+ * @param {String} layout The desired layout format
+ * @param {String} phone The phone number to validate against
+ */
 const validFormat = (layout, phone) => {
   const { N, C = 0 } = compose(reduce((acc, a) => {
     const k = toUpper(a)
@@ -22,7 +28,9 @@ const validFormat = (layout, phone) => {
 /**
  * @name format
  * @since v0.1.0
+ * @function
  * @category Function
+ * @sig String -> String -> String
  * @description Allows you to format phone numbers however you desire using N as number placeholders and C as country code placeholders these placeholders are case insensitive
  * @param {String} layout The desired layout of the phone number
  * @param {String} phone The phone number to breakdown

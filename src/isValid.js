@@ -6,7 +6,9 @@ import uglify from './uglify'
 /**
  * @name isValid
  * @since v0.1.0
+ * @function
  * @category Function
+ * @sig String -> Boolean
  * @description
  * Validates the base number, does not take the country code or extension into consideration for this validation
  * @param {String} phone The phone number to breakdown

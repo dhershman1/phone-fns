@@ -1,0 +1,899 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    
+    <meta charset="utf-8">
+    <title>Phone-Fns - Phone Fns</title>
+    
+    <meta name="description" content="A small, modern, and functional phone library for javascript" />
+    
+        <meta name="keywords" content="functional, library, javascript, pure, helpers, utils, phone, numbers" />
+        <meta name="keyword" content="functional, library, javascript, pure, helpers, utils, phone, numbers" />
+    
+    
+    
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+
+<input type="checkbox" id="nav-trigger" class="nav-trigger" />
+<label for="nav-trigger" class="navicon-button x">
+  <div class="navicon"></div>
+</label>
+
+<label for="nav-trigger" class="overlay"></label>
+
+<nav>
+    
+    <input type="text" id="nav-search" placeholder="Search" />
+    
+    <h2><a href="index.html">Home</a></h2><h2><a href="https://github.com/dhershman1/phone-fns" target="_blank" class="menu-item" id="repository" >Github repo</a></h2><ul class="nav-list"><h3>Function</h3><li class="nav-item" data-cat="Function"><a href="functions.html#breakdown">breakdown</a></li><li class="nav-item" data-cat="Function"><a href="functions.html#format">format</a></li><li class="nav-item" data-cat="Function"><a href="functions.html#isValid">isValid</a></li><li class="nav-item" data-cat="Function"><a href="functions.html#uglify">uglify</a></li></ul>
+</nav>
+
+<div id="main">
+    
+    <h1 class="page-title">Phone-Fns</h1>
+    
+
+    
+
+
+
+
+<section>
+
+<header>
+    
+        <h2>
+        
+        </h2>
+        
+    
+</header>
+
+<article>
+    
+        <div class="container-overview">
+        
+            
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+            
+
+            
+        
+        </div>
+    
+
+    
+
+    
+
+    
+
+     
+
+    
+
+    
+
+    
+        <h3 class="subsection-title">Functions</h3>
+
+        
+            
+
+    
+
+    <h4 class="name" id="breakdown"><span class="type-signature"></span>breakdown<span class="signature">(countryCode, phone)</span><span class="type-signature"> &rarr; {Object}</span></h4>
+
+    
+
+
+
+
+<dl class="details">
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="breakdown.js.html">breakdown.js</a>, <a href="breakdown.js.html#line3">line 3</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+    <dt class="tag-since">Since:</dt>
+    <dd class="tag-since"><ul class="dummy"><li>v0.1.0</li></ul></dd>
+    
+
+    
+    <dt class="tag-category">Category:</dt>
+    <dd class="tag-category"><ul class="dummy"><li><b>Function</b></li></ul></dd>
+    
+
+    
+    <dt class="tag-sig">Signature:</dt>
+    <dd class="tag-sig"><ul class="dummy"><li><b>String -> String -> Object</b></li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+<div class="description">
+    <p>Takes a provided phone string and breaks it down into an object of codes</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>breakdown('111-222-3333');// => { areaCode: '111', localCode: '222', lineNumber: '3333', extension: '' }breakdown('5554441111');// => { areaCode: '555', localCode: '444', lineNumber: '1111', extension: '' }breakdown('', '555-444-3333 x 8989');// => { areaCode: '555', localCode: '444', lineNumber: '3333', extension: 8989 }</code></pre>
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>countryCode</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>The provided country code for the number</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>phone</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>The phone number to breakdown</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    <p>Returns an object of the broken down phone number</p>
+</div>
+
+
+
+<dl class="param-type">
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Object</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="format"><span class="type-signature"></span>format<span class="signature">(layout, phone)</span><span class="type-signature"> &rarr; {String}</span></h4>
+
+    
+
+
+
+
+<dl class="details">
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="format.js.html">format.js</a>, <a href="format.js.html#line28">line 28</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+    <dt class="tag-since">Since:</dt>
+    <dd class="tag-since"><ul class="dummy"><li>v0.1.0</li></ul></dd>
+    
+
+    
+    <dt class="tag-category">Category:</dt>
+    <dd class="tag-category"><ul class="dummy"><li><b>Function</b></li></ul></dd>
+    
+
+    
+    <dt class="tag-sig">Signature:</dt>
+    <dd class="tag-sig"><ul class="dummy"><li><b>String -> String -> String</b></li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+<div class="description">
+    <p>Allows you to format phone numbers however you desire using N as number placeholders and C as country code placeholders these placeholders are case insensitive</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>format((NNN) NNN.NNNN', '444-555-6666') // => '(444) 555.6666'format('C + (NNN) NNN.NNNN', '1444-555-6666') // => '1 + (444) 555.6666'format('CC + NNN.NNN.NNNN', '163334445555') // => '16 + 333.444.5555'format('(NNN) NNN.NNNN x NNNN', '44455566668989') // => '(444) 555.6666 x 8989'// Format is case insensitiveformat('(NNN) nnn-NNnn', '4445556666') // => (444) 555-6666// Format is also curriedconst fn = format('NNN.NNN.NNNN')fn('4445556666') // => '444.555.6666'fn('(333) 444-5555') // => '333.444.5555'</code></pre>
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>layout</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>The desired layout of the phone number</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>phone</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>The phone number to breakdown</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    <p>Returns a string which is the formatted phone number</p>
+</div>
+
+
+
+<dl class="param-type">
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">String</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="isValid"><span class="type-signature"></span>isValid<span class="signature">(phone)</span><span class="type-signature"> &rarr; {Boolean}</span></h4>
+
+    
+
+
+
+
+<dl class="details">
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="isValid.js.html">isValid.js</a>, <a href="isValid.js.html#line6">line 6</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+    <dt class="tag-since">Since:</dt>
+    <dd class="tag-since"><ul class="dummy"><li>v0.1.0</li></ul></dd>
+    
+
+    
+    <dt class="tag-category">Category:</dt>
+    <dd class="tag-category"><ul class="dummy"><li><b>Function</b></li></ul></dd>
+    
+
+    
+    <dt class="tag-sig">Signature:</dt>
+    <dd class="tag-sig"><ul class="dummy"><li><b>String -> Boolean</b></li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+<div class="description">
+    <p>Validates the base number, does not take the country code or extension into consideration for this validation</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>isValid('555-444-3333'); // => true</code></pre>
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>phone</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>The phone number to breakdown</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    <p>Returns a boolean if the number provided is valid or not</p>
+</div>
+
+
+
+<dl class="param-type">
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Boolean</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="uglify"><span class="type-signature"></span>uglify<span class="signature">(phone)</span><span class="type-signature"> &rarr; {String}</span></h4>
+
+    
+
+
+
+
+<dl class="details">
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="uglify.js.html">uglify.js</a>, <a href="uglify.js.html#line1">line 1</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+    <dt class="tag-since">Since:</dt>
+    <dd class="tag-since"><ul class="dummy"><li>v0.1.0</li></ul></dd>
+    
+
+    
+    <dt class="tag-category">Category:</dt>
+    <dd class="tag-category"><ul class="dummy"><li><b>Function</b></li></ul></dd>
+    
+
+    
+    <dt class="tag-sig">Signature:</dt>
+    <dd class="tag-sig"><ul class="dummy"><li><b>String -> String</b></li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+<div class="description">
+    <p>Strips all of the special characters from the given string</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>const results = uglify('555-444-3333'); // => '5554443333'</code></pre>
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>phone</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>The phone number to trim and strip down</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    <p>Returns the newly created phone number string</p>
+</div>
+
+
+
+<dl class="param-type">
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">String</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+        
+    
+
+    
+
+    
+</article>
+
+</section>
+
+
+
+
+
+    
+</div>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
+</footer>
+
+<script>prettyPrint();</script>
+<script src="scripts/linenumber.js"></script>
+
+<script src="scripts/search.js"></script>
+
+
+</body>
+</html>

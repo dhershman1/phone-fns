@@ -3,7 +3,9 @@ import uglify from './uglify'
 /**
  * @name breakdown
  * @since v0.1.0
+ * @function
  * @category Function
+ * @sig String -> String -> Object
  * @description Takes a provided phone string and breaks it down into an object of codes
  * @param {String} countryCode The provided country code for the number
  * @param {String} phone The phone number to breakdown

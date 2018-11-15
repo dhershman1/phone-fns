@@ -6,7 +6,8 @@
   "module": "src/index.js",
   "scripts": {
     "prepack": "npm run scripts && rollup -c",
-    "scripts": "node scripts/docs.js && node scripts/create-export.js",
+    "scripts": "npm run docs && node scripts/create-export.js",
+    "docs": "node_modules/.bin/jsdoc -c jsdoc.json",
     "build": "rollup -c",
     "postpublish": "node scripts/clean.js",
     "lint": "standard src/**/*.js",
@@ -36,7 +37,7 @@
   "bugs": {
     "url": "https://github.com/dhershman1/phone-fns/issues"
   },
-  "homepage": "https://dusty.codes/documentation/phone-fns",
+  "homepage": "https://phone-fns.dusty.codes",
   "keywords": [
     "format",
     "phone number",
@@ -54,9 +55,11 @@
   "devDependencies": {
     "@babel/core": "7.1.2",
     "@babel/preset-env": "7.1.0",
+    "@killparadise/docdash": "github:dhershman1/docdash",
     "coveralls": "3.0.2",
     "esm": "3.0.84",
     "globby": "8.0.1",
+    "jsdoc": "^3.5.5",
     "jsdoc-to-markdown": "4.0.1",
     "nyc": "13.0.1",
     "rollup": "0.66.6",
