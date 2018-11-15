@@ -1,3 +1,5 @@
+import { replace, compose } from 'kyanite'
+
 /**
  * @name uglify
  * @since v0.1.0
@@ -11,6 +13,6 @@
  * @example
  * const results = uglify('555-444-3333'); // => '5554443333'
  */
-const uglify = phone => String(phone).replace(/[a-z]\w?|\W/gi, '')
+const uglify = compose(replace(/[a-z]\w?|\W/gi, ''), String)
 
 export default uglify
