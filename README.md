@@ -7,9 +7,7 @@
 
 A small modern, and functional phone number library which gathers inspiration from the fun [date-fns](https://github.com/date-fns/date-fns) library
 
-**NOTICE: This README currently reflects the v3.0.0 release which is coming soon! please use the documentation site for v2.0.1 until it's released!**
-
-- [Documentation](https://www.dusty.codes/phone-fns)
+- [Documentation](https://phone-fns.dusty.codes/)
 
 ## How-To
 

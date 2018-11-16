@@ -15,6 +15,10 @@
 - Scrapped modular functions
   - There is no need for this anymore, since Rollup & webpack v2+ treeshaking support curried functions, destructing works much better now
 
+### New
+
+- Documentation was moved onto a more sustainable location for quicker and more up to date docs, should be hosted via github pages now too
+
 ### Improved
 
 - Using Kyanite to improve how format functions and better currying from the library

@@ -15,7 +15,6 @@
     "scripts": "npm run docs && node scripts/create-export.js",
     "docs": "node_modules/.bin/jsdoc -c jsdoc.json",
     "build": "rollup -c",
-    "postpublish": "node scripts/clean.js",
     "lint": "standard src/**/*.js",
     "test": "tape -r esm tests/*.js | tap-spec",
     "test:cov": "nyc npm test",
@@ -32,7 +31,7 @@
   },
   "standard": {
     "ignore": [
-      "docs.js",
+      "docs/*",
       "dist/*"
     ]
   },
@@ -43,7 +42,7 @@
   "bugs": {
     "url": "https://github.com/dhershman1/phone-fns/issues"
   },
-  "homepage": "https://phone-fns.dusty.codes",
+  "homepage": "https://phone-fns.dusty.codes/",
   "keywords": [
     "format",
     "phone number",
