@@ -2,14 +2,13 @@
   "name": "phone-fns",
   "version": "3.0.0",
   "description": "A small, modern, and functional phone library for javascript",
-  "main": "common.js",
-  "module": "index.js",
+  "main": "dist/phone-fns.min.js",
+  "module": "src/index.js",
   "typings": "types/index.d.ts",
   "files": [
     "dist",
-    "index.d.ts",
-    "index.js",
-    "common.js"
+    "src",
+    "types"
   ],
   "scripts": {
     "prepack": "npm run scripts && rollup -c",
