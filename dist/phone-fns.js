@@ -4,21 +4,6 @@
   (factory((global.phoneFns = {}),global.kyanite));
 }(this, (function (exports,kyanite) { 'use strict';
 
-  function _defineProperty(obj, key, value) {
-    if (key in obj) {
-      Object.defineProperty(obj, key, {
-        value: value,
-        enumerable: true,
-        configurable: true,
-        writable: true
-      });
-    } else {
-      obj[key] = value;
-    }
-
-    return obj;
-  }
-
   function _slicedToArray(arr, i) {
     return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _nonIterableRest();
   }
@@ -57,9 +42,7 @@
     throw new TypeError("Invalid attempt to destructure non-iterable instance");
   }
 
-  var uglify = function uglify(phone) {
-    return String(phone).replace(/[a-z]\w?|\W/gi, '');
-  };
+  var uglify = kyanite.compose(kyanite.replace(/[a-z]\w?|\W/gi, ''), String);
 
   var breakdown = function breakdown(phone) {
     var _uglify$match = uglify(phone).match(/([0-9]{3})?([0-9]{3})([0-9]{4})([0-9]{1,})?/),
@@ -79,29 +62,25 @@
 
   var isValid = function isValid(phone) {
     var uglyPhone = uglify(phone);
-    if (!phone || uglyPhone.length < 7) {
+    if (kyanite.or(kyanite.isEmpty(uglyPhone), kyanite.length(uglyPhone)) < 7) {
       return false;
     }
     var _breakdown = breakdown(uglyPhone),
         areaCode = _breakdown.areaCode,
         localCode = _breakdown.localCode,
         lineNumber = _breakdown.lineNumber;
-    return kyanite.branch(kyanite.compose(kyanite.identical(7), kyanite.length), function () {
+    if (kyanite.compose(kyanite.eq(7), kyanite.length, uglyPhone)) {
       return /^([0-9]{3})[-. ]?([0-9]{4})$/.test(localCode + lineNumber);
-    }, function () {
-      return /^\+?([0-9]{2})\)?[-. ]?([0-9]{4})[-. ]?([0-9]{4})$/.test(areaCode + localCode + lineNumber);
-    }, uglyPhone);
+    }
+    return /^\+?([0-9]{2})\)?[-. ]?([0-9]{4})[-. ]?([0-9]{4})$/.test(areaCode + localCode + lineNumber);
   };
 
   var validFormat = function validFormat(layout, phone) {
-    var _compose = kyanite.compose(kyanite.reduce(function (acc, a) {
-      var k = kyanite.toUpper(a);
-      return kyanite.assign(acc, _defineProperty({}, k, kyanite.has(k, acc) ? acc[k] + 1 : 1));
-    }, {}), kyanite.split(''), layout),
+    var _compose = kyanite.compose(kyanite.countBy(kyanite.toUpper), kyanite.split(''), layout),
         N = _compose.N,
         _compose$C = _compose.C,
         C = _compose$C === void 0 ? 0 : _compose$C;
-    return kyanite.pipe([uglify, kyanite.length, kyanite.identical(kyanite.add(N, C))], phone);
+    return kyanite.pipe([uglify, kyanite.length, kyanite.eq(kyanite.add(N, C))], phone);
   };
   var format = function format(layout, phone) {
     var fullPhone = kyanite.compose(kyanite.split(''), uglify, phone);
@@ -109,12 +88,12 @@
     if (kyanite.or(!isValid(phone), !validFormat(layout, phone))) {
       return phone;
     }
-    return kyanite.reduce(function (acc, d, i) {
+    return fullPhone.reduce(function (acc, d, i) {
       if (kyanite.gt(i, cCount)) {
         return acc.replace(/C/i, d);
       }
       return acc.replace(/N/i, d);
-    }, layout, fullPhone);
+    }, layout);
   };
   var format$1 = kyanite.curry(format);
 

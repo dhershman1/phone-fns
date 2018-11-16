@@ -19,7 +19,8 @@ export default [{
     name: 'phoneFns',
     globals: {
       'kyanite': 'kyanite'
-    }
+    },
+    exports: 'named'
   }
 }, {
   input: './src/index.js',
@@ -37,6 +38,7 @@ export default [{
     name: 'phoneFns',
     globals: {
       'kyanite': 'kyanite'
-    }
+    },
+    exports: 'named'
   }
 }]
