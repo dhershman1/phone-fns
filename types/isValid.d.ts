@@ -1,2 +1,2 @@
-import { isValid } from '../index';
+import { isValid } from './index';
 export default isValid;

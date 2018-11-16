@@ -1,2 +1,2 @@
-import { uglify } from '../index';
+import { uglify } from './index';
 export default uglify;

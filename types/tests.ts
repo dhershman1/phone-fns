@@ -1,4 +1,4 @@
-import * as phoneFns from '../index'
+import * as phoneFns from './index'
 
 const phone: string = "5556667777"
 

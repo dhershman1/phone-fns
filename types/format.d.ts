@@ -1,2 +1,2 @@
-import { format } from '../index';
+import { format } from './index';
 export default format;

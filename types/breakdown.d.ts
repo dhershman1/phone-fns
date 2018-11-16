@@ -1,2 +1,2 @@
-import { breakdown } from '../index';
+import { breakdown } from './index';
 export default breakdown;

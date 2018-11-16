@@ -2,10 +2,10 @@
 // Project: Phone-Fns
 // Definitions by: Dustin Hershman <dustinh17@gmail.com>
 
-/// <reference path="./types/breakdown.d.ts" />
-/// <reference path="./types/format.d.ts" />
-/// <reference path="./types/isValid.d.ts" />
-/// <reference path="./types/uglify.d.ts" />
+/// <reference path="./breakdown.d.ts" />
+/// <reference path="./format.d.ts" />
+/// <reference path="./isValid.d.ts" />
+/// <reference path="./uglify.d.ts" />
 
 declare let phoneFns: phoneFns.Static;
 
