@@ -21,6 +21,7 @@
 - Replaced `uglify-js` with `terser` for performance gains
 - `isValid` optimizations using Kyanite
 - Overall documentation system should be built directly into its own page now
+- Added Typing declarations for TS and vscode IDE support
 
 ## v2.0.1
 
