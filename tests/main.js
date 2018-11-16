@@ -1,4 +1,4 @@
-import { breakdown, format, uglify, isValid } from '../index'
+import { breakdown, format, uglify, isValid } from '../src/index'
 import test from 'tape'
 
 test('Able to run breakdown without providing country code to instance', t => {

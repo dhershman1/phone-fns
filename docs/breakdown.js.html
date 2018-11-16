@@ -69,7 +69,7 @@
  * // => { areaCode: '555', localCode: '444', lineNumber: '1111', extension: '' }
  *
  * breakdown('', '555-444-3333 x 8989');
- * // => { areaCode: '555', localCode: '444', lineNumber: '3333', extension: 8989 }
+ * // => { areaCode: '555', localCode: '444', lineNumber: '3333', extension: '8989' }
  */
 const breakdown = phone => {
   const [, areaCode, localCode, lineNumber, extension = ''] = uglify(phone)

@@ -68,7 +68,11 @@
 <h2 id="how-to">How-To</h2>
 <p><code>npm i phone-fns</code></p>
 <p>Standard module system</p>
-<pre class="prettyprint source lang-js"><code>import phoneFns from 'phone-fns'</code></pre><p>Common JS</p>
+<p><strong>Note:</strong> Since build tools and even nodes <code>--experimental-modules</code> flag view module differently (they look at the <code>main</code> field regardless) than your browser (which will use the <code>module</code> field with imports) there is two ways to look at importing the library:</p>
+<pre class="prettyprint source lang-js"><code>// Within Node or build tools for the app (webpack/rollup/etc)
+import phoneFns from 'phone-fns'
+// Within the Browser using imports
+import * as phoneFns from 'phone-fns'</code></pre><p>Common JS</p>
 <pre class="prettyprint source lang-js"><code>const phoneFns = require('phone-fns')</code></pre><p>CDN</p>
 <pre class="prettyprint source lang-html"><code>&lt;!-- It is recommended to replace the @latest with a strict version number for production -->
 &lt;script src=&quot;https://cdn.jsdelivr.net/npm/phone-fns@latest/dist/phone-fns.min.js&quot;>&lt;/script></code></pre><p>Through the browser</p>
