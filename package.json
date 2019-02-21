@@ -18,6 +18,8 @@
     "lint": "standard src/**/*.js",
     "test": "tape -r esm tests/*.js | tap-spec",
     "test:cov": "nyc npm test",
+    "check-cov": "nyc check-coverage --lines 90 --functions 100 --branches 90",
+    "report": "nyc report --reporter=text-lcov > coverage.lcov",
     "coverage": "nyc report --reporter=text-lcov | coveralls"
   },
   "nyc": {
