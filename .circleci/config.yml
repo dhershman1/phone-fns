@@ -32,7 +32,7 @@ jobs:
       - run:
           name: Generate Report
           command: npm run report
-      send to codecov
+      # send to codecov
       - codecov/upload:
           upload_name: k-tests
           token: $CODECOV_TOKEN
