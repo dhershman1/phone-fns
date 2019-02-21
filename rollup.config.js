@@ -8,7 +8,9 @@ export default [{
   plugins: [
     babel(),
     terser(),
-    filesize()
+    filesize({
+      showMinifiedSize: false
+    })
   ],
   external: [
     'kyanite'
@@ -27,7 +29,9 @@ export default [{
   plugins: [
     babel(),
     cleanup(),
-    filesize()
+    filesize({
+      showMinifiedSize: false
+    })
   ],
   external: [
     'kyanite'
