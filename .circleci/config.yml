@@ -17,30 +17,30 @@ jobs:
       - checkout
 
       - run:
-          name: install-deps
+          name: Npm Intsall
           command: npm ci
 
       # lint
       - run:
-          name: lint
+          name: Lint
           command: npm run lint
       # run tests and report coverage
       - run:
-          name: test
+          name: Test
           command: npm run test:cov
       # generate coverage report
-      # - run:
-      #     name: generate-report
-      #     command: npm run report
-      # send to codecov
-      # - codecov/upload:
-      #     upload_name: k-tests
-      #     token: $CODECOV_TOKEN
-      #     file: coverage.lcov
-      #     flags: unittests
+      - run:
+          name: Generate Report
+          command: npm run report
+      send to codecov
+      - codecov/upload:
+          upload_name: k-tests
+          token: $CODECOV_TOKEN
+          file: coverage.lcov
+          flags: unittests
       # run coverage check
       - run:
-          name: coverage
+          name: Check Coverage
           command: npm run check-cov
 workflows:
   version: 2
