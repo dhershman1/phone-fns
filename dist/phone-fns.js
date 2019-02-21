@@ -1,8 +1,8 @@
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('kyanite')) :
   typeof define === 'function' && define.amd ? define(['exports', 'kyanite'], factory) :
-  (factory((global.phoneFns = {}),global.kyanite));
-}(this, (function (exports,kyanite) { 'use strict';
+  (global = global || self, factory(global.phoneFns = {}, global.kyanite));
+}(this, function (exports, kyanite) { 'use strict';
 
   function _slicedToArray(arr, i) {
     return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _nonIterableRest();
@@ -104,4 +104,4 @@
 
   Object.defineProperty(exports, '__esModule', { value: true });
 
-})));
+}));
