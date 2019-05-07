@@ -60,6 +60,20 @@
     };
   };
 
+  function _curry2(fn) {
+    return function f2(a, b) {
+      if (!arguments.length) {
+        return f2;
+      }
+      if (arguments.length === 1) {
+        return function (_b) {
+          return fn(a, _b);
+        };
+      }
+      return fn(a, b);
+    };
+  }
+
   var isValid = function isValid(phone) {
     var uglyPhone = uglify(phone);
     if (kyanite.or(kyanite.isEmpty(uglyPhone), kyanite.length(uglyPhone)) < 7) {
@@ -75,27 +89,23 @@
     return /^\+?([0-9]{2})\)?[-. ]?([0-9]{4})[-. ]?([0-9]{4})$/.test(areaCode + localCode + lineNumber);
   };
 
-  var validFormat = function validFormat(layout, phone) {
-    var _compose = kyanite.compose(kyanite.countBy(kyanite.toUpper), kyanite.split(''), layout),
-        N = _compose.N,
-        _compose$C = _compose.C,
-        C = _compose$C === void 0 ? 0 : _compose$C;
-    return kyanite.pipe([uglify, kyanite.length, kyanite.eq(kyanite.add(N, C))], phone);
+  var validFormat = function validFormat(layout) {
+    return function (phone) {
+      var _compose = kyanite.compose(kyanite.countBy(kyanite.toUpper), kyanite.split(''), layout),
+          N = _compose.N,
+          _compose$C = _compose.C,
+          C = _compose$C === void 0 ? 0 : _compose$C;
+      return kyanite.pipe([uglify, kyanite.length, kyanite.eq(kyanite.add(N, C))], phone);
+    };
   };
   var format = function format(layout, phone) {
-    var fullPhone = kyanite.compose(kyanite.split(''), uglify, phone);
     var cCount = kyanite.includes('C', layout) ? kyanite.length(layout.match(/C/g)) : 0;
-    if (kyanite.or(!isValid(phone), !validFormat(layout, phone))) {
-      return phone;
-    }
-    return fullPhone.reduce(function (acc, d, i) {
-      if (kyanite.gt(i, cCount)) {
-        return acc.replace(/C/i, d);
-      }
-      return acc.replace(/N/i, d);
-    }, layout);
+    var _reduce = kyanite.addIndex(kyanite.reduce);
+    return kyanite.branch(kyanite.both(kyanite.complement(isValid), kyanite.complement(validFormat(layout))), kyanite.identity, kyanite.pipe([kyanite.split(''), uglify, _reduce(function (d, acc, i) {
+      return kyanite.gt(i, cCount) ? kyanite.replace(/C/i, d, acc) : kyanite.replace(/N/i, d, acc);
+    }, layout)]), phone);
   };
-  var format$1 = kyanite.curry(format);
+  var format$1 = _curry2(format);
 
   exports.breakdown = breakdown;
   exports.format = format$1;
