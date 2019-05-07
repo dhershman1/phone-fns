@@ -1,4 +1,23 @@
-import { add, addIndex, both, branch, complement, compose, countBy, curry, eq, gt, identity, includes, length, pipe, reduce, replace, split, toUpper } from 'kyanite'
+import {
+  add,
+  addIndex,
+  both,
+  branch,
+  complement,
+  compose,
+  countBy,
+  curry,
+  eq,
+  gt,
+  identity,
+  includes,
+  length,
+  pipe,
+  reduce,
+  replace,
+  split,
+  toUpper
+} from 'kyanite'
 
 import isValid from './isValid'
 import uglify from './uglify'

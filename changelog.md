@@ -1,5 +1,16 @@
 # Changelog
 
+## 3.0.1
+
+### Improved
+
+- Improved `format`s performance and broke it down to a more intelligent function
+
+### Fixed
+
+- Typo in `format`s example
+- Remove unused code
+
 ## v3.0.0
 
 ### Breaking Changes
