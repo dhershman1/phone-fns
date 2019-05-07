@@ -4,6 +4,7 @@
 
 ### Improved
 
+- Switched to internal currying
 - Improved `format`s performance and broke it down to a more intelligent function
 
 ### Fixed
