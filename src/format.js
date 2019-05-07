@@ -6,7 +6,6 @@ import {
   complement,
   compose,
   countBy,
-  curry,
   eq,
   gt,
   identity,
@@ -18,7 +17,7 @@ import {
   split,
   toUpper
 } from 'kyanite'
-
+import _curry2 from './_internals/_curry2'
 import isValid from './isValid'
 import uglify from './uglify'
 
@@ -83,4 +82,4 @@ const format = (layout, phone) => {
   )
 }
 
-export default curry(format)
+export default _curry2(format)
