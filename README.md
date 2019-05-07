@@ -11,7 +11,9 @@ A small modern, and functional phone number library which gathers inspiration fr
 
 ## How-To
 
-`npm i phone-fns`
+```cli
+npm i phone-fns
+```
 
 Standard module system
 
