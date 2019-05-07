@@ -1,4 +1,4 @@
-import { add, both, compose, complement, curry, gt, eq, includes, length, pipe, countBy, split, toUpper } from 'kyanite'
+import { add, addIndex, both, branch, complement, compose, countBy, curry, eq, gt, identity, includes, length, pipe, reduce, replace, split, toUpper } from 'kyanite'
 
 import isValid from './isValid'
 import uglify from './uglify'
@@ -46,20 +46,22 @@ const validFormat = layout => phone => {
  * fn('(333) 444-5555') // => '333.444.5555'
  */
 const format = (layout, phone) => {
-  const fullPhone = compose(split(''), uglify, phone)
   const cCount = includes('C', layout) ? length(layout.match(/C/g)) : 0
+  const _reduce = addIndex(reduce)
 
-  if (both(complement(isValid), complement(validFormat(layout)), phone)) {
-    return phone
-  }
-
-  return fullPhone.reduce((acc, d, i) => {
-    if (gt(i, cCount)) {
-      return acc.replace(/C/i, d)
-    }
-
-    return acc.replace(/N/i, d)
-  }, layout)
+  return branch(
+    both(
+      complement(isValid),
+      complement(validFormat(layout))
+    ),
+    identity,
+    pipe([
+      split(''),
+      uglify,
+      _reduce((d, acc, i) => gt(i, cCount) ? replace(/C/i, d, acc) : replace(/N/i, d, acc), layout)
+    ]),
+    phone
+  )
 }
 
 export default curry(format)

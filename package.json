@@ -1,6 +1,6 @@
 {
   "name": "phone-fns",
-  "version": "3.0.0",
+  "version": "3.0.1",
   "description": "A small, modern, and functional phone library for javascript",
   "main": "dist/phone-fns.min.js",
   "module": "src/index.js",
@@ -59,15 +59,15 @@
   "license": "MIT",
   "private": false,
   "devDependencies": {
-    "@babel/core": "7.3.3",
-    "@babel/preset-env": "7.3.1",
+    "@babel/core": "7.4.4",
+    "@babel/preset-env": "7.4.4",
     "@killparadise/docdash": "github:dhershman1/docdash",
-    "esm": "3.2.5",
-    "globby": "9.0.0",
-    "jsdoc": "3.5.5",
+    "esm": "3.2.22",
+    "globby": "9.2.0",
+    "jsdoc": "3.6.1",
     "jsdoc-to-markdown": "4.0.1",
-    "nyc": "13.3.0",
-    "rollup": "1.2.2",
+    "nyc": "14.1.0",
+    "rollup": "1.11.3",
     "rollup-plugin-babel": "4.3.2",
     "rollup-plugin-cleanup": "3.1.1",
     "rollup-plugin-filesize": "6.0.1",
@@ -77,6 +77,6 @@
     "tape": "4.10.1"
   },
   "dependencies": {
-    "kyanite": "0.11.3"
+    "kyanite": "0.12.2"
   }
 }
