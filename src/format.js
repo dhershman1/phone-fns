@@ -1,4 +1,4 @@
-import { add, compose, curry, gt, eq, includes, length, or, pipe, countBy, split, toUpper } from 'kyanite'
+import { add, both, compose, complement, curry, gt, eq, includes, length, pipe, countBy, split, toUpper } from 'kyanite'
 
 import isValid from './isValid'
 import uglify from './uglify'
@@ -9,7 +9,7 @@ import uglify from './uglify'
  * @param {String} layout The desired layout format
  * @param {String} phone The phone number to validate against
  */
-const validFormat = (layout, phone) => {
+const validFormat = layout => phone => {
   const { N, C = 0 } = compose(countBy(toUpper), split(''), layout)
 
   return pipe([
@@ -31,7 +31,7 @@ const validFormat = (layout, phone) => {
  * @return {String} Returns a string which is the formatted phone number
  *
  * @example
- * format((NNN) NNN.NNNN', '444-555-6666') // => '(444) 555.6666'
+ * format('(NNN) NNN.NNNN', '444-555-6666') // => '(444) 555.6666'
  * format('C + (NNN) NNN.NNNN', '1444-555-6666') // => '1 + (444) 555.6666'
  * format('CC + NNN.NNN.NNNN', '163334445555') // => '16 + 333.444.5555'
  * format('(NNN) NNN.NNNN x NNNN', '44455566668989') // => '(444) 555.6666 x 8989'
@@ -49,7 +49,7 @@ const format = (layout, phone) => {
   const fullPhone = compose(split(''), uglify, phone)
   const cCount = includes('C', layout) ? length(layout.match(/C/g)) : 0
 
-  if (or(!isValid(phone), !validFormat(layout, phone))) {
+  if (both(complement(isValid), complement(validFormat(layout)), phone)) {
     return phone
   }
 
