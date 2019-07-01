@@ -80,4 +80,4 @@ format('NNN-NNN-NNNN x NNNN', '5554443333____') // => '555-444-3333 x ____'
 
 This will only work with underscores or other characters not picked up by the Regex `\W` type.
 
-Just call format as the phone number updates in order to get back the newly updated string
+Just call format as the phone number updates in order to get back the newly updated string. Useful for using it with a input mask setup
