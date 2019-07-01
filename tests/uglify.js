@@ -13,3 +13,9 @@ test('Handles when numbers are thrown at it', t => {
   t.same(uglify(5556667777), '5556667777')
   t.end()
 })
+
+// test('Uglify placeholders', t => {
+//   console.log(uglify('__________'))
+//   t.same(uglify('__________'), '')
+//   t.end()
+// })
