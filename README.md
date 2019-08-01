@@ -63,3 +63,21 @@ breakdown('4443332222')
 format('(NNN) NNN-NNNN', '4443332222')
 // => '(444) 333-2222'
 ```
+
+## Placeholder Support
+
+Phone-Fns as of v3.2.0 now supports placeholder syntax using Underscores `_`
+
+```js
+const fn = format('NNN-NNN-NNNN')
+
+fn('__________') // => '___-___-____'
+fn('444_______') // => '444-___-____'
+fn('444555____') // => '444-555-____'
+fn('4445556666') // => '444-555-6666'
+format('NNN-NNN-NNNN x NNNN', '5554443333____') // => '555-444-3333 x ____'
+```
+
+This will only work with underscores or other characters not picked up by the Regex `\W` type.
+
+Just call format as the phone number updates in order to get back the newly updated string. Useful for using it with a input mask setup

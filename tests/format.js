@@ -77,3 +77,14 @@ test('Catches letters when passed in', t => {
   t.same(format('NNN.NNNN', '1234abc'), '1234abc')
   t.end()
 })
+
+test('Supports Placeholder characters', t => {
+  const fn = format('NNN-NNN-NNNN')
+
+  t.same(fn('__________'), '___-___-____')
+  t.same(fn('444_______'), '444-___-____')
+  t.same(fn('444555____'), '444-555-____')
+  t.same(fn('4445556666'), '444-555-6666')
+  t.same(format('NNN-NNN-NNNN x NNNN', '5554443333____'), '555-444-3333 x ____')
+  t.end()
+})

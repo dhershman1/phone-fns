@@ -17,12 +17,16 @@ import uglify from './uglify'
  * breakdown('5554441111');
  * // => { areaCode: '555', localCode: '444', lineNumber: '1111', extension: '' }
  *
- * breakdown('', '555-444-3333 x 8989');
+ * breakdown('555-444-3333 x 8989');
  * // => { areaCode: '555', localCode: '444', lineNumber: '3333', extension: '8989' }
+ *
+ * // Works with placeholder syntax
+ * breakdown('555-___-____')
+ * // => { areaCode: '555', localCode: '___', lineNumber: '____', extension: '' }
  */
 const breakdown = phone => {
   const [, areaCode, localCode, lineNumber, extension = ''] = uglify(phone)
-    .match(/([0-9]{3})?([0-9]{3})([0-9]{4})([0-9]{1,})?/)
+    .match(/([_0-9]{3})?([_0-9]{3})([_0-9]{4})([_0-9]{1,})?/)
 
   return {
     areaCode,

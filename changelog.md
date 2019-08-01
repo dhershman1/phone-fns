@@ -1,6 +1,12 @@
 # Changelog
 
-## 3.1.0
+## v3.2.0
+
+### New
+
+- Added new Placeholder support
+
+## v3.1.0
 
 ### Improved
 

@@ -45,7 +45,7 @@
   var uglify = kyanite.compose(kyanite.replace(/[a-z]\w?|\W/gi, ''), String);
 
   var breakdown = function breakdown(phone) {
-    var _uglify$match = uglify(phone).match(/([0-9]{3})?([0-9]{3})([0-9]{4})([0-9]{1,})?/),
+    var _uglify$match = uglify(phone).match(/([_0-9]{3})?([_0-9]{3})([_0-9]{4})([_0-9]{1,})?/),
         _uglify$match2 = _slicedToArray(_uglify$match, 5),
         areaCode = _uglify$match2[1],
         localCode = _uglify$match2[2],
