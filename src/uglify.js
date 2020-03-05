@@ -11,7 +11,8 @@ import { replace, compose } from 'kyanite'
  * @return {String} Returns the newly created phone number string
  *
  * @example
- * const results = uglify('555-444-3333'); // => '5554443333'
+ * uglify('555-444-3333') // => '5554443333'
+ * uglify('5554443333') // => '5554443333'
  */
 const uglify = compose(replace(/[a-z]\w?|\W/gi, ''), String)
 
