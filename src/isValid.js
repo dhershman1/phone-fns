@@ -1,7 +1,35 @@
-import { compose, eq, isEmpty, length, or } from 'kyanite'
+import { compose, when, F, reduced, eq, isEmpty, length, lt, pipe, test } from 'kyanite'
 
 import breakdown from './breakdown'
 import uglify from './uglify'
+
+/**
+ * @private
+ * @function
+ * @param {String} phone The ugly formatted phone number to test
+ * @return {Boolean} Whether or not the phone passed validation
+ */
+function shortNumberTest (phone) {
+  return () => {
+    const { localCode, lineNumber } = breakdown(phone)
+
+    return test(/^([0-9]{3})[-. ]?([0-9]{4})$/, localCode + lineNumber)
+  }
+}
+
+/**
+ * @private
+ * @function
+ * @param {String} phone The ugly formatted phone number to test
+ * @return {Boolean} Whether or not the phone passed validation
+ */
+function longNumberTest (phone) {
+  return () => {
+    const { areaCode, localCode, lineNumber } = breakdown(phone)
+
+    return test(/^\+?([0-9]{2})\)?[-. ]?([0-9]{4})[-. ]?([0-9]{4})$/, areaCode + localCode + lineNumber)
+  }
+}
 
 /**
  * @name isValid
@@ -14,24 +42,20 @@ import uglify from './uglify'
  * @param {String} phone The phone number to breakdown
  * @return {Boolean} Returns a boolean if the number provided is valid or not
  * @example
- * isValid('555-444-3333'); // => true
+ * isValid('555-444-3333') // => true
+ * isValid('5555') // => false
  */
 const isValid = phone => {
   const uglyPhone = uglify(phone)
+  const done = compose(reduced)
 
-  if (or(isEmpty(uglyPhone), length(uglyPhone)) < 7) {
-    return false
-  }
-
-  const { areaCode, localCode, lineNumber } = breakdown(uglyPhone)
-
-  if (compose(eq(7), length, uglyPhone)) {
-    return (/^([0-9]{3})[-. ]?([0-9]{4})$/)
-      .test(localCode + lineNumber)
-  }
-
-  return (/^\+?([0-9]{2})\)?[-. ]?([0-9]{4})[-. ]?([0-9]{4})$/)
-    .test(areaCode + localCode + lineNumber)
+  return pipe([
+    when(isEmpty, done(F)),
+    length,
+    when(lt(7), done(F)),
+    when(eq(7), shortNumberTest(uglyPhone)),
+    longNumberTest(uglyPhone)
+  ], uglyPhone)
 }
 
 export default isValid

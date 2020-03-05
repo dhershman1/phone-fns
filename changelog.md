@@ -1,5 +1,14 @@
 # Changelog
 
+## v3.2.1
+
+### Improved
+
+- Dependency updates
+- Unit tests
+- Optimization of some code pieces
+- Some documentation
+
 ## v3.2.0
 
 ### New
