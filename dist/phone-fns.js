@@ -78,19 +78,27 @@
     };
   }
 
+  function shortNumberTest(phone) {
+    return function () {
+      var _breakdown = breakdown(phone),
+          localCode = _breakdown.localCode,
+          lineNumber = _breakdown.lineNumber;
+      return kyanite.test(/^([0-9]{3})[-. ]?([0-9]{4})$/, localCode + lineNumber);
+    };
+  }
+  function longNumberTest(phone) {
+    return function () {
+      var _breakdown2 = breakdown(phone),
+          areaCode = _breakdown2.areaCode,
+          localCode = _breakdown2.localCode,
+          lineNumber = _breakdown2.lineNumber;
+      return kyanite.test(/^\+?([0-9]{2})\)?[-. ]?([0-9]{4})[-. ]?([0-9]{4})$/, areaCode + localCode + lineNumber);
+    };
+  }
   var isValid = function isValid(phone) {
     var uglyPhone = uglify(phone);
-    if (kyanite.or(kyanite.isEmpty(uglyPhone), kyanite.length(uglyPhone)) < 7) {
-      return false;
-    }
-    var _breakdown = breakdown(uglyPhone),
-        areaCode = _breakdown.areaCode,
-        localCode = _breakdown.localCode,
-        lineNumber = _breakdown.lineNumber;
-    if (kyanite.compose(kyanite.eq(7), kyanite.length, uglyPhone)) {
-      return /^([0-9]{3})[-. ]?([0-9]{4})$/.test(localCode + lineNumber);
-    }
-    return /^\+?([0-9]{2})\)?[-. ]?([0-9]{4})[-. ]?([0-9]{4})$/.test(areaCode + localCode + lineNumber);
+    var done = kyanite.compose(kyanite.reduced);
+    return kyanite.pipe([kyanite.when(kyanite.isEmpty, done(kyanite.F)), kyanite.length, kyanite.when(kyanite.lt(7), done(kyanite.F)), kyanite.when(kyanite.eq(7), shortNumberTest(uglyPhone)), longNumberTest(uglyPhone)], uglyPhone);
   };
 
   var validFormat = function validFormat(layout) {
