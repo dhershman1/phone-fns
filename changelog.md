@@ -1,5 +1,11 @@
 # Changelog
 
+## v3.2.1
+
+### Improved
+
+- Dependency updates
+
 ## v3.2.0
 
 ### New

@@ -2,7 +2,7 @@
   typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('kyanite')) :
   typeof define === 'function' && define.amd ? define(['exports', 'kyanite'], factory) :
   (global = global || self, factory(global.phoneFns = {}, global.kyanite));
-}(this, function (exports, kyanite) { 'use strict';
+}(this, (function (exports, kyanite) { 'use strict';
 
   function _slicedToArray(arr, i) {
     return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _nonIterableRest();
@@ -13,6 +13,10 @@
   }
 
   function _iterableToArrayLimit(arr, i) {
+    if (!(Symbol.iterator in Object(arr) || Object.prototype.toString.call(arr) === "[object Arguments]")) {
+      return;
+    }
+
     var _arr = [];
     var _n = true;
     var _d = false;
@@ -114,4 +118,4 @@
 
   Object.defineProperty(exports, '__esModule', { value: true });
 
-}));
+})));
