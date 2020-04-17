@@ -1,5 +1,9 @@
 # Changelog
 
+## v3.2.2
+
+- Dev dependency fixes
+
 ## v3.2.1
 
 ### Improved
