@@ -27,13 +27,6 @@ Common JS
 const phoneFns = require('phone-fns')
 ```
 
-CDN
-
-```html
-<!-- It is recommended to replace the @latest with a strict version number for production -->
-<script src="https://cdn.jsdelivr.net/npm/phone-fns@latest/dist/phone-fns.min.js"></script>
-```
-
 Through the browser
 
 ```html
