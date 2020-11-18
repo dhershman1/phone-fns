@@ -1,5 +1,4 @@
 [![npm](https://img.shields.io/npm/v/phone-fns.svg?style=flat-square)](https://www.npmjs.com/package/phone-fns)
-[![David](https://img.shields.io/david/dhershman1/phone-fns.svg?style=flat-square)](https://david-dm.org/dhershman1/phone-fns)
 [![CircleCI](https://circleci.com/gh/dhershman1/phone-fns.svg?style=svg)](https://circleci.com/gh/dhershman1/phone-fns)
 [![codecov](https://codecov.io/gh/dhershman1/phone-fns/branch/master/graph/badge.svg)](https://codecov.io/gh/dhershman1/phone-fns)
 
