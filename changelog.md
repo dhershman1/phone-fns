@@ -1,5 +1,19 @@
 # Changelog
 
+## v3.2.3
+
+### New
+
+- Switched over to [pinet](https://github.com/dhershman1/pinet) jsdoc templating
+- Changed documentation hosting
+
+### Improved
+
+- All dependencies have been updated
+- Removed docs folder
+- Removed david-dm badge since it doesn't seem to be coming back
+- Documentation workflow now handled by circleci
+
 ## v3.2.2
 
 - Dev dependency fixes
