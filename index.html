@@ -1,0 +1,51 @@
+<!DOCTYPE html><html lang="en"><head><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta charset="UTF-8"><title>Phone-Fns - Documentation</title><link href="static/css/main.css" rel="stylesheet"><link href="static/css/hl.css" rel="stylesheet"></head><body id="root"><div class="grid"><input type="checkbox" id="nav-trigger" class="nav-trigger"><label for="nav-trigger" class="navicon-button x"><div class="navicon"></div></label><label for="nav-trigger" class="overlay"></label><aside class="side-nav"><div class="pagenav"><p class="pagenav__title"><strong>Phone-fns</strong><span class="pagenav__version"> v3.2.3</span></p><p class="pagenav__links"><a class="pagenav__link" href="index.html">Home</a><a class="pagenav__link" href="documentation.html">Documentation</a><a class="pagenav__link" href="changelog.html">Changelog</a><a class="pagenav__link" href="https://github.com/dhershman1/phone-fns">Github</a></p></div><input class="filter" type="text" id="filter" placeholder="Search Category or Function name"></input><ul class="nav"><li class="nav__item" data-cat="Function"><a class="nav__link" href="documentation.html#breakdown"><span class="nav__name">breakdown</span><span class="nav__type tag">Function</span></a></li><li class="nav__item" data-cat="Function"><a class="nav__link" href="documentation.html#format"><span class="nav__name">format</span><span class="nav__type tag">Function</span></a></li><li class="nav__item" data-cat="Function"><a class="nav__link" href="documentation.html#isValid"><span class="nav__name">isValid</span><span class="nav__type tag">Function</span></a></li><li class="nav__item" data-cat="Function"><a class="nav__link" href="documentation.html#uglify"><span class="nav__name">uglify</span><span class="nav__type tag">Function</span></a></li></ul></aside><main><div class="wrapper"><p><a href="https://www.npmjs.com/package/phone-fns"><img src="https://img.shields.io/npm/v/phone-fns.svg?style=flat-square" alt="npm"></a><br>
+<a href="https://david-dm.org/dhershman1/phone-fns"><img src="https://img.shields.io/david/dhershman1/phone-fns.svg?style=flat-square" alt="David"></a><br>
+<a href="https://circleci.com/gh/dhershman1/phone-fns"><img src="https://circleci.com/gh/dhershman1/phone-fns.svg?style=svg" alt="CircleCI"></a><br>
+<a href="https://codecov.io/gh/dhershman1/phone-fns"><img src="https://codecov.io/gh/dhershman1/phone-fns/branch/master/graph/badge.svg" alt="codecov"></a></p>
+<h1 id="phone-fns">Phone Fns</h1>
+<p>A small modern, and functional phone number library which gathers inspiration from the fun <a href="https://github.com/date-fns/date-fns">date-fns</a> library</p>
+<ul>
+<li><a href="https://phone-fns.dusty.codes/">Documentation</a></li>
+</ul>
+<h2 id="how-to">How-To</h2>
+<pre class="prettyprint source lang-cli"><code>npm i phone-fns
+</code></pre>
+<p>Standard module system</p>
+<pre class="prettyprint source lang-js"><code>import phoneFns from 'phone-fns'
+</code></pre>
+<p>Common JS</p>
+<pre class="prettyprint source lang-js"><code>const phoneFns = require('phone-fns')
+</code></pre>
+<p>Through the browser</p>
+<pre class="prettyprint source lang-html"><code>&lt;script src=&quot;path/to/location/dist/phone-fns.min.js&quot;>&lt;/script>
+</code></pre>
+<h2 id="usage">Usage</h2>
+<pre class="prettyprint source lang-javascript"><code>import phoneFns from 'phone-fns'
+
+phoneFns.breakdown('4443332222')
+// => { areaCode: '444', localCode: '333', lineNumber: '2222', extension: '' }
+
+phoneFns.format('(NNN) NNN-NNNN', '4443332222')
+// => '(444) 333-2222'
+</code></pre>
+<p>You can also destructure to only use the functions you want</p>
+<pre class="prettyprint source lang-javascript"><code>import { breakdown, format } from 'phone-fns'
+
+breakdown('4443332222')
+// => { areaCode: '444', localCode: '333', lineNumber: '2222', extension: '' }
+
+format('(NNN) NNN-NNNN', '4443332222')
+// => '(444) 333-2222'
+</code></pre>
+<h2 id="placeholder-support">Placeholder Support</h2>
+<p>Phone-Fns as of v3.2.0 now supports placeholder syntax using Underscores <code>_</code></p>
+<pre class="prettyprint source lang-js"><code>const fn = format('NNN-NNN-NNNN')
+
+fn('__________') // => '___-___-____'
+fn('444_______') // => '444-___-____'
+fn('444555____') // => '444-555-____'
+fn('4445556666') // => '444-555-6666'
+format('NNN-NNN-NNNN x NNNN', '5554443333____') // => '555-444-3333 x ____'
+</code></pre>
+<p>This will only work with underscores or other characters not picked up by the Regex <code>\W</code> type.</p>
+<p>Just call format as the phone number updates in order to get back the newly updated string. Useful for using it with a input mask setup</p></div></main><footer>Powered by <a href="https://github.com/dhershman1/pinet">Pinet</a></footer><script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/highlight.min.js"></script><script src="static/js/search.js"></script></div></body></html>

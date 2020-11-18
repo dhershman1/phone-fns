@@ -1,0 +1,62 @@
+<!DOCTYPE html><html lang="en"><head><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta charset="UTF-8"><title>Phone-Fns - Documentation</title><link href="static/css/main.css" rel="stylesheet"><link href="static/css/hl.css" rel="stylesheet"></head><body id="root"><div class="grid"><input type="checkbox" id="nav-trigger" class="nav-trigger"><label for="nav-trigger" class="navicon-button x"><div class="navicon"></div></label><label for="nav-trigger" class="overlay"></label><aside class="side-nav"><div class="pagenav"><p class="pagenav__title"><strong>Phone-fns</strong><span class="pagenav__version"> v3.2.3</span></p><p class="pagenav__links"><a class="pagenav__link" href="index.html">Home</a><a class="pagenav__link" href="documentation.html">Documentation</a><a class="pagenav__link" href="changelog.html">Changelog</a><a class="pagenav__link" href="https://github.com/dhershman1/phone-fns">Github</a></p></div><input class="filter" type="text" id="filter" placeholder="Search Category or Function name"></input><ul class="nav"><li class="nav__item" data-cat="Function"><a class="nav__link" href="documentation.html#breakdown"><span class="nav__name">breakdown</span><span class="nav__type tag">Function</span></a></li><li class="nav__item" data-cat="Function"><a class="nav__link" href="documentation.html#format"><span class="nav__name">format</span><span class="nav__type tag">Function</span></a></li><li class="nav__item" data-cat="Function"><a class="nav__link" href="documentation.html#isValid"><span class="nav__name">isValid</span><span class="nav__type tag">Function</span></a></li><li class="nav__item" data-cat="Function"><a class="nav__link" href="documentation.html#uglify"><span class="nav__name">uglify</span><span class="nav__type tag">Function</span></a></li></ul></aside><main><div class="source__wrapper"><h2 class="source__header">isValid</h2><pre class="source__code"><code class="hljs javascript">import { compose, when, F, reduced, eq, isEmpty, length, lt, pipe, test } from <span class="hljs-string">&#x27;</span>kyanite<span class="hljs-string">&#x27;</span>
+
+import breakdown from <span class="hljs-string">&#x27;</span>./breakdown<span class="hljs-string">&#x27;</span>
+import uglify from <span class="hljs-string">&#x27;</span>./uglify<span class="hljs-string">&#x27;</span>
+
+/**
+ * @private
+ * @function
+ * @param {String} phone The ugly formatted phone number to test
+ * @return {Boolean} Whether or not the phone passed validation
+ */
+function shortNumberTest (phone) {
+  return () =&gt; {
+    const { localCode, lineNumber } = breakdown(phone)
+
+    return test(/^([<span class="hljs-number">0</span>-<span class="hljs-number">9</span>]{<span class="hljs-number">3</span>})[-. ]?([<span class="hljs-number">0</span>-<span class="hljs-number">9</span>]{<span class="hljs-number">4</span>})$/, localCode + lineNumber)
+  }
+}
+
+/**
+ * @private
+ * @function
+ * @param {String} phone The ugly formatted phone number to test
+ * @return {Boolean} Whether or not the phone passed validation
+ */
+function longNumberTest (phone) {
+  return () =&gt; {
+    const { areaCode, localCode, lineNumber } = breakdown(phone)
+
+    return test(/^\+?([<span class="hljs-number">0</span>-<span class="hljs-number">9</span>]{<span class="hljs-number">2</span>})\)?[-. ]?([<span class="hljs-number">0</span>-<span class="hljs-number">9</span>]{<span class="hljs-number">4</span>})[-. ]?([<span class="hljs-number">0</span>-<span class="hljs-number">9</span>]{<span class="hljs-number">4</span>})$/, areaCode + localCode + lineNumber)
+  }
+}
+
+/**
+ * @name isValid
+ * @since v<span class="hljs-number">0</span>.<span class="hljs-number">1</span>.<span class="hljs-number">0</span>
+ * @function
+ * @category Function
+ * @sig String -&gt; Boolean
+ * @description
+ * Validates the base number, does not take the country code or extension into consideration for this validation
+ * @param {String} phone The phone number to breakdown
+ * @return {Boolean} Returns a boolean if the number provided is valid or not
+ * @example
+ * isValid(<span class="hljs-string">&#x27;</span><span class="hljs-number">5</span><span class="hljs-number">5</span><span class="hljs-number">5</span>-<span class="hljs-number">4</span><span class="hljs-number">4</span><span class="hljs-number">4</span>-<span class="hljs-number">3</span><span class="hljs-number">3</span><span class="hljs-number">3</span><span class="hljs-number">3</span><span class="hljs-string">&#x27;</span>) // =&gt; true
+ * isValid(<span class="hljs-string">&#x27;</span><span class="hljs-number">5</span><span class="hljs-number">5</span><span class="hljs-number">5</span><span class="hljs-number">5</span><span class="hljs-string">&#x27;</span>) // =&gt; false
+ */
+const isValid = phone =&gt; {
+  const uglyPhone = uglify(phone)
+  const done = compose(reduced)
+
+  return pipe([
+    when(isEmpty, done(F)),
+    length,
+    when(lt(<span class="hljs-number">7</span>), done(F)),
+    when(eq(<span class="hljs-number">7</span>), shortNumberTest(uglyPhone)),
+    longNumberTest(uglyPhone)
+  ], uglyPhone)
+}
+
+export default isValid
+</code></pre></div></main><footer>Powered by <a href="https://github.com/dhershman1/pinet">Pinet</a></footer><script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/highlight.min.js"></script><script src="static/js/search.js"></script></div></body></html>

@@ -1,0 +1,204 @@
+<!DOCTYPE html><html lang="en"><head><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta charset="UTF-8"><title>Phone-Fns - Documentation</title><link href="static/css/main.css" rel="stylesheet"><link href="static/css/hl.css" rel="stylesheet"></head><body id="root"><div class="grid"><input type="checkbox" id="nav-trigger" class="nav-trigger"><label for="nav-trigger" class="navicon-button x"><div class="navicon"></div></label><label for="nav-trigger" class="overlay"></label><aside class="side-nav"><div class="pagenav"><p class="pagenav__title"><strong>Phone-fns</strong><span class="pagenav__version"> v3.2.3</span></p><p class="pagenav__links"><a class="pagenav__link" href="index.html">Home</a><a class="pagenav__link" href="documentation.html">Documentation</a><a class="pagenav__link" href="changelog.html">Changelog</a><a class="pagenav__link" href="https://github.com/dhershman1/phone-fns">Github</a></p></div><input class="filter" type="text" id="filter" placeholder="Search Category or Function name"></input><ul class="nav"><li class="nav__item" data-cat="Function"><a class="nav__link" href="documentation.html#breakdown"><span class="nav__name">breakdown</span><span class="nav__type tag">Function</span></a></li><li class="nav__item" data-cat="Function"><a class="nav__link" href="documentation.html#format"><span class="nav__name">format</span><span class="nav__type tag">Function</span></a></li><li class="nav__item" data-cat="Function"><a class="nav__link" href="documentation.html#isValid"><span class="nav__name">isValid</span><span class="nav__type tag">Function</span></a></li><li class="nav__item" data-cat="Function"><a class="nav__link" href="documentation.html#uglify"><span class="nav__name">uglify</span><span class="nav__type tag">Function</span></a></li></ul></aside><main><div class="wrapper"><h1 id="changelog">Changelog</h1>
+<h2 id="v322">v3.2.2</h2>
+<ul>
+<li>Dev dependency fixes</li>
+</ul>
+<h2 id="v321">v3.2.1</h2>
+<h3 id="improved">Improved</h3>
+<ul>
+<li>Dependency updates</li>
+<li>Unit tests</li>
+<li>Optimization of some code pieces</li>
+<li>Some documentation</li>
+</ul>
+<h2 id="v320">v3.2.0</h2>
+<h3 id="new">New</h3>
+<ul>
+<li>Added new Placeholder support</li>
+</ul>
+<h2 id="v310">v3.1.0</h2>
+<h3 id="improved-1">Improved</h3>
+<ul>
+<li>Switched to internal currying</li>
+<li>Improved <code>format</code>s performance and broke it down to a more intelligent function</li>
+</ul>
+<h3 id="fixed">Fixed</h3>
+<ul>
+<li>Typo in <code>format</code>s example</li>
+<li>Remove unused code</li>
+</ul>
+<h2 id="v300">v3.0.0</h2>
+<h3 id="breaking-changes">Breaking Changes</h3>
+<ul>
+<li>Removed <code>find</code> function since it was rather pointless</li>
+<li>Removed <code>match</code> function since it was rather pointless</li>
+<li>The main import is no longer a function but an object of functions</li>
+<li>Re wrote how format works so it&#39;s easier to use and more light weight<ul>
+<li>Specify country code in the layout with C. Example: <code>C + (NNN) NNN-NNNN</code></li>
+<li>Usage example: <code>format(&#39;C + (NNN) NNN-NNNN&#39;, 14445556666) // =&gt; &#39;1 + (444) 555-6666&#39;</code></li>
+</ul>
+</li>
+<li><code>breakdown</code> no longer handles or accepts country codes<ul>
+<li>Technically the only function that cares about Country Codes is the <code>format</code> function this is to make functions easier to use</li>
+</ul>
+</li>
+<li>Scrapped modular functions<ul>
+<li>There is no need for this anymore, since Rollup &amp; webpack v2+ treeshaking support curried functions, destructing works much better now</li>
+</ul>
+</li>
+</ul>
+<h3 id="new-1">New</h3>
+<ul>
+<li>Documentation was moved onto a more sustainable location for quicker and more up to date docs, should be hosted via github pages now too</li>
+</ul>
+<h3 id="improved-2">Improved</h3>
+<ul>
+<li>Using Kyanite to improve how format functions and better currying from the library</li>
+<li>Replaced <code>uglify-js</code> with <code>terser</code> for performance gains</li>
+<li><code>isValid</code> optimizations using Kyanite</li>
+<li>Overall documentation system should be built directly into its own page now</li>
+<li>Added Typing declarations for TS and vscode IDE support</li>
+</ul>
+<h2 id="v201">v2.0.1</h2>
+<h3 id="improved-3">Improved</h3>
+<ul>
+<li>A new script system in place for generating library documentation to make it easier for the main site to pull in the latest documentation</li>
+</ul>
+<h2 id="v200">v2.0.0</h2>
+<h3 id="breaking-changes-1">BREAKING CHANGES</h3>
+<ul>
+<li>The API usage for <code>format</code> is now different, you only need to use the letter <code>N</code> in your layout now in the order you want the numbers to fill in<ul>
+<li>The letter <code>N</code> is case insensitive</li>
+<li>Example: an old layout may have looked like: <code>(AAA) LLL-NNNN</code> now it is: <code>(NNN) NNN-NNNN</code> or  <code>(nnn) nnn-nnNN</code> if you wanted to get creative</li>
+</ul>
+</li>
+</ul>
+<h3 id="new-2">New</h3>
+<ul>
+<li><code>find</code> has been deprecated and may be removed in later versions, please transition to <code>breakdown</code></li>
+<li>Added a 2nd validation level to <code>format</code> it will now validate the phone number has enough digits to fill out the layout properly</li>
+<li>You can now pass country code as a number or string</li>
+</ul>
+<h3 id="fixed-1">Fixed</h3>
+<ul>
+<li>JSdocs for format were backwards</li>
+<li>Able to properly handle numbers without an area code now</li>
+</ul>
+<h2 id="v101">v1.0.1</h2>
+<h3 id="new-3">New</h3>
+<ul>
+<li>Rebuilt the architecture of the main source (has no effect on usage)</li>
+<li>Added in CDN info to documentation</li>
+<li>Building using Rollup now instead of webpack decreasing the overall file size of our main file to 1.86kb (vs 3.83kb with webpack) and 970B gzipped<ul>
+<li>This also benefits each individual functions build so they&#39;re also much smaller</li>
+</ul>
+</li>
+<li>Converting testing to latest babel versions</li>
+<li>Convert linter from <code>eslint</code> to <code>standardjs</code></li>
+<li>Created an uncompressed build along with the compressed one which you can use in dev for easier debugging</li>
+</ul>
+<h3 id="fixed-2">Fixed</h3>
+<ul>
+<li>For some reason I didn&#39;t realize the package.json main was looking at a index.js file</li>
+<li>Re built automated documentation script so it performs faster</li>
+</ul>
+<h2 id="v100">v1.0.0</h2>
+<p>v1.0.0 is almost a total re write of how the library functions from v0.3.3 it is advised you migrate with caution</p>
+<h3 id="breaking-changes-2">BREAKING CHANGES</h3>
+<ul>
+<li>Removed <code>findLocal</code> function</li>
+<li>Removed <code>getCode</code> function</li>
+<li>Removed <code>getCountries</code> function</li>
+<li>Removed <code>getCountryCode</code> function</li>
+<li>Removed <code>callingCodes</code></li>
+<li>Changed <code>identical</code> to <code>match</code></li>
+<li>Re org of entire library<ul>
+<li>You can now create instances of the library with different country codes or none</li>
+<li>This applies the country code to each method that needs it meaning you don&#39;t need to send it as a param</li>
+</ul>
+</li>
+<li>Changed the parameter of most of the functions</li>
+<li>If using the individual functions you will have to provide a country code to those that need it</li>
+<li><code>find</code> parameters have been rotated</li>
+</ul>
+<h3 id="new-4">New</h3>
+<ul>
+<li>Added the ability to call <code>phoneFns</code> as a function and provide a country code to create an instance around that country code, or not for only base phone number functionality</li>
+<li>The <code>format</code> function is now curried</li>
+<li>The <code>find</code> function is curried as well</li>
+</ul>
+<h3 id="improved-4">Improved</h3>
+<ul>
+<li>The <code>breakdown</code> function to be a little more lightweight</li>
+<li>The <code>format</code> function to be a bit more lightweight and functional</li>
+<li>The <code>isValid</code> function to do decently better phone number validation</li>
+</ul>
+<h2 id="v033">v0.3.3</h2>
+<ul>
+<li>Fix for automating docs file</li>
+<li>Build files should appear again</li>
+</ul>
+<h2 id="v032">v0.3.2</h2>
+<ul>
+<li>Better(working) fix for webpack builds issue</li>
+<li>Better Main JS generator</li>
+</ul>
+<h2 id="v031">v0.3.1</h2>
+<ul>
+<li>Fix for Webpack build issues when importing base module</li>
+<li>README typo fixes</li>
+</ul>
+<h2 id="v030">v0.3.0</h2>
+<blockquote>
+<ul>
+<li>Consistancy Tweaks in some files</li>
+<li>Changed <code>getCode</code> to <code>getCountryCode</code><ul>
+<li>Notice that this now means <code>getCode</code> is depricated</li>
+<li>This is not yet a breaking change but may be in the future (1.0.0 release probably)</li>
+</ul>
+</li>
+<li>Changed <code>findLocal</code> to <code>getCountries</code><ul>
+<li>Notice that this now means <code>findLocal</code> is depricated</li>
+<li>This is not yet a breaking change but may be in the future (1.0.0 release probably)</li>
+</ul>
+</li>
+<li>Introduced webpack as the builder to help build out the public module<ul>
+<li>This shouldn&#39;t have any large effects, if you do see an issue please let me know asap!</li>
+</ul>
+</li>
+<li>Updated all dependencies</li>
+<li>Text Tweaks in some error messages</li>
+</ul>
+</blockquote>
+<h2 id="v020">v0.2.0</h2>
+<blockquote>
+<ul>
+<li>Tweaks to build process</li>
+<li>Added ability to call functional methods individually you can do so using the following:<ul>
+<li><code>phone-fns/format</code></li>
+<li><code>phone-fns/find</code></li>
+<li><code>phone-fns/breakdown</code></li>
+<li><code>phone-fns/identical</code></li>
+<li><code>phone-fns/isValid</code></li>
+<li><code>phone-fns/uglify</code></li>
+<li><code>phone-fns/getCode</code></li>
+<li><code>phone-fns/findLocal</code></li>
+<li><code>phone-fns/callingCodes</code> - Gives back the full list of country calling codes</li>
+<li>You can still use just <code>phone-fns</code> to get back all of the methods in an <code>object</code></li>
+</ul>
+</li>
+<li>Added a minified version <code>phone-fns.min.js</code> <strong>the module points to this version by default</strong></li>
+<li>Renamed the file <code>phone-fns.umd.js</code> to just <code>phone-fns.js</code></li>
+<li>Added Country Calling Codes from the <a href="https://github.com/mledoze/countries">Countries Repo</a></li>
+<li>Added <code>findLocal</code> function which returns the country names associated with the passed in code</li>
+<li>Added <code>getCode</code> function which returns the country calling code from the <code>json</code></li>
+<li>Removed country code dashing, since it&#39;s not really a thing</li>
+</ul>
+</blockquote>
+<h2 id="v010">v0.1.0</h2>
+<blockquote>
+<ul>
+<li>Initial Public Release</li>
+</ul>
+</blockquote>
+</div></main><footer>Powered by <a href="https://github.com/dhershman1/pinet">Pinet</a></footer><script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/highlight.min.js"></script><script src="static/js/search.js"></script></div></body></html>

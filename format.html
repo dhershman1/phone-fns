@@ -1,0 +1,86 @@
+<!DOCTYPE html><html lang="en"><head><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta charset="UTF-8"><title>Phone-Fns - Documentation</title><link href="static/css/main.css" rel="stylesheet"><link href="static/css/hl.css" rel="stylesheet"></head><body id="root"><div class="grid"><input type="checkbox" id="nav-trigger" class="nav-trigger"><label for="nav-trigger" class="navicon-button x"><div class="navicon"></div></label><label for="nav-trigger" class="overlay"></label><aside class="side-nav"><div class="pagenav"><p class="pagenav__title"><strong>Phone-fns</strong><span class="pagenav__version"> v3.2.3</span></p><p class="pagenav__links"><a class="pagenav__link" href="index.html">Home</a><a class="pagenav__link" href="documentation.html">Documentation</a><a class="pagenav__link" href="changelog.html">Changelog</a><a class="pagenav__link" href="https://github.com/dhershman1/phone-fns">Github</a></p></div><input class="filter" type="text" id="filter" placeholder="Search Category or Function name"></input><ul class="nav"><li class="nav__item" data-cat="Function"><a class="nav__link" href="documentation.html#breakdown"><span class="nav__name">breakdown</span><span class="nav__type tag">Function</span></a></li><li class="nav__item" data-cat="Function"><a class="nav__link" href="documentation.html#format"><span class="nav__name">format</span><span class="nav__type tag">Function</span></a></li><li class="nav__item" data-cat="Function"><a class="nav__link" href="documentation.html#isValid"><span class="nav__name">isValid</span><span class="nav__type tag">Function</span></a></li><li class="nav__item" data-cat="Function"><a class="nav__link" href="documentation.html#uglify"><span class="nav__name">uglify</span><span class="nav__type tag">Function</span></a></li></ul></aside><main><div class="source__wrapper"><h2 class="source__header">format</h2><pre class="source__code"><code class="hljs javascript">import {
+  add,
+  addIndex,
+  both,
+  branch,
+  complement,
+  compose,
+  countBy,
+  eq,
+  gt,
+  identity,
+  includes,
+  length,
+  pipe,
+  reduce,
+  replace,
+  split,
+  toUpper
+} from <span class="hljs-string">&#x27;</span>kyanite<span class="hljs-string">&#x27;</span>
+import _curry<span class="hljs-number">2</span> from <span class="hljs-string">&#x27;</span>./_internals/_curry<span class="hljs-number">2</span><span class="hljs-string">&#x27;</span>
+import isValid from <span class="hljs-string">&#x27;</span>./isValid<span class="hljs-string">&#x27;</span>
+import uglify from <span class="hljs-string">&#x27;</span>./uglify<span class="hljs-string">&#x27;</span>
+
+/**
+ * @private
+ * @function
+ * @param {String} layout The desired layout format
+ * @param {String} phone The phone number to validate against
+ */
+const validFormat = layout =&gt; phone =&gt; {
+  const { N, C = <span class="hljs-number">0</span> } = compose(countBy(toUpper), split(<span class="hljs-string">&#x27;</span><span class="hljs-string">&#x27;</span>), layout)
+
+  return pipe([
+    uglify,
+    length,
+    eq(add(N, C))
+  ], phone)
+}
+
+/**
+ * @name format
+ * @since v<span class="hljs-number">0</span>.<span class="hljs-number">1</span>.<span class="hljs-number">0</span>
+ * @function
+ * @category Function
+ * @sig String -&gt; String -&gt; String
+ * @description Allows you to format phone numbers however you desire using N as number placeholders and C as country code placeholders these placeholders are case insensitive
+ * @param {String} layout The desired layout of the phone number
+ * @param {String} phone The phone number to breakdown
+ * @return {String} Returns a string which is the formatted phone number
+ *
+ * @example
+ * format(<span class="hljs-string">&#x27;</span>(NNN) NNN.NNNN<span class="hljs-string">&#x27;</span>, <span class="hljs-string">&#x27;</span><span class="hljs-number">4</span><span class="hljs-number">4</span><span class="hljs-number">4</span>-<span class="hljs-number">5</span><span class="hljs-number">5</span><span class="hljs-number">5</span>-<span class="hljs-number">6</span><span class="hljs-number">6</span><span class="hljs-number">6</span><span class="hljs-number">6</span><span class="hljs-string">&#x27;</span>) // =&gt; <span class="hljs-string">&#x27;</span>(<span class="hljs-number">4</span><span class="hljs-number">4</span><span class="hljs-number">4</span>) <span class="hljs-number">5</span><span class="hljs-number">5</span><span class="hljs-number">5</span>.<span class="hljs-number">6</span><span class="hljs-number">6</span><span class="hljs-number">6</span><span class="hljs-number">6</span><span class="hljs-string">&#x27;</span>
+ * format(<span class="hljs-string">&#x27;</span>C + (NNN) NNN.NNNN<span class="hljs-string">&#x27;</span>, <span class="hljs-string">&#x27;</span><span class="hljs-number">1</span><span class="hljs-number">4</span><span class="hljs-number">4</span><span class="hljs-number">4</span>-<span class="hljs-number">5</span><span class="hljs-number">5</span><span class="hljs-number">5</span>-<span class="hljs-number">6</span><span class="hljs-number">6</span><span class="hljs-number">6</span><span class="hljs-number">6</span><span class="hljs-string">&#x27;</span>) // =&gt; <span class="hljs-string">&#x27;</span><span class="hljs-number">1</span> + (<span class="hljs-number">4</span><span class="hljs-number">4</span><span class="hljs-number">4</span>) <span class="hljs-number">5</span><span class="hljs-number">5</span><span class="hljs-number">5</span>.<span class="hljs-number">6</span><span class="hljs-number">6</span><span class="hljs-number">6</span><span class="hljs-number">6</span><span class="hljs-string">&#x27;</span>
+ * format(<span class="hljs-string">&#x27;</span>CC + NNN.NNN.NNNN<span class="hljs-string">&#x27;</span>, <span class="hljs-string">&#x27;</span><span class="hljs-number">1</span><span class="hljs-number">6</span><span class="hljs-number">3</span><span class="hljs-number">3</span><span class="hljs-number">3</span><span class="hljs-number">4</span><span class="hljs-number">4</span><span class="hljs-number">4</span><span class="hljs-number">5</span><span class="hljs-number">5</span><span class="hljs-number">5</span><span class="hljs-number">5</span><span class="hljs-string">&#x27;</span>) // =&gt; <span class="hljs-string">&#x27;</span><span class="hljs-number">1</span><span class="hljs-number">6</span> + <span class="hljs-number">3</span><span class="hljs-number">3</span><span class="hljs-number">3</span>.<span class="hljs-number">4</span><span class="hljs-number">4</span><span class="hljs-number">4</span>.<span class="hljs-number">5</span><span class="hljs-number">5</span><span class="hljs-number">5</span><span class="hljs-number">5</span><span class="hljs-string">&#x27;</span>
+ * format(<span class="hljs-string">&#x27;</span>(NNN) NNN.NNNN x NNNN<span class="hljs-string">&#x27;</span>, <span class="hljs-string">&#x27;</span><span class="hljs-number">4</span><span class="hljs-number">4</span><span class="hljs-number">4</span><span class="hljs-number">5</span><span class="hljs-number">5</span><span class="hljs-number">5</span><span class="hljs-number">6</span><span class="hljs-number">6</span><span class="hljs-number">6</span><span class="hljs-number">6</span><span class="hljs-number">8</span><span class="hljs-number">9</span><span class="hljs-number">8</span><span class="hljs-number">9</span><span class="hljs-string">&#x27;</span>) // =&gt; <span class="hljs-string">&#x27;</span>(<span class="hljs-number">4</span><span class="hljs-number">4</span><span class="hljs-number">4</span>) <span class="hljs-number">5</span><span class="hljs-number">5</span><span class="hljs-number">5</span>.<span class="hljs-number">6</span><span class="hljs-number">6</span><span class="hljs-number">6</span><span class="hljs-number">6</span> x <span class="hljs-number">8</span><span class="hljs-number">9</span><span class="hljs-number">8</span><span class="hljs-number">9</span><span class="hljs-string">&#x27;</span>
+ *
+ * // Format is case insensitive
+ * format(<span class="hljs-string">&#x27;</span>(NNN) nnn-NNnn<span class="hljs-string">&#x27;</span>, <span class="hljs-string">&#x27;</span><span class="hljs-number">4</span><span class="hljs-number">4</span><span class="hljs-number">4</span><span class="hljs-number">5</span><span class="hljs-number">5</span><span class="hljs-number">5</span><span class="hljs-number">6</span><span class="hljs-number">6</span><span class="hljs-number">6</span><span class="hljs-number">6</span><span class="hljs-string">&#x27;</span>) // =&gt; (<span class="hljs-number">4</span><span class="hljs-number">4</span><span class="hljs-number">4</span>) <span class="hljs-number">5</span><span class="hljs-number">5</span><span class="hljs-number">5</span>-<span class="hljs-number">6</span><span class="hljs-number">6</span><span class="hljs-number">6</span><span class="hljs-number">6</span>
+ *
+ * // Format is also curried
+ * const fn = format(<span class="hljs-string">&#x27;</span>NNN.NNN.NNNN<span class="hljs-string">&#x27;</span>)
+ *
+ * fn(<span class="hljs-string">&#x27;</span><span class="hljs-number">4</span><span class="hljs-number">4</span><span class="hljs-number">4</span><span class="hljs-number">5</span><span class="hljs-number">5</span><span class="hljs-number">5</span><span class="hljs-number">6</span><span class="hljs-number">6</span><span class="hljs-number">6</span><span class="hljs-number">6</span><span class="hljs-string">&#x27;</span>) // =&gt; <span class="hljs-string">&#x27;</span><span class="hljs-number">4</span><span class="hljs-number">4</span><span class="hljs-number">4</span>.<span class="hljs-number">5</span><span class="hljs-number">5</span><span class="hljs-number">5</span>.<span class="hljs-number">6</span><span class="hljs-number">6</span><span class="hljs-number">6</span><span class="hljs-number">6</span><span class="hljs-string">&#x27;</span>
+ * fn(<span class="hljs-string">&#x27;</span>(<span class="hljs-number">3</span><span class="hljs-number">3</span><span class="hljs-number">3</span>) <span class="hljs-number">4</span><span class="hljs-number">4</span><span class="hljs-number">4</span>-<span class="hljs-number">5</span><span class="hljs-number">5</span><span class="hljs-number">5</span><span class="hljs-number">5</span><span class="hljs-string">&#x27;</span>) // =&gt; <span class="hljs-string">&#x27;</span><span class="hljs-number">3</span><span class="hljs-number">3</span><span class="hljs-number">3</span>.<span class="hljs-number">4</span><span class="hljs-number">4</span><span class="hljs-number">4</span>.<span class="hljs-number">5</span><span class="hljs-number">5</span><span class="hljs-number">5</span><span class="hljs-number">5</span><span class="hljs-string">&#x27;</span>
+ */
+const format = (layout, phone) =&gt; {
+  const cCount = includes(<span class="hljs-string">&#x27;</span>C<span class="hljs-string">&#x27;</span>, layout) ? length(layout.match(/C/g)) : <span class="hljs-number">0</span>
+  const _reduce = addIndex(reduce)
+
+  return branch(
+    both(
+      complement(isValid),
+      complement(validFormat(layout))
+    ),
+    identity,
+    pipe([
+      split(<span class="hljs-string">&#x27;</span><span class="hljs-string">&#x27;</span>),
+      uglify,
+      _reduce((d, acc, i) =&gt; gt(i, cCount) ? replace(/C/i, d, acc) : replace(/N/i, d, acc), layout)
+    ]),
+    phone
+  )
+}
+
+export default _curry<span class="hljs-number">2</span>(format)
+</code></pre></div></main><footer>Powered by <a href="https://github.com/dhershman1/pinet">Pinet</a></footer><script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/highlight.min.js"></script><script src="static/js/search.js"></script></div></body></html>
