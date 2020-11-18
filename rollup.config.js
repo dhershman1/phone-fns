@@ -6,7 +6,7 @@ import { terser } from 'rollup-plugin-terser'
 export default [{
   input: './src/index.js',
   plugins: [
-    babel(),
+    babel({ babelHelpers: 'bundled' }),
     terser(),
     filesize({
       showMinifiedSize: false
@@ -20,14 +20,14 @@ export default [{
     format: 'umd',
     name: 'phoneFns',
     globals: {
-      'kyanite': 'kyanite'
+      kyanite: 'kyanite'
     },
     exports: 'named'
   }
 }, {
   input: './src/index.js',
   plugins: [
-    babel(),
+    babel({ babelHelpers: 'bundled' }),
     cleanup(),
     filesize({
       showMinifiedSize: false
@@ -41,7 +41,7 @@ export default [{
     format: 'umd',
     name: 'phoneFns',
     globals: {
-      'kyanite': 'kyanite'
+      kyanite: 'kyanite'
     },
     exports: 'named'
   }
