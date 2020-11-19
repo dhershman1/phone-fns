@@ -13,6 +13,7 @@
 - Removed docs folder
 - Removed david-dm badge since it doesn't seem to be coming back
 - Documentation workflow now handled by circleci
+- `format` can now take in `Number` type phone numbers
 
 ## v3.2.2
 
