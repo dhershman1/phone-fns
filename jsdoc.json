@@ -6,20 +6,20 @@
     "includePattern": ".js$",
     "include": [
       "src/",
+      "package.json",
       "./README.md"
     ]
   },
   "sourceType": "module",
   "plugins": [
-    "plugins/markdown",
-    "scripts/custom-tags.js"
+    "node_modules/pinet/tags.js"
   ],
   "opts": {
     "encoding": "utf8",
-    "template": "node_modules/@killparadise/docdash",
+    "template": "node_modules/pinet",
     "destination": "./docs/",
     "recurse": true,
-    "verbose": true
+    "verbose": false
   },
   "markdown": {
     "parser": "gfm",
@@ -34,28 +34,29 @@
       "includeDate": false
     }
   },
-  "docdash": {
-    "static": true,
-    "sort": true,
-    "moduleName": "Phone-Fns",
-    "disqus": "",
-    "meta": {
-      "title": "Phone Fns",
-      "description": "A small, modern, and functional phone library for javascript",
-      "keyword": "functional, library, javascript, pure, helpers, utils, phone, numbers"
-    },
-    "search": true,
-    "collapse": true,
-    "typedefs": true,
-    "removeQuotes": "none",
-    "scripts": [],
-    "menu": {
-      "Github repo": {
-        "href": "https://github.com/dhershman1/phone-fns",
-        "target": "_blank",
-        "class": "menu-item",
-        "id": "repository"
+  "pinet": {
+    "title": "Phone-Fns - Documentation",
+    "links": [
+      {
+        "name": "Github",
+        "link": "https://github.com/dhershman1/phone-fns"
       }
-    }
+    ],
+    "genSources": true,
+    "changelog": "./CHANGELOG.md",
+    "lang": "en",
+    "customTags": [
+      "category",
+      "signature"
+    ],
+    "meta": [
+      {
+        "name": "viewport",
+        "content": "width=device-width, initial-scale=1.0"
+      },
+      {
+        "charset": "UTF-8"
+      }
+    ]
   }
 }

@@ -9,7 +9,7 @@ orbs:
 jobs:
   build:
     docker:
-      - image: circleci/node:10.5
+      - image: circleci/node:14.15
 
     working_directory: ~/phonefns
 
@@ -42,6 +42,48 @@ jobs:
       - run:
           name: Check Coverage
           command: npm run check-cov
+  docs:
+    docker:
+      # specify the version you desire here
+      - image: circleci/node:14.15
+    working_directory: ~/phonefns
+    steps:
+      - checkout
+
+      #Install deps
+      - run:
+          name: Install Dependencies
+          command: npm ci
+
+      # Build docs
+      - run:
+          name: Build docs
+          command: npm run docs
+
+      - persist_to_workspace:
+          root: .
+          paths:
+            - docs/*
+  docs-deploy:
+    docker:
+      - image: circleci/node:14.15
+    working_directory: ~/phonefns
+    steps:
+      - checkout
+      - attach_workspace:
+          at: ~/phonefns
+      - add_ssh_keys:
+          fingerprints:
+            - "19:50:ad:f5:95:2f:b3:82:5b:4d:4b:30:45:2e:d3:38"
+      - run:
+          name: Install gh-pages and Configure
+          command: |
+            npm i -D gh-pages
+            git config user.email "ci-build@dusty.codes"
+            git config user.name "ci-build"
+      - run:
+          name: Deploy Docs
+          command: npm run docs:deploy
 workflows:
   version: 2
   main:
@@ -52,3 +94,18 @@ workflows:
               only:
                 - master
                 - development
+              ignore: gh-pages
+  deploy_docs:
+    jobs:
+      - docs:
+          filters:
+            branches:
+              only: master
+              ignore: gh-pages
+      - docs-deploy:
+          requires:
+            - docs
+          filters:
+            branches:
+              only: master
+              ignore: gh-pages

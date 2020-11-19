@@ -74,8 +74,8 @@ const format = (layout, phone) => {
     ),
     identity,
     pipe([
-      split(''),
       uglify,
+      split(''),
       _reduce((d, acc, i) => gt(i, cCount) ? replace(/C/i, d, acc) : replace(/N/i, d, acc), layout)
     ]),
     phone

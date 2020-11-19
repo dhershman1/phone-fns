@@ -9,6 +9,14 @@ test('Test custom format normal', t => {
   t.end()
 })
 
+test('Test custom format with a number type provided', t => {
+  const result = format('(NNN) NNN.NNNN', 4445556666)
+
+  t.ok(result, 'Result returned okay')
+  t.is(result, '(444) 555.6666', 'Result formatted correctly on return')
+  t.end()
+})
+
 test('Test an already formatted number to a new number', t => {
   t.same(format('NNN.NNN.NNNN', '(444) 555-6666'), '444.555.6666')
   t.end()
