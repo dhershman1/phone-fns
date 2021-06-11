@@ -6,8 +6,8 @@
   "module": "src/index.js",
   "typings": "types/index.d.ts",
   "scripts": {
-    "prepack": "npm run scripts && rollup -c",
-    "scripts": "npm run docs && node scripts/create-export.js",
+    "prepack": "npm-run-all --parallel docs scripts lint test --serial build",
+    "scripts": "node scripts/create-export.js",
     "docs": "node_modules/.bin/jsdoc -c jsdoc.json",
     "docs:deploy": "gh-pages -m 'auto commit [ci skip]' --dist docs",
     "docs:test": "gh-pages -m 'auto commit [ci skip]' --dist docs --branch gh-pages",
