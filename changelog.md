@@ -1,5 +1,14 @@
 # Changelog
 
+## v3.2.4
+
+### Improved
+
+- Audited packaged
+- Replaced `tap-spec` with `tap-on`
+- Optimized ignore files
+- Removed dist from repo
+
 ## v3.2.3
 
 ### New
