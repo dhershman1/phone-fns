@@ -1,5 +1,11 @@
 # Changelog
 
+## v3.2.5
+
+### :confetti_ball: Enhanced
+
+- Added: New github flows and files
+
 ## v3.2.4
 
 ### Improved
