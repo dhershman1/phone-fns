@@ -15,6 +15,7 @@
     <img alt="Build Status" src="https://img.shields.io/github/actions/workflow/status/dhershman1/phone-fns/phone-fns.yml?style=flat-square&logo=github">
   </a>
 </p>
+
 # Phone Fns
 
 A small modern, and functional phone number library which gathers inspiration from the fun [date-fns](https://github.com/date-fns/date-fns) library
