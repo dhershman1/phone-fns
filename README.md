@@ -1,8 +1,20 @@
-[![npm](https://img.shields.io/npm/v/phone-fns.svg?style=flat-square&color=%23bef9c6)](https://www.npmjs.com/package/phone-fns)
-![License (MIT)](https://img.shields.io/badge/license-mit-green.svg?style=flat-square&color=%23bef9c6)
-![GitHub Workflow Status (with event)](https://img.shields.io/github/actions/workflow/status/dhershman1/phone-fns/phone-fns.yml?style=flat-square&logo=github)
-[![Netlify Status](https://api.netlify.com/api/v1/badges/9a96c817-73dc-40c9-b052-c855397cf2c1/deploy-status)](https://app.netlify.com/sites/phone-fns/deploys)
-
+<p align=center>
+  <a href="./LICENSE">
+    <img
+      alt="license:mit"
+      src="https://img.shields.io/badge/license-mit-green.svg?style=flat-square&color=%23bef9c6"
+    />
+  </a>
+  <a href="https://phone-fns.dusty.codes/">
+    <img alt="Netlify Status" src="https://api.netlify.com/api/v1/badges/9a96c817-73dc-40c9-b052-c855397cf2c1/deploy-status">
+  </a>
+  <a href="https://www.npmjs.com/package/phone-fns">
+    <img alt="Npm Version" src="https://img.shields.io/npm/v/phone-fns.svg?style=flat-square&color=%23bef9c6">
+  </a>
+  <a href="https://github.com/dhershman1/kyanite/actions/workflows/kyanite.yml">
+    <img alt="Build Status" src="https://img.shields.io/github/actions/workflow/status/dhershman1/phone-fns/phone-fns.yml?style=flat-square&logo=github">
+  </a>
+</p>
 # Phone Fns
 
 A small modern, and functional phone number library which gathers inspiration from the fun [date-fns](https://github.com/date-fns/date-fns) library
