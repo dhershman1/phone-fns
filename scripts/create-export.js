@@ -1,13 +1,18 @@
-const fs = require('fs')
-const path = require('path')
-const globby = require('globby')
+import fs from 'fs/promises'
+import path from 'path'
+import { globby } from 'globby'
 
-const files = globby.sync(['src/**/*.js', '!src/index.js', '!src/common.js', '!src/_internals'])
+const globFiles = ['src/**/*.js', '!src/index.js', '!src/common.js', '!src/_internals']
+const files = await globby(globFiles)
 
-fs.writeFileSync('./src/index.js', `${files.map(f => {
-  const { base, name } = path.parse(f)
+const buildRes = () =>
+  files.sort().map(f => {
+    const { base, name } = path.parse(f)
 
-  return `export { default as ${name} } from './${base}'`
-}).join('\n')}\n`)
+    return `export { default as ${name} } from './${base}'`
+  }).join('\n')
 
-console.log('Finished Writing Exports...')
+// Build Exports
+fs.writeFile('src/index.js', `${buildRes('standard')}\n`)
+  .then(() => console.log('Finished Writing Exports... Wrapping up...'))
+  .catch(console.error)

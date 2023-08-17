@@ -1,7 +1,7 @@
 import { compose, when, F, reduced, eq, isEmpty, length, lt, pipe, test } from 'kyanite'
 
-import breakdown from './breakdown'
-import uglify from './uglify'
+import breakdown from './breakdown.js'
+import uglify from './uglify.js'
 
 /**
  * @private
@@ -45,7 +45,7 @@ function longNumberTest (phone) {
  * isValid('555-444-3333') // => true
  * isValid('5555') // => false
  */
-const isValid = phone => {
+export default function isValid (phone) {
   const uglyPhone = uglify(phone)
   const done = compose(reduced)
 
@@ -57,5 +57,3 @@ const isValid = phone => {
     longNumberTest(uglyPhone)
   ], uglyPhone)
 }
-
-export default isValid

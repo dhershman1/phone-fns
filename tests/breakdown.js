@@ -1,4 +1,4 @@
-import breakdown from '../src/breakdown'
+import breakdown from '../src/breakdown.js'
 import test from 'tape'
 
 test('Test breakdown normal', t => {

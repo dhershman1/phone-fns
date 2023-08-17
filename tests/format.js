@@ -1,4 +1,4 @@
-import format from '../src/format'
+import format from '../src/format.js'
 import test from 'tape'
 
 test('Test custom format normal', t => {

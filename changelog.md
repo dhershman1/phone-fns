@@ -1,5 +1,25 @@
 # Changelog
 
+## v4.0.0
+
+### Breaking Changes
+
+- Converted Phone-Fns to a standard ESM module
+  - This means if you are using import statements in an ESM module for phone-fns this changes:
+    - `import phoneFns from 'phone-fns'` --> `import * as phoneFns from 'phone-fns'`
+    - You can also just destructure from here still like so: `import { isValid } from 'phone-fns'`
+  - Phone fns should still support common js syntax out of the box as well
+- Upgraded to `Kyanite v2.0.1`
+
+### New
+
+- CDN support sould be working for phone-fns again
+  - Updated README to reflect these changes
+
+### Improved
+
+- Made typings less confusing
+
 ## v3.2.5
 
 ### :confetti_ball: Enhanced
