@@ -1,12 +1,12 @@
 import babel from '@rollup/plugin-babel'
-import cleanup from 'rollup-plugin-cleanup'
 import filesize from 'rollup-plugin-filesize'
-import { terser } from 'rollup-plugin-terser'
+import terser from '@rollup/plugin-terser'
+import { nodeResolve } from '@rollup/plugin-node-resolve'
 
 export default [{
   input: './src/index.js',
   plugins: [
-    babel({ babelHelpers: 'bundled' }),
+    babel({ babelHelpers: 'bundled', presets: [['@babel/preset-env', { targets: { ie: '11' } }]] }),
     terser(),
     filesize({
       showMinifiedSize: false
@@ -17,18 +17,14 @@ export default [{
   ],
   output: {
     file: 'dist/phone-fns.min.js',
-    format: 'umd',
-    name: 'phoneFns',
-    globals: {
-      kyanite: 'kyanite'
-    },
-    exports: 'named'
+    format: 'es',
+    name: 'phoneFns'
   }
 }, {
   input: './src/index.js',
   plugins: [
-    babel({ babelHelpers: 'bundled' }),
-    cleanup(),
+    babel({ babelHelpers: 'bundled', presets: [['@babel/preset-env', { targets: { ie: '11' } }]] }),
+    terser(),
     filesize({
       showMinifiedSize: false
     })
@@ -37,12 +33,23 @@ export default [{
     'kyanite'
   ],
   output: {
-    file: 'dist/phone-fns.js',
-    format: 'umd',
-    name: 'phoneFns',
-    globals: {
-      kyanite: 'kyanite'
-    },
-    exports: 'named'
+    file: 'dist/phone-fns.min.cjs',
+    format: 'cjs',
+    name: 'phoneFns'
+  }
+}, {
+  input: './src/index.js',
+  plugins: [
+    babel({ babelHelpers: 'bundled', presets: [['@babel/preset-env', { targets: { ie: '11' } }]] }),
+    terser(),
+    nodeResolve({ browser: true }),
+    filesize({
+      showMinifiedSize: false
+    })
+  ],
+  output: {
+    file: 'dist/phone-fns.iife.min.js',
+    format: 'iife',
+    name: 'phoneFns'
   }
 }]

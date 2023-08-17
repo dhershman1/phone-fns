@@ -1,4 +1,4 @@
-import isValid from '../src/isValid'
+import isValid from '../src/isValid.js'
 import test from 'tape'
 
 test('Test simple type', t => {

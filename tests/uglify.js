@@ -1,5 +1,5 @@
 import test from 'tape'
-import uglify from '../src/uglify'
+import uglify from '../src/uglify.js'
 
 test('Test simple type', t => {
   const results = uglify('555-444-3333')

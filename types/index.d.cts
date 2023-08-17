@@ -32,7 +32,7 @@ declare namespace phoneFns {
     /**
      * Strips all of the special characters from the given string
      */
-    uglify(phone: string|number): string;
+    uglify(phone: string | number): string;
   }
 }
 

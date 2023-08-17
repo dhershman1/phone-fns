@@ -1,4 +1,4 @@
-import uglify from './uglify'
+import uglify from './uglify.js'
 
 /**
  * @name breakdown
@@ -24,7 +24,7 @@ import uglify from './uglify'
  * breakdown('555-___-____')
  * // => { areaCode: '555', localCode: '___', lineNumber: '____', extension: '' }
  */
-const breakdown = phone => {
+export default function breakdown (phone) {
   const [, areaCode, localCode, lineNumber, extension = ''] = uglify(phone)
     .match(/([_0-9]{3})?([_0-9]{3})([_0-9]{4})([_0-9]{1,})?/)
 
@@ -35,5 +35,3 @@ const breakdown = phone => {
     extension
   }
 }
-
-export default breakdown

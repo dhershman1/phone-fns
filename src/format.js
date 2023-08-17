@@ -17,9 +17,9 @@ import {
   split,
   toUpper
 } from 'kyanite'
-import _curry2 from './_internals/_curry2'
-import isValid from './isValid'
-import uglify from './uglify'
+import _curry2 from './_internals/_curry2.js'
+import isValid from './isValid.js'
+import uglify from './uglify.js'
 
 /**
  * @private
@@ -27,14 +27,16 @@ import uglify from './uglify'
  * @param {String} layout The desired layout format
  * @param {String} phone The phone number to validate against
  */
-const validFormat = layout => phone => {
-  const { N, C = 0 } = compose(countBy(toUpper), split(''), layout)
+function validFormat (layout) {
+  return phone => {
+    const { N, C = 0 } = compose(countBy(toUpper), split(''), layout)
 
-  return pipe([
-    uglify,
-    length,
-    eq(add(N, C))
-  ], phone)
+    return pipe([
+      uglify,
+      length,
+      eq(add(N, C))
+    ], phone)
+  }
 }
 
 /**
@@ -63,7 +65,7 @@ const validFormat = layout => phone => {
  * fn('4445556666') // => '444.555.6666'
  * fn('(333) 444-5555') // => '333.444.5555'
  */
-const format = (layout, phone) => {
+function format (layout, phone) {
   const cCount = includes('C', layout) ? length(layout.match(/C/g)) : 0
   const _reduce = addIndex(reduce)
 
