@@ -9,6 +9,7 @@
 ### Fixed
 
 - Added warning into README that currently phone-fns is focused on US based phone number styles
+- Updated github action to LTS of node
 
 ### Chore
 
