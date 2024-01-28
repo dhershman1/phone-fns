@@ -1,5 +1,19 @@
 # Changelog
 
+## v4.0.1
+
+### New
+
+- Added more unit tests for `isValid` and `breakdown`
+
+### Fixed
+
+- Added warning into README that currently phone-fns is focused on US based phone number styles
+
+### Chore
+
+- Updated dependencies
+
 ## v4.0.0
 
 ### Breaking Changes
