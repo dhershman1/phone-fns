@@ -73,6 +73,20 @@ test('Is Curried', t => {
   t.end()
 })
 
+test('Handle Djibouti numbers', t => {
+  const result = format('+CCC NN NN NNNN', '25311223333')
+
+  t.same(result, '+253 11 22 3333')
+  t.end()
+})
+
+test('Handle Morocco numbers', t => {
+  const result = format('+CC NN NN NN NN', '0711223333')
+
+  t.same(result, '+07 11 22 33 33')
+  t.end()
+})
+
 test('Handles numbers without area code', t => {
   const results = format('NNN.NNNN', '555-6666')
 

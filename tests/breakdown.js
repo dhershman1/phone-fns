@@ -13,6 +13,15 @@ test('Test breakdown normal', t => {
   t.end()
 })
 
+test('Test breakdown with placeholder syntax', t => {
+  const results = breakdown('555-___-____')
+
+  t.is(results.areaCode, '555', 'The area code in results was 555')
+  t.is(results.localCode, '___', 'The local code in results was ___')
+  t.is(results.lineNumber, '____', 'The lineNumber in results was ____')
+  t.end()
+})
+
 test('Test breakdown extension', t => {
   const results = breakdown('555-444-3333 x 8989')
 
