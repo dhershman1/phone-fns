@@ -20,6 +20,10 @@
 
 A small modern, and functional phone number library which gathers inspiration from the fun [date-fns](https://github.com/date-fns/date-fns) library
 
+> [!NOTE]
+> Currently Phone-Fns is focused on US based phone numbers, I am happy to welcome contributions to internationalize the library!
+
+
 - [Documentation](https://phone-fns.dusty.codes/)
 
 ## How-To
