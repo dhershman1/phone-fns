@@ -9,7 +9,7 @@ declare namespace phoneFns {
     areaCode: string;
     localCode: string;
     lineNumber: string;
-    extention: string;
+    extension: string;
   }
 
   interface Static {

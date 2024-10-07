@@ -1,5 +1,15 @@
 # Changelog
 
+## v4.0.2
+
+### Fixed
+
+- Typo for extension in types #14 [@JonBee](https://github.com/JonBee)
+
+### Chore
+
+- Dependency Updates
+
 ## v4.0.1
 
 ### New
