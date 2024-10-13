@@ -13,7 +13,7 @@ test('breakdownWithFormat - valid input', (t) => {
   }
 
   const result = breakdownWithFormat(format, phone)
-  t.deepEqual(result, expected, 'Should correctly breakdown the phone number with the given format')
+  t.same(result, expected, 'Should correctly breakdown the phone number with the given format')
   t.end()
 })
 
@@ -44,7 +44,7 @@ test('breakdownWithFormat - different format', (t) => {
   }
 
   const result = breakdownWithFormat(format, phone)
-  t.deepEqual(result, expected, 'Should correctly breakdown the phone number with a different format')
+  t.same(result, expected, 'Should correctly breakdown the phone number with a different format')
   t.end()
 })
 
@@ -60,6 +60,6 @@ test('breakdownWithFormat - no extension', (t) => {
   }
 
   const result = breakdownWithFormat(format, phone)
-  t.deepEqual(result, expected, 'Should correctly breakdown the phone number without an extension')
+  t.same(result, expected, 'Should correctly breakdown the phone number without an extension')
   t.end()
 })
