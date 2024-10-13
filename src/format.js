@@ -1,25 +1,8 @@
-import {
-  add,
-  addIndex,
-  both,
-  branch,
-  complement,
-  compose,
-  countBy,
-  eq,
-  gt,
-  identity,
-  includes,
-  length,
-  pipe,
-  reduce,
-  replace,
-  split,
-  toUpper
-} from 'kyanite'
 import _curry2 from './_internals/_curry2.js'
 import isValid from './isValid.js'
 import uglify from './uglify.js'
+import _uglifyFormats from './_internals/_uglifyFormats.js'
+import _hasPlaceholder from './_internals/_hasPlaceholder.js'
 
 /**
  * @private
@@ -27,16 +10,8 @@ import uglify from './uglify.js'
  * @param {String} layout The desired layout format
  * @param {String} phone The phone number to validate against
  */
-function validFormat (layout) {
-  return phone => {
-    const { N, C = 0 } = compose(countBy(toUpper), split(''), layout)
-
-    return pipe([
-      uglify,
-      length,
-      eq(add(N, C))
-    ], phone)
-  }
+function validFormat (layout, phone) {
+  return phone.length === _uglifyFormats(layout).length
 }
 
 /**
@@ -66,22 +41,33 @@ function validFormat (layout) {
  * fn('(333) 444-5555') // => '333.444.5555'
  */
 function format (layout, phone) {
-  const cCount = includes('C', layout) ? length(layout.match(/C/g)) : 0
-  const _reduce = addIndex(reduce)
+  let cCount = 0
+  const uglyPhone = uglify(phone)
 
-  return branch(
-    both(
-      complement(isValid),
-      complement(validFormat(layout))
-    ),
-    identity,
-    pipe([
-      uglify,
-      split(''),
-      _reduce((d, acc, i) => gt(i, cCount) ? replace(/C/i, d, acc) : replace(/N/i, d, acc), layout)
-    ]),
-    phone
-  )
+  if (layout.includes('C')) {
+    cCount = (layout.match(/C/g) || []).length
+  }
+
+  if (!validFormat(layout, uglyPhone)) {
+    return phone
+  }
+
+  if (!_hasPlaceholder(uglyPhone)) {
+    // We are skipping validation if there are placeholders
+    if (!isValid(phone)) {
+      return phone
+    }
+  }
+
+  return uglify(uglyPhone).split('').reduce((acc, d, i) => {
+    if (cCount > i) {
+      acc = acc.replace(/C/i, d)
+    } else {
+      acc = acc.replace(/N/i, d)
+    }
+
+    return acc
+  }, layout)
 }
 
 export default _curry2(format)
