@@ -10,7 +10,7 @@ import validate from './validate.js'
  * @description
  * Validates a phone number based on a custom format provided
  * @param {String} format The format to validate against
- * @param {String} phone The phone number to breakdown
+ * @param {String} phone The phone number to validate
  * @return {Boolean} Returns a boolean if the number provided is valid or not
  * @example
  * import { isValidWithFormat } from 'phone-fns'
