@@ -18,12 +18,16 @@ import validate from './validate.js'
  * isValidWithFormat('NNN-NNN-NNNN', '123-456-7890') // => true
  * isValidWithFormat('NNN-NNN-NNNN', '010-XYZ-1234') // => false
  *
- * // its also curried
+ * // It's also curried
  * const fn = isValidWithFormat('NNN-NNN-NNNN')
  * fn('123-456-7890') // => true
  * fn('010-XYZ-1234') // => false
  */
 function isValidWithFormat (format, phone) {
+  if (!format) {
+    throw new Error('You must provide a format to validate')
+  }
+
   if (phone.length !== format.length) {
     return false
   }
