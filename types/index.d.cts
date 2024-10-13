@@ -36,6 +36,11 @@ declare namespace phoneFns {
     isValidWithFormat(format: string): (phone: string) => boolean;
 
     /**
+     * Finds a list of separators in a phone number string
+     */
+    findSeparators(phone: string): string[];
+
+    /**
      * Strips all of the special characters from the given string but leaves extension and country code characters in place
      */
     normalize(phone: string): string;

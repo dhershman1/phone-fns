@@ -25,6 +25,11 @@ declare namespace phoneFns {
     breakdown(phone: string): Breakdown;
 
     /**
+     * Finds a list of separators in a phone number string
+     */
+    findSeparators(phone: string): string[];
+
+    /**
      * Validates the base number, does not take the country code or extension into consideration for this validation
      */
     isValid(phone: string): boolean;
