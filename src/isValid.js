@@ -1,7 +1,15 @@
-import { compose, when, F, reduced, eq, isEmpty, length, lt, pipe, test } from 'kyanite'
-
 import breakdown from './breakdown.js'
 import uglify from './uglify.js'
+
+/**
+ * @private
+ * @function
+ * @param {String} x The value to check if it is empty
+ * @returns {Boolean} Whether or not the value is empty
+ */
+function isEmpty (x) {
+  return x === ''
+}
 
 /**
  * @private
@@ -10,11 +18,10 @@ import uglify from './uglify.js'
  * @return {Boolean} Whether or not the phone passed validation
  */
 function shortNumberTest (phone) {
-  return () => {
-    const { localCode, lineNumber } = breakdown(phone)
+  const { localCode, lineNumber } = breakdown(phone)
+  const str = localCode + lineNumber
 
-    return test(/^([0-9]{3})[-. ]?([0-9]{4})$/, localCode + lineNumber)
-  }
+  return /^([0-9]{3})[-. ]?([0-9]{4})$/.test(str)
 }
 
 /**
@@ -24,11 +31,10 @@ function shortNumberTest (phone) {
  * @return {Boolean} Whether or not the phone passed validation
  */
 function longNumberTest (phone) {
-  return () => {
-    const { areaCode, localCode, lineNumber } = breakdown(phone)
+  const { areaCode, localCode, lineNumber } = breakdown(phone)
+  const str = areaCode + localCode + lineNumber
 
-    return test(/^\+?([0-9]{2})\)?[-. ]?([0-9]{4})[-. ]?([0-9]{4})$/, areaCode + localCode + lineNumber)
-  }
+  return /^\+?([0-9]{2})\)?[-. ]?([0-9]{4})[-. ]?([0-9]{4})$/.test(str)
 }
 
 /**
@@ -48,13 +54,15 @@ function longNumberTest (phone) {
  */
 export default function isValid (phone) {
   const uglyPhone = uglify(phone)
-  const done = compose(reduced)
+  const len = uglyPhone.length
 
-  return pipe([
-    when(isEmpty, done(F)),
-    length,
-    when(lt(7), done(F)),
-    when(eq(7), shortNumberTest(uglyPhone)),
-    longNumberTest(uglyPhone)
-  ], uglyPhone)
+  if (isEmpty(uglyPhone) || len < 7) {
+    return false
+  }
+
+  if (len === 7) {
+    return shortNumberTest(uglyPhone)
+  }
+
+  return longNumberTest(uglyPhone)
 }
