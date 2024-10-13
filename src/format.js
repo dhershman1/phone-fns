@@ -53,13 +53,13 @@ function format (layout, phone) {
   }
 
   if (!_hasPlaceholder(uglyPhone)) {
-    // We are skipping validation if there are placeholders
+    // We are skipping validation of the phone number if there are placeholders
     if (!isValid(phone)) {
       return phone
     }
   }
 
-  return uglify(uglyPhone).split('').reduce((acc, d, i) => {
+  return uglyPhone.split('').reduce((acc, d, i) => {
     if (cCount > i) {
       acc = acc.replace(/C/i, d)
     } else {
