@@ -14,7 +14,7 @@
     "docs": "jsdoc -c jsdoc.json",
     "build": "rollup -c",
     "lint": "standard src/**/*.js",
-    "test": "tape tests/format.spec.js | tap-on"
+    "test": "tape tests/*.spec.js | tap-on"
   },
   "exports": {
     ".": {
