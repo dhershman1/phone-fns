@@ -100,7 +100,7 @@ test('Catches letters when passed in', t => {
   t.end()
 })
 
-test('Handles unordinary phone numbers', t => {
+test('Handles non NANP formats', t => {
   const results = format('NNN NNN NN NN NN', '046123456789')
 
   t.same(results, '046 123 45 67 89')
