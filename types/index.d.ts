@@ -32,8 +32,8 @@ declare namespace phoneFns {
     /**
      * Validates a phone number based on a custom format provided
      */
-    isValidWithFormat(layout: string, phone: string): boolean;
-    isValidWithFormat(layout: string): (phone: string) => boolean;
+    isValidWithFormat(format: string, phone: string): boolean;
+    isValidWithFormat(format: string): (phone: string) => boolean;
 
     /**
      * Strips all of the special characters from the given string but leaves extension and country code characters in place
