@@ -18,3 +18,15 @@ test('isValidWithFormat with country code and extension', (t) => {
   t.same(isValidWithFormat('+1 NNN-NNN-NNNN x NNN', '+1 234-567-1890 x 123'), true, 'Valid phone number with country code and extension')
   t.end()
 })
+
+test('isValidWithFormat curried', (t) => {
+  const fn = isValidWithFormat('NNN-NNN-NNNN')
+  t.same(fn('123-456-7890'), true, 'Valid phone number with curried function')
+  t.same(fn('1234567890'), false, 'Invalid phone number with curried function')
+  t.end()
+})
+
+test('isValidWithFormat - missing format', (t) => {
+  t.throws(() => isValidWithFormat(null, '123-456-7890'), /You must provide a format to validate/, 'Should throw an error if format is missing')
+  t.end()
+})
