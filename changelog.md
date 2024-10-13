@@ -1,5 +1,36 @@
 # Changelog
 
+## v4.1.0
+
+### New
+
+- Added `normalize` function
+  - This function strips out special characters and trims the phone number, much like uglify but skips non-digit characters
+  - Example: `normalize('555.444.3333 x 123') // => '5554443333x123'` vs `uglify('555.444.3333 x 123') // => 5554443333123`
+- Added `validate` function
+  - This is a validation function, but works better for world wide phone numbers as well. Expects the full number
+  - Example: `333-444-5555` comes back valid but `444-5555` is invalid to this function
+- Added `isValidWithFormat` function
+  - This takes a string phone number and a format string and validates the phone using the format
+  - It's also passed through the `validate` function for an extra step of validation
+- Added `findSeparators` function
+  - A simple function that finds the separators in a phone number and returns them as an array
+- Added `breakdownWithFormat` function
+  - Works a lot like `breakdown` but follows a strict format provided by the user to breakdown the number into an object
+  - This allows for a wider range of phone number support for breakdown
+
+
+### Changed
+
+- `Phone-fns` is no longer dependant on `Kyanite` and is dependency free!
+- `isValid` description to explain that it mostly focused on NANP numbers
+- `breakdown` description to better explain that it's main focus is NANP numbers and its gachas
+- We more than doubled our unit tests! Woo!
+
+### Chore
+
+- Renamed test files to `*.spec.js` instead of just `*.js`
+
 ## v4.0.2
 
 ### Fixed
