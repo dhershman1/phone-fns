@@ -100,6 +100,13 @@ test('Catches letters when passed in', t => {
   t.end()
 })
 
+test('Handles unordinary phone numbers', t => {
+  const results = format('NNN NNN NN NN NN', '046123456789')
+
+  t.same(results, '046 123 45 67 89')
+  t.end()
+})
+
 test('Supports Placeholder characters', t => {
   const fn = format('NNN-NNN-NNNN')
 
