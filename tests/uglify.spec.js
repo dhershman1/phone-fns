@@ -19,9 +19,3 @@ test('Handles when out of ordinary phone numbers are thrown at it', t => {
   t.same(uglify('046 123 45 67 89'), '046123456789')
   t.end()
 })
-
-// test('Uglify placeholders', t => {
-//   console.log(uglify('__________'))
-//   t.same(uglify('__________'), '')
-//   t.end()
-// })
