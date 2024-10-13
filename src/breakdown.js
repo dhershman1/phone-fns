@@ -6,7 +6,7 @@ import uglify from './uglify.js'
  * @function
  * @category Function
  * @sig String -> String -> Object
- * @description Takes a provided phone string and breaks it down into an object of codes
+ * @description Takes a provided phone string and breaks it down into an object of codes only works loosely for NANP numbers. The gatcha here is that NANP numbers take the form of NXX NXX XXXX where N is a digit from 2-9 and X is a digit from 0-9, but in order to support placeholders we use a [_0-9]{3} check
  * @param {String} phone The phone number to breakdown
  * @return {Object} Returns an object of the broken down phone number
  *

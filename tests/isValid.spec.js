@@ -19,6 +19,18 @@ test('Test Country Code', t => {
   t.end()
 })
 
+test('Test extension', t => {
+  t.ok(isValid('555-444-3333 ext 123'), 'Handles extension')
+  t.ok(isValid('555-444-3333 x 123'), 'Handles extension with x')
+  t.end()
+})
+
+test('Test unordinary phone numbers', t => {
+  t.ok(isValid('046 123 456 789'), 'Handles spaces')
+  t.ok(isValid('046 123 45 67 89'), 'Handles spaces with less numbers')
+  t.end()
+})
+
 test('Test invalid type', t => {
   t.notOk(isValid('555444666'), 'Handles invalid length')
   t.notOk(isValid('(555)-444-666'), 'Handles invalid length')
