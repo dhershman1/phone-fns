@@ -38,7 +38,8 @@ function longNumberTest (phone) {
  * @category Function
  * @sig String -> Boolean
  * @description
- * Validates the base number, does not take the country code or extension into consideration for this validation
+ * Validates the base number, does not take the country code or extension into consideration for this validation.
+ * Focuses more on NANP numbers and their format
  * @param {String} phone The phone number to breakdown
  * @return {Boolean} Returns a boolean if the number provided is valid or not
  * @example
