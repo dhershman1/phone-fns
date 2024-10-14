@@ -1,5 +1,13 @@
 # Changelog
 
+## v4.1.1
+
+### Changed
+
+- Reset codecov coverage report using `c8` package
+- Updated unit tests for some more coverage
+- Cleaned up format a little
+
 ## v4.1.0
 
 ### New
