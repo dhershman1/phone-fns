@@ -36,5 +36,6 @@ test('Test invalid type', t => {
   t.notOk(isValid('(555)-444-666'), 'Handles invalid length')
   t.notOk(isValid('89965'), 'Results returned back false')
   t.notOk(isValid(''), 'Handles empty string')
+  t.notOk(isValid('555-444-666a'), 'Handles invalid characters')
   t.end()
 })
