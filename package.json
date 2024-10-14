@@ -14,7 +14,9 @@
     "docs": "jsdoc -c jsdoc.json",
     "build": "rollup -c",
     "lint": "standard src/**/*.js",
-    "test": "tape tests/*.spec.js | tap-on"
+    "test": "tape tests/*.spec.js | tap-on",
+    "test:cov": "c8 tape tests/*.spec.js",
+    "report": "c8 report --reporter=text-lcov > coverage.lcov"
   },
   "exports": {
     ".": {
@@ -69,6 +71,7 @@
     "@rollup/plugin-babel": "6.0.4",
     "@rollup/plugin-node-resolve": "^15.3.0",
     "@rollup/plugin-terser": "0.4.4",
+    "c8": "^10.1.2",
     "globby": "13.2.2",
     "jsdoc": "4.0.3",
     "npm-run-all": "4.1.5",

@@ -19,6 +19,8 @@ jsdoc.json
 benching.js
 tmp.js
 exp.js
+codecov.yml
+.c8rc.json
 
 # Created by https://www.toptal.com/developers/gitignore/api/macos,windows,linux,node
 # Edit at https://www.toptal.com/developers/gitignore?templates=macos,windows,linux,node
