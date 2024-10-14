@@ -16,6 +16,7 @@
     "lint": "standard src/**/*.js",
     "test": "tape tests/*.spec.js | tap-on",
     "test:cov": "c8 tape tests/*.spec.js",
+    "coverage": "c8 --check-coverage --lines 95 --branches 95 --functions 95 --statements 95",
     "report": "c8 report --reporter=text-lcov > coverage.lcov"
   },
   "exports": {
