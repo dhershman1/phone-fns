@@ -17,11 +17,14 @@ import validate from './validate.js'
  *
  * isValidWithFormat('NNN-NNN-NNNN', '123-456-7890') // => true
  * isValidWithFormat('NNN-NNN-NNNN', '010-XYZ-1234') // => false
+ * isValidWithFormat('NNN-NNN-NNNN', '1234567890') // => false
  *
  * // It's also curried
  * const fn = isValidWithFormat('NNN-NNN-NNNN')
+ *
  * fn('123-456-7890') // => true
  * fn('010-XYZ-1234') // => false
+ * fn('1234567890') // => false
  */
 function isValidWithFormat (format, phone) {
   if (!format) {
