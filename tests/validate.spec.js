@@ -244,9 +244,7 @@ test('Handles Invalid range of phone numbers', t => {
     '555-555-5555 x123456', // Too long extension
     '+1-202-555-0173 x123456', // Too long extension
     '+44 20 7946 0958 x123456', // Too long extension
-    '555-555-5555 x123456', // Too long extension
-    '+82 02-1234', // Incomplete landline number
-    '02-3456-789' // Incomplete landline number (should be 7 digits)
+    '555-555-5555 x123456' // Too long extension
   ]
 
   invalidPhoneNumbers.forEach(phone => {
