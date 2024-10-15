@@ -1,5 +1,4 @@
 import normalize from './normalize.js'
-import uglify from './uglify.js'
 
 /**
  * @name validate
@@ -21,13 +20,15 @@ import uglify from './uglify.js'
  */
 export default function validate (phone) {
   const normPhone = normalize(String(phone))
-  const phoneRegex = /^(\+?\d{1,4})?[\s\-.]?\(?\d{1,4}\)?[\s\-.]?\d{1,4}[\s\-.]?\d{1,4}[\s\-.]?\d{1,9}(?:[\s\-.]?(?:x|ext)?\d{1,5})?$/i
+  const phoneRegex = /^(\+?\d{1,4})?[\s\-.]?\(?\d{1,4}\)?[\s\-.]?\d{1,4}[\s\-.]?\d{1,4}[\s\-.]?\d{1,9}(?:[\s\-.]?(?:x|ext)?[\s]?\d{1,5})?$/i
+  // (strips the + symbol and the ext/x symbols)
+  const strippedPhone = normPhone.replace(/[\s\-.()xext+]/gi, '')
 
   // Validate the length of the number without the ext or country code symbols inlcuded
-  // (strips the + symbol and the ext/x symbols)
-  if (uglify(normPhone).length > 15 || uglify(normPhone).length < 10) {
+  // Length of the phone number should be between 8 and 15 excluding the ext/x and + symbols
+  if (strippedPhone.length > 15 || strippedPhone.length < 8) {
     return false
   }
 
-  return phoneRegex.test(normPhone)
+  return phoneRegex.test(phone)
 }
