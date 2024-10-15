@@ -37,12 +37,6 @@ declare namespace phoneFns {
     findSeparators(phone: string): string[]
 
     /**
-     * Validates the base number, does not take the country code or extension into consideration for this validation
-     * @deprecated Use isValidWithFormat instead
-     */
-    isValid(phone: string): boolean
-
-    /**
      * Validates a phone number based on a custom format provided
      */
     isValidWithFormat(format: string, phone: string): boolean
