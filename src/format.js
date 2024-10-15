@@ -41,12 +41,8 @@ function validFormat (layout, phone) {
  * fn('(333) 444-5555') // => '333.444.5555'
  */
 function format (layout, phone) {
-  let cCount = 0
   const uglyPhone = uglify(phone)
-
-  if (layout.includes('C')) {
-    cCount = (layout.match(/C/g) || []).length
-  }
+  const cCount = (layout.match(/C/g) || []).length
 
   if (!validFormat(layout, uglyPhone)) {
     return phone

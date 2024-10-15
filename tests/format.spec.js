@@ -100,6 +100,20 @@ test('Catches letters when passed in', t => {
   t.end()
 })
 
+test('Handles more numbers than the format', t => {
+  const results = format('NNN.NNNN', '123456789')
+
+  t.same(results, '123456789')
+  t.end()
+})
+
+test('Handles less numbers than the format', t => {
+  const results = format('NNN.NNNN', '1234')
+
+  t.same(results, '1234')
+  t.end()
+})
+
 test('Handles non NANP formats', t => {
   const results = format('NNN NNN NN NN NN', '046123456789')
 

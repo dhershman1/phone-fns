@@ -1,6 +1,6 @@
 {
   "name": "phone-fns",
-  "version": "4.1.0",
+  "version": "4.1.1",
   "description": "A small, modern, and functional phone library for javascript",
   "main": "dist/phone-fns.min.js",
   "module": "src/index.js",
@@ -14,7 +14,10 @@
     "docs": "jsdoc -c jsdoc.json",
     "build": "rollup -c",
     "lint": "standard src/**/*.js",
-    "test": "tape tests/*.spec.js | tap-on"
+    "test": "tape tests/*.spec.js | tap-on",
+    "test:cov": "c8 tape tests/*.spec.js",
+    "coverage": "c8 check-coverage --lines 90 --branches 90 --functions 90 --statements 90",
+    "report": "c8 report --reporter=text-lcov > coverage.lcov"
   },
   "exports": {
     ".": {
@@ -69,6 +72,7 @@
     "@rollup/plugin-babel": "6.0.4",
     "@rollup/plugin-node-resolve": "^15.3.0",
     "@rollup/plugin-terser": "0.4.4",
+    "c8": "^10.1.2",
     "globby": "13.2.2",
     "jsdoc": "4.0.3",
     "npm-run-all": "4.1.5",

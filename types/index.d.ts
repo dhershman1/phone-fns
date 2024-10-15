@@ -38,6 +38,7 @@ declare namespace phoneFns {
 
     /**
      * Validates the base number, does not take the country code or extension into consideration for this validation
+     * @deprecated Use isValidWithFormat instead
      */
     isValid(phone: string): boolean
 

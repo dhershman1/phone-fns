@@ -4,16 +4,6 @@ import uglify from './uglify.js'
 /**
  * @private
  * @function
- * @param {String} x The value to check if it is empty
- * @returns {Boolean} Whether or not the value is empty
- */
-function isEmpty (x) {
-  return x === ''
-}
-
-/**
- * @private
- * @function
  * @param {String} phone The ugly formatted phone number to test
  * @return {Boolean} Whether or not the phone passed validation
  */
@@ -39,6 +29,7 @@ function longNumberTest (phone) {
 
 /**
  * @name isValid
+ * @deprecated Use isValidWithFormat instead
  * @since v0.1.0
  * @function
  * @category Function
@@ -56,7 +47,7 @@ export default function isValid (phone) {
   const uglyPhone = uglify(phone)
   const len = uglyPhone.length
 
-  if (isEmpty(uglyPhone) || len < 7) {
+  if (len < 7) {
     return false
   }
 

@@ -14,14 +14,17 @@
   <a href="https://github.com/dhershman1/kyanite/actions/workflows/kyanite.yml">
     <img alt="Build Status" src="https://img.shields.io/github/actions/workflow/status/dhershman1/phone-fns/phone-fns.yml?style=flat-square&logo=github">
   </a>
+  <a href="https://codebeat.co/projects/github-com-dhershman1-phone-fns-master">
+    <img alt="codebeat badge" src="https://codebeat.co/badges/09e3c0c1-154a-43f4-a9a0-e53d7016c2b9" />
+  </a>
+  <a href="https://codecov.io/gh/dhershman1/phone-fns" >
+    <img src="https://codecov.io/gh/dhershman1/phone-fns/graph/badge.svg?token=69ajvCO9U2"/>
+  </a>
 </p>
 
 # Phone Fns
 
 A small modern, and functional phone number library which gathers inspiration from the fun [date-fns](https://github.com/date-fns/date-fns) library
-
-> [!NOTE]
-> Currently Phone-Fns is focused on US based phone numbers, I am happy to welcome contributions to internationalize the library!
 
 
 - [Documentation](https://phone-fns.dusty.codes/)
