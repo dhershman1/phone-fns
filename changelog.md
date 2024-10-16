@@ -1,5 +1,26 @@
 # Changelog
 
+## v5.0.0
+
+### Breaking Changes
+
+- Removed `isValid`
+
+### New
+
+- Added `detectCountryCode` which does its best to grab the country code from a phone number
+  - This function only looks for **up to** four digit country codes
+  - Note: It's important that you provide a formatted number to this function.
+  - Example: `detectCountryCode('+1 444 555 6666') // => '1'` vs `detectCountryCode('+14445556666') // => '144'`
+- Added `hasCountryCode` which returns a boolean on if a country code is present or not in the phone number
+  - Example: `hasCountryCode('+1 555 555 5555') // => true`
+
+
+### Changed
+
+- Re wrote validate
+  - It's a bit more lenient now on validation I still recommend validating with a format using `isValidWithFormat`
+
 ## v4.1.1
 
 ### New

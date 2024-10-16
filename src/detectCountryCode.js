@@ -1,6 +1,6 @@
 /**
  * @name detectCountryCode
- * @since v4.2.0
+ * @since v5.0.0
  * @function
  * @category Function
  * @sig String -> String | Null
