@@ -5,6 +5,9 @@
 ### Breaking Changes
 
 - Removed `isValid`
+- `format` no longer needs `C` characters for country code, and only relies on `N` characters
+  - For example: `format('+CC NNN-NNN-NNNN', '114445556666') // => '+11 444-555-6666'` is now `format('+NN NNN-NNN-NNNN', '114445556666') // => '+11 444-555-6666'`
+  - This change should simplify `format` even more to make usage clear and easy
 
 ### New
 
@@ -19,6 +22,7 @@
 
 - Re wrote validate
   - It's a bit more lenient now on validation I still recommend validating with a format using `isValidWithFormat`
+
 
 ## v4.1.2
 
