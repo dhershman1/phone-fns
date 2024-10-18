@@ -17,12 +17,12 @@ import isValidWithFormat from './isValidWithFormat.js'
  * @example
  * import { breakdownWithFormat } from 'phone-fns'
  *
- * breakdownWithFormat('+C (AAA) LLL-NNNN xXXX', '+1-555-444-3333 x123') // => { countryCode: '1', areaCode: '555', localCode: '444', lineNumber: '3333', extension: '123' }
+ * breakdownWithFormat('+C (AAA) LLL-NNNN xXXX', '+1 (555) 444-3333 x123') // => { countryCode: '1', areaCode: '555', localCode: '444', lineNumber: '3333', extension: '123' }
  * breakdownWithFormat('AAA-LLL-NNNN', '010-XYZ-1234') // => Error: The phone number provided does not match the format provided or is an invalid phone number
  *
  * // it's also curried
  * const fn = breakdownWithFormat('+C (AAA) LLL-NNNN xXXX')
- * fn('+1-555-444-3333 x123') // => { countryCode: '', areaCode: '123', localCode: '456', lineNumber: '7890', extension: '' }
+ * fn('+1 (555) 444-3333 x123') // => { countryCode: '1', areaCode: '123', localCode: '456', lineNumber: '7890', extension: '123' }
  */
 function breakdownWithFormat (format, phone) {
   if (!format) {
