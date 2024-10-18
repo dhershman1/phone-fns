@@ -15,11 +15,20 @@
 - Added `hasCountryCode` which returns a boolean on if a country code is present or not in the phone number
   - Example: `hasCountryCode('+1 555 555 5555') // => true`
 
-
 ### Changed
 
 - Re wrote validate
   - It's a bit more lenient now on validation I still recommend validating with a format using `isValidWithFormat`
+
+## v4.1.2
+
+### Fixed
+
+- Documentation examples for `breakdownWithFormat` function
+
+### Changed
+
+- Updated `pinet` to v1.2.1
 
 ## v4.1.1
 
