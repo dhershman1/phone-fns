@@ -14,12 +14,6 @@ declare namespace phoneFns {
 
   interface Static {
     /**
-     * Allows you to format phone numbers however you desire using N as number placeholders and C as country code placeholders these placeholders are case insensitive
-     */
-    format(layout: string, phone: string): string
-    format(layout: string): (phone: string) => string
-
-    /**
      * Takes a provided phone string and breaks it down into an object of codes
      */
     breakdown(phone: string): Breakdown
@@ -35,6 +29,12 @@ declare namespace phoneFns {
      * Finds a list of separators in a phone number string
      */
     findSeparators(phone: string): string[]
+
+    /**
+     * Allows you to format phone numbers however you desire using N as number placeholders and C as country code placeholders these placeholders are case insensitive
+     */
+    format(layout: string, phone: string): string
+    format(layout: string): (phone: string) => string
 
     /**
      * Validates a phone number based on a custom format provided
