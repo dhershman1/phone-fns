@@ -14,7 +14,7 @@ test('isValidWithFormat', (t) => {
 })
 
 test('isValidWithFormat with country code and extension', (t) => {
-  t.same(isValidWithFormat('+1 NNN-NNN-NNNN', '+1 234-567-1890'), true, 'Valid phone number with country code')
+  t.same(isValidWithFormat('+N NNN-NNN-NNNN', '+1 234-567-1890'), true, 'Valid phone number with country code')
   t.same(isValidWithFormat('+1 NNN-NNN-NNNN x NNN', '+1 234-567-1890 x 123'), true, 'Valid phone number with country code and extension')
   t.end()
 })
