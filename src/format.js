@@ -1,8 +1,6 @@
 import _curry2 from './_internals/_curry2.js'
-import isValid from './isValid.js'
 import uglify from './uglify.js'
 import _uglifyFormats from './_internals/_uglifyFormats.js'
-import _hasPlaceholder from './_internals/_hasPlaceholder.js'
 
 /**
  * @private
@@ -46,13 +44,6 @@ function format (layout, phone) {
 
   if (!validFormat(layout, uglyPhone)) {
     return phone
-  }
-
-  if (!_hasPlaceholder(uglyPhone)) {
-    // We are skipping validation of the phone number if there are placeholders
-    if (!isValid(phone)) {
-      return phone
-    }
   }
 
   return uglyPhone.split('').reduce((acc, d, i) => {
