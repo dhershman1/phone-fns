@@ -1,6 +1,8 @@
 import _curry2 from './_internals/_curry2.js'
-import uglify from './uglify.js'
 import _uglifyFormats from './_internals/_uglifyFormats.js'
+import _hasPlaceHolder from './_internals/_hasPlaceHolder.js'
+import uglify from './uglify.js'
+import validate from './validate.js'
 
 /**
  * @private
@@ -24,6 +26,8 @@ function validFormat (layout, phone) {
  * @return {String} Returns a string which is the formatted phone number
  *
  * @example
+ * import { format } from 'phone-fns'
+ *
  * format('(NNN) NNN.NNNN', '444-555-6666') // => '(444) 555.6666'
  * format('C + (NNN) NNN.NNNN', '1444-555-6666') // => '1 + (444) 555.6666'
  * format('CC + NNN.NNN.NNNN', '163334445555') // => '16 + 333.444.5555'
@@ -43,6 +47,10 @@ function format (layout, phone) {
   const cCount = (layout.match(/C/g) || []).length
 
   if (!validFormat(layout, uglyPhone)) {
+    return phone
+  }
+
+  if (!_hasPlaceHolder(phone) && !validate(phone)) {
     return phone
   }
 

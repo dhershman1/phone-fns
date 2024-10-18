@@ -10,7 +10,7 @@ test('Test custom format normal', t => {
 })
 
 test('Test custom format with a number type provided', t => {
-  const result = format('(NNN) NNN.NNNN', 4445556666)
+  const result = format('(NNN) NNN.NNNN', '4445556666')
 
   t.ok(result, 'Result returned okay')
   t.is(result, '(444) 555.6666', 'Result formatted correctly on return')
@@ -118,6 +118,14 @@ test('Handles non NANP formats', t => {
   const results = format('NNN NNN NN NN NN', '046123456789')
 
   t.same(results, '046 123 45 67 89')
+  t.end()
+})
+
+test('Handles country code with just N', t => {
+  const layout = '+NN NNNNNNNNNN'
+  const phone = '+441234567890'
+
+  t.same(format(layout, phone), '+44 1234567890')
   t.end()
 })
 
