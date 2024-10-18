@@ -1,5 +1,5 @@
 /**
- * @name detectCountryCode
+ * @name findCountryCode
  * @since v5.0.0
  * @function
  * @category Function
@@ -9,16 +9,16 @@
  * @return {String|Null} The country code if found, otherwise null
  *
  * @example
- * import { detectCountryCode } from 'phone-fns'
+ * import { findCountryCode } from 'phone-fns'
  *
- * detectCountryCode('+1 555 555 5555') // => '1'
- * detectCountryCode('+44 123 456 7890') // => '44'
- * detectCountryCode('+91 987 654 3210') // => '91'
+ * findCountryCode('+1 555 555 5555') // => '1'
+ * findCountryCode('+44 123 456 7890') // => '44'
+ * findCountryCode('+91 987 654 3210') // => '91'
  *
  * // Gachas
- * detectCountryCode('+14445556666') // => '14445'
+ * findCountryCode('+14445556666') // => '14445'
  */
-export default function detectCountryCode (phone) {
+export default function findCountryCode (phone) {
   const countryCodeRegex = /^\+(\d{1,4})/ // Match + followed by country code
   const match = phone.match(countryCodeRegex)
 

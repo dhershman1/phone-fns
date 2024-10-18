@@ -37,6 +37,11 @@ declare namespace phoneFns {
     format(layout: string): (phone: string) => string
 
     /**
+     * Attempts to check if a country code is present in the phone number provided it searches for a + followed by a number
+     */
+    hasCountryCode(phone: string): boolean
+
+    /**
      * Validates a phone number based on a custom format provided
      */
     isValidWithFormat(format: string, phone: string): boolean
