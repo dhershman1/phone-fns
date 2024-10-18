@@ -26,6 +26,11 @@ declare namespace phoneFns {
     breakdownWithFormat(format: string): (phone: string) => Breakdown
 
     /**
+     * Attempts to find the country code in a phone number, expects the number to be formatted in some way does not work properly on normalized or uglified phone numbers.
+     */
+    findCountryCode(phone: string): string | null
+
+    /**
      * Finds a list of separators in a phone number string
      */
     findSeparators(phone: string): string[]

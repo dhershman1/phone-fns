@@ -20,16 +20,16 @@ declare namespace phoneFns {
     breakdown(phone: string): Breakdown
 
     /**
-     * Attempts to find the country code in a phone number, expects the number to be formatted in some way does not work properly on normalized or uglified phone numbers.
-     */
-    findCountryCode(phone: string): string
-
-    /**
      * Breaks down a phone number based on a custom format provided and returns an object with the parts of the phone number
      * C - Country Code A- Area Code L - Local Code N - Line Number X - Extension
      */
     breakdownWithFormat(format: string, phone: string): Breakdown
     breakdownWithFormat(format: string): (phone: string) => Breakdown
+
+    /**
+     * Attempts to find the country code in a phone number, expects the number to be formatted in some way does not work properly on normalized or uglified phone numbers.
+     */
+    findCountryCode(phone: string): string | null
 
     /**
      * Finds a list of separators in a phone number string
