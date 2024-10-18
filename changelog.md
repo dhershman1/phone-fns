@@ -1,5 +1,15 @@
 # Changelog
 
+## v4.1.2
+
+### Fixed
+
+- Documentation examples for `breakdownWithFormat` function
+
+### Changed
+
+- Updated `pinet` to v1.2.1
+
 ## v4.1.1
 
 ### New
