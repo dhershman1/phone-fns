@@ -23,15 +23,10 @@ test('Test an already formatted number to a new number', t => {
 })
 
 test('Test custom format longDistance', t => {
-  const result = format('C + (NNN) NNN.NNNN', '1444-555-6666')
+  const result = format('N + (NNN) NNN.NNNN', '1444-555-6666')
 
   t.ok(result, 'Result returned okay')
   t.is(result, '1 + (444) 555.6666', 'Result formatted correctly on return')
-  t.end()
-})
-
-test('Test randomly placed Country Code', t => {
-  t.same(format('(NNN) NNN-NNNN + C', '14445556666'), '(444) 555-6666 + 1')
   t.end()
 })
 
@@ -52,7 +47,7 @@ test('Test custom format bad phone', t => {
 })
 
 test('Test both longDistance and extensions', t => {
-  const result = format('C + NNN.NNN.NNNN x NNNN', '155544433338989')
+  const result = format('N + NNN.NNN.NNNN x NNNN', '155544433338989')
 
   t.ok(result, 'Results returned okay')
   t.is(result, '1 + 555.444.3333 x 8989', 'Results are formatted as expected')
@@ -74,14 +69,14 @@ test('Is Curried', t => {
 })
 
 test('Handle Djibouti numbers', t => {
-  const result = format('+CCC NN NN NNNN', '25311223333')
+  const result = format('+NNN NN NN NNNN', '25311223333')
 
   t.same(result, '+253 11 22 3333')
   t.end()
 })
 
 test('Handle Morocco numbers', t => {
-  const result = format('+CC NN NN NN NN', '0711223333')
+  const result = format('+NN NN NN NN NN', '0711223333')
 
   t.same(result, '+07 11 22 33 33')
   t.end()

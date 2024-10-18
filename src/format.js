@@ -1,8 +1,6 @@
 import _curry2 from './_internals/_curry2.js'
 import _uglifyFormats from './_internals/_uglifyFormats.js'
-import _hasPlaceHolder from './_internals/_hasPlaceHolder.js'
 import uglify from './uglify.js'
-import validate from './validate.js'
 
 /**
  * @private
@@ -20,7 +18,7 @@ function validFormat (layout, phone) {
  * @function
  * @category Function
  * @sig String -> String -> String
- * @description Allows you to format phone numbers however you desire using N as number placeholders and C as country code placeholders these placeholders are case insensitive
+ * @description Allows you to format phone numbers however you desire using N as number placeholders, this is case insensitive
  * @param {String} layout The desired layout of the phone number
  * @param {String} phone The phone number to breakdown
  * @return {String} Returns a string which is the formatted phone number
@@ -29,8 +27,8 @@ function validFormat (layout, phone) {
  * import { format } from 'phone-fns'
  *
  * format('(NNN) NNN.NNNN', '444-555-6666') // => '(444) 555.6666'
- * format('C + (NNN) NNN.NNNN', '1444-555-6666') // => '1 + (444) 555.6666'
- * format('CC + NNN.NNN.NNNN', '163334445555') // => '16 + 333.444.5555'
+ * format('+N (NNN) NNN.NNNN', '1444-555-6666') // => '+1 (444) 555.6666'
+ * format('+NN NNN.NNN.NNNN', '163334445555') // => '+16 333.444.5555'
  * format('(NNN) NNN.NNNN x NNNN', '44455566668989') // => '(444) 555.6666 x 8989'
  *
  * // Format is case insensitive
@@ -44,25 +42,12 @@ function validFormat (layout, phone) {
  */
 function format (layout, phone) {
   const uglyPhone = uglify(phone)
-  const cCount = (layout.match(/C/g) || []).length
 
   if (!validFormat(layout, uglyPhone)) {
     return phone
   }
 
-  if (!_hasPlaceHolder(phone) && !validate(phone)) {
-    return phone
-  }
-
-  return uglyPhone.split('').reduce((acc, d, i) => {
-    if (cCount > i) {
-      acc = acc.replace(/C/i, d)
-    } else {
-      acc = acc.replace(/N/i, d)
-    }
-
-    return acc
-  }, layout)
+  return uglyPhone.split('').reduce((acc, d) => acc.replace(/N/i, d), layout)
 }
 
 export default _curry2(format)
