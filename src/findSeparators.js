@@ -19,6 +19,7 @@
 function findSeparators (phone) {
   const separators = ['-', '.', ' ']
   const foundSeparators = []
+
   for (const separator of separators) {
     if (phone.includes(separator)) {
       foundSeparators.push(separator)
