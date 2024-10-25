@@ -5,13 +5,16 @@
 ### Breaking Changes
 
 - Removed `isValid`
+- `format` no longer needs `C` characters for country code, and only relies on `N` characters
+  - For example: `format('+CC NNN-NNN-NNNN', '114445556666') // => '+11 444-555-6666'` is now `format('+NN NNN-NNN-NNNN', '114445556666') // => '+11 444-555-6666'`
+  - This change should simplify `format` even more to make usage clear and easy
 
 ### New
 
-- Added `detectCountryCode` which does its best to grab the country code from a phone number
+- Added `findCountryCode` which does its best to grab the country code from a phone number
   - This function only looks for **up to** four digit country codes
   - Note: It's important that you provide a formatted number to this function.
-  - Example: `detectCountryCode('+1 444 555 6666') // => '1'` vs `detectCountryCode('+14445556666') // => '1445'`
+  - Example: `findCountryCode('+1 444 555 6666') // => '1'` vs `findCountryCode('+14445556666') // => '1445'`
 - Added `hasCountryCode` which returns a boolean on if a country code is present or not in the phone number
   - Example: `hasCountryCode('+1 555 555 5555') // => true`
 
@@ -19,6 +22,7 @@
 
 - Re wrote validate
   - It's a bit more lenient now on validation I still recommend validating with a format using `isValidWithFormat`
+
 
 ## v4.1.2
 

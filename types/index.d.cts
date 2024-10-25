@@ -15,12 +15,6 @@ declare namespace phoneFns {
 
   interface Static {
     /**
-     * Allows you to format phone numbers however you desire using N as number placeholders and C as country code placeholders these placeholders are case insensitive
-     */
-    format(layout: string, phone: string): string
-    format(layout: string): (phone: string) => string
-
-    /**
      * Takes a provided phone string and breaks it down into an object of codes
      */
     breakdown(phone: string): Breakdown
@@ -33,15 +27,31 @@ declare namespace phoneFns {
     breakdownWithFormat(format: string): (phone: string) => Breakdown
 
     /**
-     * Validates a phone number based on a custom format provided
+     * Attempts to find the country code in a phone number, expects the number to be formatted in some way does not work properly on normalized or uglified phone numbers.
      */
-    isValidWithFormat(format: string, phone: string): boolean
-    isValidWithFormat(format: string): (phone: string) => boolean
+    findCountryCode(phone: string): string | null
 
     /**
      * Finds a list of separators in a phone number string
      */
     findSeparators(phone: string): string[]
+
+    /**
+     * Allows you to format phone numbers however you desire using N as number placeholders and C as country code placeholders these placeholders are case insensitive
+     */
+    format(layout: string, phone: string): string
+    format(layout: string): (phone: string) => string
+
+    /**
+     * Attempts to check if a country code is present in the phone number provided it searches for a + followed by a number
+     */
+    hasCountryCode(phone: string): boolean
+
+    /**
+     * Validates a phone number based on a custom format provided
+     */
+    isValidWithFormat(format: string, phone: string): boolean
+    isValidWithFormat(format: string): (phone: string) => boolean
 
     /**
      * Strips all of the special characters from the given string but leaves extension and country code characters in place

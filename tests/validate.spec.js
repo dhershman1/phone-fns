@@ -215,6 +215,7 @@ test('Test handles wide range of phone numbers', t => {
 
 test('Handles Invalid range of phone numbers', t => {
   const invalidPhoneNumbers = [
+    '+44 12345', // Too few digits for a UK number
     '123', // Too short
     '010-1234', // Missing last part of mobile number
     '02-3456', // Incomplete landline number
