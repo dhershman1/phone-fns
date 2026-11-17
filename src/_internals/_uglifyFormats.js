@@ -1,9 +1,9 @@
 /**
  * @private
  * @function
- * @param {String} str The string to strip special characters
- * @returns {String} The newly created string with special characters stripped
+ * @param {String} str The format layout
+ * @returns {String} Only the placeholder characters (C and N, case insensitive) from the layout
  */
 export default function _uglifyFormats (str) {
-  return str.replace(/[^a-wyz]/gi, '')
+  return str.replace(/[^cn]/gi, '')
 }
