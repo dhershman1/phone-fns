@@ -76,7 +76,7 @@ Through the browser
 import * as phoneFns from 'phone-fns'
 
 phoneFns.breakdown('4443332222')
-// => { areaCode: '444', localCode: '333', lineNumber: '2222', extension: '' }
+// => { countryCode: '', areaCode: '444', localCode: '333', lineNumber: '2222', extension: '' }
 
 phoneFns.format('(NNN) NNN-NNNN', '4443332222')
 // => '(444) 333-2222'
@@ -88,7 +88,7 @@ You can also destructure to only use the functions you want
 import { breakdown, format } from 'phone-fns'
 
 breakdown('4443332222')
-// => { areaCode: '444', localCode: '333', lineNumber: '2222', extension: '' }
+// => { countryCode: '', areaCode: '444', localCode: '333', lineNumber: '2222', extension: '' }
 
 format('(NNN) NNN-NNNN', '4443332222')
 // => '(444) 333-2222'
