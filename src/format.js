@@ -1,8 +1,6 @@
 import _curry2 from './_internals/_curry2.js'
-import isValid from './isValid.js'
 import uglify from './uglify.js'
 import _uglifyFormats from './_internals/_uglifyFormats.js'
-import _hasPlaceholder from './_internals/_hasPlaceholder.js'
 
 /**
  * @private
@@ -21,6 +19,7 @@ function validFormat (layout, phone) {
  * @category Function
  * @sig String -> String -> String
  * @description Allows you to format phone numbers however you desire using N as number placeholders and C as country code placeholders these placeholders are case insensitive
+ * If the number of digits in the phone does not match the number of placeholders in the layout, the phone is returned unchanged
  * @param {String} layout The desired layout of the phone number
  * @param {String} phone The phone number to breakdown
  * @return {String} Returns a string which is the formatted phone number
@@ -42,17 +41,10 @@ function validFormat (layout, phone) {
  */
 function format (layout, phone) {
   const uglyPhone = uglify(phone)
-  const cCount = (layout.match(/C/g) || []).length
+  const cCount = (layout.match(/C/gi) || []).length
 
   if (!validFormat(layout, uglyPhone)) {
     return phone
-  }
-
-  if (!_hasPlaceholder(uglyPhone)) {
-    // We are skipping validation of the phone number if there are placeholders
-    if (!isValid(phone)) {
-      return phone
-    }
   }
 
   return uglyPhone.split('').reduce((acc, d, i) => {
