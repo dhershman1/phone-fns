@@ -5,7 +5,7 @@ declare let phoneFns: phoneFns.Static
 
 declare namespace phoneFns {
   interface Breakdown {
-    countryCode?: string
+    countryCode: string
     areaCode: string
     localCode: string
     lineNumber: string
@@ -20,9 +20,9 @@ declare namespace phoneFns {
     format(layout: string): (phone: string) => string
 
     /**
-     * Takes a provided phone string and breaks it down into an object of codes
+     * Takes a provided phone string and breaks it down into an object of codes. Throws if the number cannot be broken down
      */
-    breakdown(phone: string): Breakdown
+    breakdown(phone: string | number): Breakdown
 
     /**
      * Breaks down a phone number based on a custom format provided and returns an object with the parts of the phone number
@@ -36,25 +36,21 @@ declare namespace phoneFns {
      */
     findSeparators(phone: string): string[]
 
-    /**
-     * Validates the base number, does not take the country code or extension into consideration for this validation
-     * @deprecated Use isValidWithFormat instead
-     */
-    isValid(phone: string): boolean
 
     /**
-     * Validates a phone number based on a custom format provided
+     * Validates a phone number based on a custom format provided, using N for numbers and C for country code
+     * Every other character in the format must match the phone number exactly
      */
-    isValidWithFormat(format: string, phone: string): boolean
-    isValidWithFormat(format: string): (phone: string) => boolean
+    isValidWithFormat(format: string, phone: string | number): boolean
+    isValidWithFormat(format: string): (phone: string | number) => boolean
 
     /**
      * Strips all of the special characters from the given string but leaves extension and country code characters in place
      */
-    normalize(phone: string): string
+    normalize(phone: string | number): string
 
     /**
-     * Strips all of the special characters from the given string
+     * Strips everything except digits and `_` placeholders from the given string
      */
     uglify(phone: string | number): string
 
