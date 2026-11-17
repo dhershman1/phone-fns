@@ -1,18 +1,14 @@
-import fs from 'fs/promises'
-import path from 'path'
-import { globby } from 'globby'
+import fs from 'node:fs/promises'
+import path from 'node:path'
 
-const globFiles = ['src/**/*.js', '!src/index.js', '!src/common.js', '!src/_internals']
-const files = await globby(globFiles)
+const files = (await fs.readdir('src', { withFileTypes: true }))
+  .filter(f => f.isFile() && f.name.endsWith('.js') && f.name !== 'index.js')
+  .map(f => f.name)
+  .sort()
 
-const buildRes = () =>
-  files.sort().map(f => {
-    const { base, name } = path.parse(f)
+const exportsList = files
+  .map(base => `export { default as ${path.parse(base).name} } from './${base}'`)
+  .join('\n')
 
-    return `export { default as ${name} } from './${base}'`
-  }).join('\n')
-
-// Build Exports
-fs.writeFile('src/index.js', `${buildRes('standard')}\n`)
-  .then(() => console.log('Finished Writing Exports... Wrapping up...'))
-  .catch(console.error)
+await fs.writeFile('src/index.js', `${exportsList}\n`)
+console.log('Finished Writing Exports... Wrapping up...')
