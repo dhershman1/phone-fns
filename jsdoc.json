@@ -43,7 +43,7 @@
       }
     ],
     "genSources": true,
-    "changelog": "./CHANGELOG.md",
+    "changelog": "./changelog.md",
     "lang": "en",
     "customTags": [
       "category",
