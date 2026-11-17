@@ -30,3 +30,31 @@ test('isValidWithFormat - missing format', (t) => {
   t.throws(() => isValidWithFormat(null, '123-456-7890'), /You must provide a format to validate/, 'Should throw an error if format is missing')
   t.end()
 })
+
+test('isValidWithFormat - literal characters must match exactly', (t) => {
+  t.same(isValidWithFormat('NNN-NNN-NNNN', '123.456.7890'), false, 'Dots do not match dashes')
+  t.same(isValidWithFormat('(NNN) NNN-NNNN', '(123)-456-7890'), false, 'Separators in the wrong place')
+  t.same(isValidWithFormat('+1 NNN-NNN-NNNN', '+2 234-567-1890'), false, 'Literal country code does not match')
+  t.end()
+})
+
+test('isValidWithFormat - every placeholder must be a digit', (t) => {
+  t.same(isValidWithFormat('NNN-NNN-NNNN', '555-444-333 '), false, 'Space in an N slot')
+  t.same(isValidWithFormat('+C NNN-NNN-NNNN', '+a 555-444-3333'), false, 'Letter in a C slot')
+  t.same(isValidWithFormat('+C NNN-NNN-NNNN x NNN', '+1 555-444-3333 x 123'), true, 'C and N slots filled with digits')
+  t.end()
+})
+
+test('isValidWithFormat - only N and C are placeholders', (t) => {
+  t.same(isValidWithFormat('AAA-NNN-NNNN', '555-444-3333'), false, 'A is a literal, not a placeholder')
+  t.same(isValidWithFormat('NNN-NNN-NNNN xXXX', '555-444-3333 x123'), false, 'X is a literal, not a placeholder')
+  t.same(isValidWithFormat('nnn-NNN-NNNN', '555-444-3333'), false, 'Lowercase n is a literal')
+  t.end()
+})
+
+test('isValidWithFormat - handles non string phones', (t) => {
+  t.same(isValidWithFormat('NNNNNNNNNN', 5554443333), true, 'Numbers are coerced')
+  t.same(isValidWithFormat('NNNNNNNNNN', null), false, 'null is invalid')
+  t.same(isValidWithFormat('NNNNNNNNNN', undefined), false, 'undefined is invalid')
+  t.end()
+})

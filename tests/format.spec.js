@@ -131,3 +131,21 @@ test('Supports Placeholder characters', t => {
   t.same(format('NNN-NNN-NNNN x NNNN', '5554443333____'), '555-444-3333 x ____')
   t.end()
 })
+
+test('Lowercase c is treated as a country code placeholder', t => {
+  t.same(format('c (NNN) NNN-NNNN', '15554443333'), '1 (555) 444-3333')
+  t.same(format('+cc NNN NNN NNNN', '445554443333'), '+44 555 444 3333')
+  t.end()
+})
+
+test('Only C and N count as placeholders in the layout', t => {
+  t.same(format('NNN-NNN-NNNN ext NNN', '5554443333123'), '555-444-3333 ext 123')
+  t.same(format('NNN-NNN-NNNN xNNN', '5554443333x123'), '555-444-3333 x123')
+  t.end()
+})
+
+test('Formats any number that fits the layout', t => {
+  t.same(format('NNN-NNN-NNNN', '0000000000'), '000-000-0000')
+  t.same(format('NNNN', '1234'), '1234')
+  t.end()
+})

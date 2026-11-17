@@ -1,4 +1,4 @@
-import { breakdown, format, uglify, isValid } from '../src/index.js'
+import { breakdown, format, uglify, validate } from '../src/index.js'
 import test from 'tape'
 
 test('Able to run breakdown without providing country code to instance', t => {
@@ -15,9 +15,9 @@ test('Able to run format without providing country code to instance', t => {
   t.end()
 })
 
-test('Able to run isValid from instance', t => {
-  t.true(isValid('4445556666'))
-  t.false(isValid('334445555'))
+test('Able to run validate from instance', t => {
+  t.true(validate('4445556666'))
+  t.false(validate('334445555'))
   t.end()
 })
 

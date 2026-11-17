@@ -63,3 +63,34 @@ test('breakdownWithFormat - no extension', (t) => {
   t.same(result, expected, 'Should correctly breakdown the phone number without an extension')
   t.end()
 })
+
+test('breakdownWithFormat - rejects mismatched literals', (t) => {
+  const err = /does not match the format provided/
+
+  t.throws(() => breakdownWithFormat('+1 AAA-LLL-NNNN', '+2 555-444-3333'), err, 'Literal country code must match')
+  t.throws(() => breakdownWithFormat('AAA-LLL-NNNN', '555.444.3333'), err, 'Separators must match')
+  t.end()
+})
+
+test('breakdownWithFormat - every placeholder must be a digit', (t) => {
+  const err = /does not match the format provided/
+
+  t.throws(() => breakdownWithFormat('AAA-LLL-NNNN', 'abc-444-3333'), err, 'Letters in A slots')
+  t.throws(() => breakdownWithFormat('AAA-LLL-NNNN', '555-4 4-3333'), err, 'Space in an L slot')
+  t.throws(() => breakdownWithFormat('+C AAA-LLL-NNNN xXXX', '+1 555-444-3333 x12a'), err, 'Letter in an X slot')
+  t.throws(() => breakdownWithFormat('+C AAA-LLL-NNNN', '+a 555-444-3333'), err, 'Letter in a C slot')
+  t.end()
+})
+
+test('breakdownWithFormat - is curried', (t) => {
+  const fn = breakdownWithFormat('+C (AAA) LLL-NNNN xXXX')
+
+  t.same(fn('+1 (555) 444-3333 x123'), {
+    countryCode: '1',
+    areaCode: '555',
+    localCode: '444',
+    lineNumber: '3333',
+    extension: '123'
+  })
+  t.end()
+})

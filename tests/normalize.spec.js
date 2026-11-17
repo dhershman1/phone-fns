@@ -27,3 +27,9 @@ test('normalize handles empty and null input', (t) => {
   t.same(normalize(null), '', 'should handle null input')
   t.end()
 })
+
+test('normalize handles non string input', (t) => {
+  t.same(normalize(5554443333), '5554443333', 'should coerce numbers')
+  t.same(normalize(undefined), '', 'should handle undefined input')
+  t.end()
+})
