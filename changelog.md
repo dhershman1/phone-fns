@@ -1,5 +1,40 @@
 # Changelog
 
+## v5.0.0
+
+### Breaking Changes
+
+- Phone-Fns is no longer transpiled down to ES5 with Babel
+  - The bundles in `dist/` now ship modern JavaScript
+  - Internet Explorer and other legacy browsers are no longer supported out of the box. If you still need them, transpile `phone-fns` as part of your own build
+
+### Changed
+
+- Simplified the build: one Rollup config now produces the ESM, CommonJS, and IIFE bundles
+- Bundle sizes are now reported by a small inline Rollup plugin instead of `rollup-plugin-filesize`
+- `scripts/create-export.js` now uses `node:fs` instead of `globby`
+
+### Fixed
+
+- Docs build now finds `changelog.md` on case-sensitive file systems (Linux), so the changelog appears in the generated docs again
+
+### Chore
+
+- Replaced `standard` with `neostandard` (ESLint 10 flat config)
+  - Linting now covers `tests/`, `scripts/`, and config files, not just `src/`
+- Removed Babel (`@babel/core`, `@babel/preset-env`, `@rollup/plugin-babel`, `.babelrc`)
+- Removed `rollup-plugin-filesize`, `@rollup/plugin-node-resolve`, `npm-run-all`, and `globby`
+- Updated `rollup` to v4.68.5, `@rollup/plugin-terser` to v1.0.2, `jsdoc` to v4.0.5, `c8` to v12, and `tape` to v5.10.3
+- Added npm `overrides` so `c8` uses patched versions of `glob` and `minimatch`
+- Regenerated `package-lock.json`, which clears the large majority of dev dependency security advisories
+- CI updates:
+  - Node matrix is now 22.x and 24.x (Node 18 and 20 are end-of-life)
+  - Updated `actions/checkout`, `actions/setup-node`, and `codecov/codecov-action` to v7
+  - Uses `setup-node`'s built-in npm cache and always runs `npm ci`
+  - Added a build step, read-only workflow permissions, and a single coverage upload per run
+  - Pull requests into `development` now run CI as well
+  - Removed the CodeQL workflow
+
 ## v4.1.2
 
 ### Fixed
