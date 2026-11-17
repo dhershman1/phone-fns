@@ -9,11 +9,11 @@
   "unpkg": "dist/phone-fns.iife.min.js",
   "jsdelivr": "dist/phone-fns.iife.min.js",
   "scripts": {
-    "prepack": "npm-run-all --parallel docs scripts lint test --serial build",
+    "prepack": "npm run scripts && npm run lint && npm test && npm run build && npm run docs",
     "scripts": "node scripts/create-export.js",
     "docs": "jsdoc -c jsdoc.json",
     "build": "rollup -c",
-    "lint": "standard src/**/*.js",
+    "lint": "eslint",
     "test": "tape tests/*.spec.js | tap-on",
     "test:cov": "c8 tape tests/*.spec.js",
     "coverage": "c8 check-coverage --lines 90 --branches 90 --functions 90 --statements 90",
@@ -34,13 +34,6 @@
         "default": "./dist/phone-fns.iife.min.js"
       }
     }
-  },
-  "standard": {
-    "ignore": [
-      "docs/*",
-      "dist/*",
-      "types/*"
-    ]
   },
   "repository": {
     "type": "git",
@@ -67,20 +60,20 @@
   "license": "MIT",
   "private": false,
   "devDependencies": {
-    "@babel/core": "7.25.7",
-    "@babel/preset-env": "7.25.7",
-    "@rollup/plugin-babel": "6.0.4",
-    "@rollup/plugin-node-resolve": "^15.3.0",
-    "@rollup/plugin-terser": "0.4.4",
-    "c8": "^10.1.2",
-    "globby": "13.2.2",
-    "jsdoc": "4.0.3",
-    "npm-run-all": "4.1.5",
+    "@rollup/plugin-terser": "1.0.2",
+    "c8": "^12.0.0",
+    "eslint": "10.15.0",
+    "jsdoc": "4.0.5",
+    "neostandard": "0.14.1",
     "pinet": "1.2.1",
-    "rollup": "4.24.0",
-    "rollup-plugin-filesize": "10.0.0",
-    "standard": "17.1.2",
+    "rollup": "4.68.5",
     "tap-on": "1.0.0",
-    "tape": "5.9.0"
+    "tape": "5.10.3"
+  },
+  "overrides": {
+    "test-exclude": {
+      "glob": "^14.0.2",
+      "minimatch": "^11.0.1"
+    }
   }
 }
