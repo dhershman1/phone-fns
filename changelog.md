@@ -7,16 +7,40 @@
 - Phone-Fns is no longer transpiled down to ES5 with Babel
   - The bundles in `dist/` now ship modern JavaScript
   - Internet Explorer and other legacy browsers are no longer supported out of the box. If you still need them, transpile `phone-fns` as part of your own build
+- Removed the deprecated `isValid` function
+  - Use `validate` or `isValidWithFormat` instead
+- `breakdown` now reads the original input instead of only its digits
+  - Extensions are only picked up when they have a marker: `x`, `ext`, `ext.`, `extension`, or `#`
+    - Trailing digits with no marker (e.g. `'55544433338989'`) no longer become an extension
+  - A country code is picked up from a leading `+` (1-3 digits), or from an 11 digit number that starts with `1`
+    - `breakdown('+1 555-444-3333')` now returns `countryCode: '1', areaCode: '555', ...` instead of `areaCode: '155', ...`
+  - Always returns a `countryCode` key (an empty string when there isn't one)
+  - 7 digit numbers now return `areaCode: ''` instead of `areaCode: undefined`
+  - Throws `The phone number provided could not be broken down` for input it can't handle (empty, `null`, too short or too long, or containing letters) instead of crashing with a `TypeError`
+- `isValidWithFormat` (and so `breakdownWithFormat`) now strictly matches the format
+  - `isValidWithFormat` uses the same placeholders as `format`: `N` for numbers and `C` for country code. Both must be digits. Previously only `N` was checked, and a space would pass as a digit
+  - Every other character in the format must match the phone number exactly, so `'555.444.3333'` no longer passes `'NNN-NNN-NNNN'`, and `'+2 ...'` no longer passes `'+1 ...'`
+  - `breakdownWithFormat` keeps its own `C`, `A`, `L`, `N`, and `X` placeholders, and every one of them must now be a digit
+- `uglify` now keeps every digit
+  - It used to drop the first digit after any letter, e.g. `uglify('5554443333x123')` returned `'555444333323'`; it now returns `'5554443333123'`
+- `format` no longer runs the phone number through `isValid`
+  - Any phone whose digit count matches the number of `C`/`N` placeholders in the layout is formatted; otherwise it's returned unchanged, as before
+  - Only `C` and `N` (any case) count as placeholders in the layout, so layouts can contain other letters, e.g. `'NNN-NNN-NNNN ext NNN'`
+- `Breakdown` type: `countryCode` is no longer optional
 
 ### Changed
 
 - Simplified the build: one Rollup config now produces the ESM, CommonJS, and IIFE bundles
 - Bundle sizes are now reported by a small inline Rollup plugin instead of `rollup-plugin-filesize`
 - `scripts/create-export.js` now uses `node:fs` instead of `globby`
+- `breakdown`, `normalize`, and `isValidWithFormat` types now accept numbers as well as strings
 
 ### Fixed
 
 - Docs build now finds `changelog.md` on case-sensitive file systems (Linux), so the changelog appears in the generated docs again
+- `format` now treats a lowercase `c` as a country code placeholder, as the docs already said it would
+- `normalize` no longer crashes when given a number
+- `breakdownWithFormat` documentation example showed the wrong output for its curried call
 
 ### Chore
 
