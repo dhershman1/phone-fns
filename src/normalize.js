@@ -16,9 +16,9 @@
  * normalize('555.444.3333 x 123') // => '5554443333x123'
  */
 export default function normalize (phone) {
-  if (!phone) {
+  if (phone == null) {
     return ''
   }
 
-  return phone.replace(/[\s.\-()]/g, '').trim()
+  return String(phone).replace(/[\s.\-()]/g, '').trim()
 }
