@@ -8,6 +8,10 @@
       "src/",
       "package.json",
       "./README.md"
+    ],
+    "exclude": [
+      "src/_internals",
+      "src/index.js"
     ]
   },
   "sourceType": "module",
