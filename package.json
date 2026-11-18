@@ -14,8 +14,8 @@
     "docs": "jsdoc -c jsdoc.json",
     "build": "npm run build:types && rollup -c",
     "lint": "eslint",
-    "test": "tape tests/*.spec.js | tap-on",
-    "test:cov": "c8 tape tests/*.spec.js",
+    "test": "node --test \"tests/*.spec.js\"",
+    "test:cov": "c8 node --test \"tests/*.spec.js\"",
     "coverage": "c8 check-coverage --lines 90 --branches 90 --functions 90 --statements 90",
     "report": "c8 report --reporter=text-lcov > coverage.lcov",
     "build:types": "node node_modules/typescript/bin/tsc -p tsconfig.json"
@@ -70,8 +70,6 @@
     "pinet": "1.2.1",
     "rollup": "4.68.5",
     "rollup-plugin-dts": "6.5.1",
-    "tap-on": "1.0.0",
-    "tape": "5.10.3",
     "typescript": "7.0.2"
   },
   "overrides": {
