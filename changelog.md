@@ -26,6 +26,12 @@
 - `format` no longer runs the phone number through `isValid`
   - Any phone whose digit count matches the number of `C`/`N` placeholders in the layout is formatted; otherwise it's returned unchanged, as before
   - Only `C` and `N` (any case) count as placeholders in the layout, so layouts can contain other letters, e.g. `'NNN-NNN-NNNN ext NNN'`
+- `format` always returns a string
+  - When a number is passed in that doesn't fit the layout it's now returned as a string (e.g. `format('NNN', 12345) // => '12345'`) instead of the original number
+- TypeScript types are now generated from the source and describe the real exports
+  - The types no longer use `export =`, so `import phoneFns from 'phone-fns'` is now a type error. There has never been a default export at runtime, use `import * as phoneFns from 'phone-fns'` or named imports instead
+  - `Breakdown` can be imported as a type: `import type { Breakdown } from 'phone-fns'`
+  - The `phoneFns` global for the IIFE (script tag) build is still declared
 - `Breakdown` type: `countryCode` is no longer optional
 
 ### Changed
@@ -33,7 +39,11 @@
 - Simplified the build: one Rollup config now produces the ESM, CommonJS, and IIFE bundles
 - Bundle sizes are now reported by a small inline Rollup plugin instead of `rollup-plugin-filesize`
 - `scripts/create-export.js` now uses `node:fs` instead of `globby`
-- `breakdown`, `normalize`, and `isValidWithFormat` types now accept numbers as well as strings
+- Type definitions are generated from the JSDoc in `src/` instead of being written by hand
+  - They are built into `dist/phone-fns.d.ts` (ESM) and `dist/phone-fns.d.cts` (CommonJS), replacing the `types/` folder
+  - Hovering any function in your editor now shows its full documentation and examples
+  - Curried functions keep their real parameter names in both forms, e.g. `format(layout)` returns `(phone) => string`
+- `breakdown`, `format`, `normalize`, `isValidWithFormat`, `uglify`, and `validate` types now accept numbers as well as strings, matching what they already accepted at runtime
 
 ### Fixed
 
@@ -51,6 +61,12 @@
 - Updated `rollup` to v4.68.5, `@rollup/plugin-terser` to v1.0.2, `jsdoc` to v4.0.5, `c8` to v12, and `tape` to v5.10.3
 - Added npm `overrides` so `c8` uses patched versions of `glob` and `minimatch`
 - Regenerated `package-lock.json`, which clears the large majority of dev dependency security advisories
+- Added `typescript` v7 and `rollup-plugin-dts` to generate and bundle type definitions, with a root `tsconfig.json`
+  - `npm run build` now type checks `src/` (`checkJs` + `strict`) before bundling, so type errors in the JSDoc fail the build
+  - `@typescript/typescript6` is also installed because `rollup-plugin-dts` needs the TypeScript compiler API, which TypeScript 7 doesn't ship yet
+  - `npm run build:types` calls TypeScript 7 by path, since that package also installs an older `tsc` command that takes over `npx tsc`
+- JSDoc site generation now skips `src/_internals` and `src/index.js`, which use TypeScript only type syntax
+- `eslint.config.js`, `tsconfig.json`, and `.gitattributes` are no longer published to npm
 - CI updates:
   - Node matrix is now 22.x and 24.x (Node 18 and 20 are end-of-life)
   - Updated `actions/checkout`, `actions/setup-node`, and `codecov/codecov-action` to v7
