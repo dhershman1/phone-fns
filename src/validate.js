@@ -9,7 +9,7 @@ import uglify from './uglify.js'
  * @sig String -> Boolean
  * @description
  * Validates the base number, strips out special characters and spaces upon validation, can handle country code and extension in the phone number
- * @param {String} phone The phone number we want to validate
+ * @param {String|Number} phone The phone number we want to validate
  * @return {Boolean} Returns a boolean if the number provided is valid or not
  * @example
  * import { validate } from 'phone-fns'

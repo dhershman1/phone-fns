@@ -15,6 +15,21 @@ const SHAPES = [
   /^\+(?<countryCode>[\d_]{1,3})(?<areaCode>[\d_]{3})(?<localCode>[\d_]{3})(?<lineNumber>[\d_]{4})$/
 ]
 
+/**
+ * The parts of a phone number, any part that isn't present is an empty string
+ * @private
+ * @typedef {Object} Breakdown
+ * @property {String} countryCode The country code
+ * @property {String} areaCode The area code
+ * @property {String} localCode The local code (exchange)
+ * @property {String} lineNumber The line number
+ * @property {String} extension The extension
+ */
+
+/**
+ * @private
+ * @type {Breakdown}
+ */
 const EMPTY = { countryCode: '', areaCode: '', localCode: '', lineNumber: '', extension: '' }
 
 /**
@@ -36,8 +51,8 @@ const toCompact = (str) => ALLOWED.test(str) ? str.replace(/[^\d_+]/g, '') : ''
  * - Extensions are only picked up when they are marked with `x`, `ext`, `ext.`, `extension`, or `#`
  * - A country code is picked up when the number starts with `+` (1-3 digits), or when it is 11 digits long and starts with `1`
  * - Supports `_` placeholders
- * @param {String} phone The phone number to breakdown
- * @return {Object} Returns an object of the broken down phone number
+ * @param {String|Number} phone The phone number to breakdown
+ * @return {Breakdown} Returns an object of the broken down phone number
  * @throws {Error} If the phone number cannot be broken down
  *
  * @example

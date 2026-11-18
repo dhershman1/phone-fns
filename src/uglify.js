@@ -5,7 +5,7 @@
  * @category Function
  * @sig String -> String
  * @description Strips everything except digits and `_` placeholders from the given string
- * @param {String} phone The phone number to trim and strip down
+ * @param {String|Number} phone The phone number to trim and strip down
  * @return {String} Returns the newly created phone number string
  *
  * @example
