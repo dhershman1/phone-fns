@@ -16,6 +16,7 @@
   },
   "sourceType": "module",
   "plugins": [
+    "plugins/markdown",
     "node_modules/pinet/tags.js"
   ],
   "opts": {

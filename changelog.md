@@ -56,6 +56,7 @@
 
 - `main` in `package.json` now points at the CommonJS build, so tools that don't read `exports` can `require` the package again
 - The fallback `default` condition in `exports` now points at the ESM build instead of the IIFE build, which has no exports
+- Function descriptions in the docs now render their markdown (lists and inline code) via jsdoc's `plugins/markdown`
 - Docs build now finds `changelog.md` on case-sensitive file systems (Linux), so the changelog appears in the generated docs again
 - `format` now treats a lowercase `c` as a country code placeholder, as the docs already said it would
 - `normalize` no longer crashes when given a number
