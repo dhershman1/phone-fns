@@ -10,5 +10,10 @@ const exportsList = files
   .map(base => `export { default as ${path.parse(base).name} } from './${base}'`)
   .join('\n')
 
-await fs.writeFile('src/index.js', `${exportsList}\n`)
+// Shared types that should be importable from the package, e.g. `import type { Breakdown } from 'phone-fns'`
+const typeExports = [
+  "/** @typedef {import('./breakdown.js').Breakdown} Breakdown */"
+].join('\n')
+
+await fs.writeFile('src/index.js', `${typeExports}\n\n${exportsList}\n`)
 console.log('Finished Writing Exports... Wrapping up...')
