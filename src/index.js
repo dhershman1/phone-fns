@@ -1,3 +1,5 @@
+/** @typedef {import('./breakdown.js').Breakdown} Breakdown */
+
 export { default as breakdown } from './breakdown.js'
 export { default as breakdownWithFormat } from './breakdownWithFormat.js'
 export { default as findSeparators } from './findSeparators.js'
