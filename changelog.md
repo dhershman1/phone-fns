@@ -23,6 +23,13 @@
   - `breakdownWithFormat` keeps its own `C`, `A`, `L`, `N`, and `X` placeholders, and every one of them must now be a digit
 - `uglify` now keeps every digit
   - It used to drop the first digit after any letter, e.g. `uglify('5554443333x123')` returned `'555444333323'`; it now returns `'5554443333123'`
+- `validate` now checks how the number is written instead of only its digits. It stays country neutral and doesn't apply any country specific numbering rules
+  - Groups must be split by a single space, dot, or dash, so `'555--444-3333'` and `'-555-444-3333'` are no longer valid
+  - Parentheses must be balanced, used at most once, and wrap 1-4 digits, so `'(555 444-3333'` is no longer valid
+  - A `+` must be the first character and be followed by a country code that doesn't start with `0`
+  - Numbers can be written in at most 6 groups, so `'5 5 5 4 4 4 3 3 3 3'` is no longer valid
+  - Extensions accept the same markers as `breakdown` (`x`, `ext`, `ext.`, `extension`, `#`), can be up to 7 digits, and no longer count towards the 10-15 digit limit
+  - `_` placeholders are not valid
 - `format` no longer runs the phone number through `isValid`
   - Any phone whose digit count matches the number of `C`/`N` placeholders in the layout is formatted; otherwise it's returned unchanged, as before
   - Only `C` and `N` (any case) count as placeholders in the layout, so layouts can contain other letters, e.g. `'NNN-NNN-NNNN ext NNN'`
@@ -47,6 +54,8 @@
 
 ### Fixed
 
+- `main` in `package.json` now points at the CommonJS build, so tools that don't read `exports` can `require` the package again
+- The fallback `default` condition in `exports` now points at the ESM build instead of the IIFE build, which has no exports
 - Docs build now finds `changelog.md` on case-sensitive file systems (Linux), so the changelog appears in the generated docs again
 - `format` now treats a lowercase `c` as a country code placeholder, as the docs already said it would
 - `normalize` no longer crashes when given a number
