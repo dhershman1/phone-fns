@@ -1,19 +1,18 @@
-import test from 'tape'
+import { test } from 'node:test'
+import assert from 'node:assert/strict'
 import validate from '../src/validate.js'
 
-test('Test simple type', t => {
-  t.ok(validate('555-444-3333'), 'Results returned back ok')
-  t.ok(validate('4445556666'))
-  t.ok(validate(4445556666))
-  t.end()
+test('Test simple type', () => {
+  assert.ok(validate('555-444-3333'), 'Results returned back ok')
+  assert.ok(validate('4445556666'))
+  assert.ok(validate(4445556666))
 })
 
-test('Test complex type', t => {
-  t.ok(validate('(555) 444 3333'), 'Results returned back ok')
-  t.end()
+test('Test complex type', () => {
+  assert.ok(validate('(555) 444 3333'), 'Results returned back ok')
 })
 
-test('Test handles wide range of phone numbers', t => {
+test('Test handles wide range of phone numbers', () => {
   const validPhoneNumbers = [
     '010.1234.5678', // Number with dots
     '10 9876 5432', // South Korea number without country code
@@ -30,12 +29,11 @@ test('Test handles wide range of phone numbers', t => {
   ]
 
   validPhoneNumbers.forEach(phone => {
-    t.ok(validate(phone), `Valid phone number: ${phone}`)
+    assert.ok(validate(phone), `Valid phone number: ${phone}`)
   })
-  t.end()
 })
 
-test('Handles Invalid range of phone numbers', t => {
+test('Handles Invalid range of phone numbers', () => {
   const invalidPhoneNumbers = [
     '123', // Too short
     '010-1234', // Missing last part of mobile number
@@ -52,7 +50,6 @@ test('Handles Invalid range of phone numbers', t => {
   ]
 
   invalidPhoneNumbers.forEach(phone => {
-    t.notOk(validate(phone), `Invalid phone number: ${phone}`)
+    assert.equal(validate(phone), false, `Invalid phone number: ${phone}`)
   })
-  t.end()
 })

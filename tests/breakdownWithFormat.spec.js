@@ -1,7 +1,8 @@
-import test from 'tape'
+import { test } from 'node:test'
+import assert from 'node:assert/strict'
 import breakdownWithFormat from '../src/breakdownWithFormat.js'
 
-test('breakdownWithFormat - valid input', (t) => {
+test('breakdownWithFormat - valid input', () => {
   const format = '+C (AAA) LLL-NNNN xXXX'
   const phone = '+1 (555) 444-3333 x123'
   const expected = {
@@ -13,26 +14,23 @@ test('breakdownWithFormat - valid input', (t) => {
   }
 
   const result = breakdownWithFormat(format, phone)
-  t.same(result, expected, 'Should correctly breakdown the phone number with the given format')
-  t.end()
+  assert.deepEqual(result, expected, 'Should correctly breakdown the phone number with the given format')
 })
 
-test('breakdownWithFormat - missing format', (t) => {
+test('breakdownWithFormat - missing format', () => {
   const phone = '+1 (555) 444-3333 x123'
 
-  t.throws(() => breakdownWithFormat(null, phone), /You must provide a format to breakdown/, 'Should throw an error if format is missing')
-  t.end()
+  assert.throws(() => breakdownWithFormat(null, phone), /You must provide a format to breakdown/, 'Should throw an error if format is missing')
 })
 
-test('breakdownWithFormat - invalid phone number', (t) => {
+test('breakdownWithFormat - invalid phone number', () => {
   const format = '+C (AAA) LLL-NNNN xXXX'
   const phone = 'invalid phone number'
 
-  t.throws(() => breakdownWithFormat(format, phone), /The phone number provided does not match the format provided or is an invalid phone number/, 'Should throw an error if phone number does not match the format')
-  t.end()
+  assert.throws(() => breakdownWithFormat(format, phone), /The phone number provided does not match the format provided or is an invalid phone number/, 'Should throw an error if phone number does not match the format')
 })
 
-test('breakdownWithFormat - different format', (t) => {
+test('breakdownWithFormat - different format', () => {
   const format = '+C-AAA-LLL-NNNN xXXX'
   const phone = '+1-555-444-3333 x123'
   const expected = {
@@ -44,11 +42,10 @@ test('breakdownWithFormat - different format', (t) => {
   }
 
   const result = breakdownWithFormat(format, phone)
-  t.same(result, expected, 'Should correctly breakdown the phone number with a different format')
-  t.end()
+  assert.deepEqual(result, expected, 'Should correctly breakdown the phone number with a different format')
 })
 
-test('breakdownWithFormat - no extension', (t) => {
+test('breakdownWithFormat - no extension', () => {
   const format = '+C (AAA) LLL-NNNN'
   const phone = '+1 (555) 444-3333'
   const expected = {
@@ -60,37 +57,33 @@ test('breakdownWithFormat - no extension', (t) => {
   }
 
   const result = breakdownWithFormat(format, phone)
-  t.same(result, expected, 'Should correctly breakdown the phone number without an extension')
-  t.end()
+  assert.deepEqual(result, expected, 'Should correctly breakdown the phone number without an extension')
 })
 
-test('breakdownWithFormat - rejects mismatched literals', (t) => {
+test('breakdownWithFormat - rejects mismatched literals', () => {
   const err = /does not match the format provided/
 
-  t.throws(() => breakdownWithFormat('+1 AAA-LLL-NNNN', '+2 555-444-3333'), err, 'Literal country code must match')
-  t.throws(() => breakdownWithFormat('AAA-LLL-NNNN', '555.444.3333'), err, 'Separators must match')
-  t.end()
+  assert.throws(() => breakdownWithFormat('+1 AAA-LLL-NNNN', '+2 555-444-3333'), err, 'Literal country code must match')
+  assert.throws(() => breakdownWithFormat('AAA-LLL-NNNN', '555.444.3333'), err, 'Separators must match')
 })
 
-test('breakdownWithFormat - every placeholder must be a digit', (t) => {
+test('breakdownWithFormat - every placeholder must be a digit', () => {
   const err = /does not match the format provided/
 
-  t.throws(() => breakdownWithFormat('AAA-LLL-NNNN', 'abc-444-3333'), err, 'Letters in A slots')
-  t.throws(() => breakdownWithFormat('AAA-LLL-NNNN', '555-4 4-3333'), err, 'Space in an L slot')
-  t.throws(() => breakdownWithFormat('+C AAA-LLL-NNNN xXXX', '+1 555-444-3333 x12a'), err, 'Letter in an X slot')
-  t.throws(() => breakdownWithFormat('+C AAA-LLL-NNNN', '+a 555-444-3333'), err, 'Letter in a C slot')
-  t.end()
+  assert.throws(() => breakdownWithFormat('AAA-LLL-NNNN', 'abc-444-3333'), err, 'Letters in A slots')
+  assert.throws(() => breakdownWithFormat('AAA-LLL-NNNN', '555-4 4-3333'), err, 'Space in an L slot')
+  assert.throws(() => breakdownWithFormat('+C AAA-LLL-NNNN xXXX', '+1 555-444-3333 x12a'), err, 'Letter in an X slot')
+  assert.throws(() => breakdownWithFormat('+C AAA-LLL-NNNN', '+a 555-444-3333'), err, 'Letter in a C slot')
 })
 
-test('breakdownWithFormat - is curried', (t) => {
+test('breakdownWithFormat - is curried', () => {
   const fn = breakdownWithFormat('+C (AAA) LLL-NNNN xXXX')
 
-  t.same(fn('+1 (555) 444-3333 x123'), {
+  assert.deepEqual(fn('+1 (555) 444-3333 x123'), {
     countryCode: '1',
     areaCode: '555',
     localCode: '444',
     lineNumber: '3333',
     extension: '123'
   })
-  t.end()
 })
