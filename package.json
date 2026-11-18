@@ -1,6 +1,6 @@
 {
   "name": "phone-fns",
-  "version": "4.1.2",
+  "version": "5.0.0",
   "description": "A small, modern, and functional phone library for javascript",
   "main": "dist/phone-fns.min.cjs",
   "module": "src/index.js",
