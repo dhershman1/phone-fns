@@ -70,6 +70,7 @@
 - Removed `rollup-plugin-filesize`, `@rollup/plugin-node-resolve`, `npm-run-all`, and `globby`
 - Replaced `tape` and `tap-on` with Node's built-in test runner (`node:test` and `node:assert`)
 - Updated `rollup` to v4.68.5, `@rollup/plugin-terser` to v1.0.2, `jsdoc` to v4.0.5, and `c8` to v12
+- Updated `pinet` to v2.0.0
 - Added npm `overrides` so `c8` uses patched versions of `glob` and `minimatch`
 - Regenerated `package-lock.json`, which clears the large majority of dev dependency security advisories
 - Added `typescript` v7 and `rollup-plugin-dts` to generate and bundle type definitions, with a root `tsconfig.json`
