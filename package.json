@@ -67,7 +67,7 @@
     "eslint": "10.15.0",
     "jsdoc": "4.0.5",
     "neostandard": "0.14.1",
-    "pinet": "1.2.1",
+    "pinet": "2.0.0",
     "rollup": "4.68.5",
     "rollup-plugin-dts": "6.5.1",
     "typescript": "7.0.2"
