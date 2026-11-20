@@ -1,46 +1,40 @@
 {
   "name": "phone-fns",
-  "version": "4.1.2",
+  "version": "5.0.0",
   "description": "A small, modern, and functional phone library for javascript",
-  "main": "dist/phone-fns.min.js",
+  "main": "dist/phone-fns.min.cjs",
   "module": "src/index.js",
-  "typings": "types/index.d.ts",
+  "types": "dist/phone-fns.d.ts",
   "type": "module",
   "unpkg": "dist/phone-fns.iife.min.js",
   "jsdelivr": "dist/phone-fns.iife.min.js",
   "scripts": {
-    "prepack": "npm-run-all --parallel docs scripts lint test --serial build",
+    "prepack": "npm run scripts && npm run lint && npm test && npm run build && npm run docs",
     "scripts": "node scripts/create-export.js",
     "docs": "jsdoc -c jsdoc.json",
-    "build": "rollup -c",
-    "lint": "standard src/**/*.js",
-    "test": "tape tests/*.spec.js | tap-on",
-    "test:cov": "c8 tape tests/*.spec.js",
+    "build": "npm run build:types && rollup -c",
+    "lint": "eslint",
+    "test": "node --test \"tests/*.spec.js\"",
+    "test:cov": "c8 node --test \"tests/*.spec.js\"",
     "coverage": "c8 check-coverage --lines 90 --branches 90 --functions 90 --statements 90",
-    "report": "c8 report --reporter=text-lcov > coverage.lcov"
+    "report": "c8 report --reporter=text-lcov > coverage.lcov",
+    "build:types": "node node_modules/typescript/bin/tsc -p tsconfig.json"
   },
   "exports": {
     ".": {
       "require": {
-        "types": "./types/index.d.cts",
+        "types": "./dist/phone-fns.d.cts",
         "default": "./dist/phone-fns.min.cjs"
       },
       "import": {
-        "types": "./types/index.d.ts",
+        "types": "./dist/phone-fns.d.ts",
         "default": "./dist/phone-fns.min.js"
       },
       "default": {
-        "types": "./types/index.d.ts",
-        "default": "./dist/phone-fns.iife.min.js"
+        "types": "./dist/phone-fns.d.ts",
+        "default": "./dist/phone-fns.min.js"
       }
     }
-  },
-  "standard": {
-    "ignore": [
-      "docs/*",
-      "dist/*",
-      "types/*"
-    ]
   },
   "repository": {
     "type": "git",
@@ -67,20 +61,21 @@
   "license": "MIT",
   "private": false,
   "devDependencies": {
-    "@babel/core": "7.25.7",
-    "@babel/preset-env": "7.25.7",
-    "@rollup/plugin-babel": "6.0.4",
-    "@rollup/plugin-node-resolve": "^15.3.0",
-    "@rollup/plugin-terser": "0.4.4",
-    "c8": "^10.1.2",
-    "globby": "13.2.2",
-    "jsdoc": "4.0.3",
-    "npm-run-all": "4.1.5",
-    "pinet": "1.2.1",
-    "rollup": "4.24.0",
-    "rollup-plugin-filesize": "10.0.0",
-    "standard": "17.1.2",
-    "tap-on": "1.0.0",
-    "tape": "5.9.0"
+    "@rollup/plugin-terser": "1.0.2",
+    "@typescript/typescript6": "6.0.2",
+    "c8": "^12.0.0",
+    "eslint": "10.15.0",
+    "jsdoc": "4.0.5",
+    "neostandard": "0.14.1",
+    "pinet": "2.0.0",
+    "rollup": "4.68.5",
+    "rollup-plugin-dts": "6.5.1",
+    "typescript": "7.0.2"
+  },
+  "overrides": {
+    "test-exclude": {
+      "glob": "^14.0.2",
+      "minimatch": "^11.0.1"
+    }
   }
 }

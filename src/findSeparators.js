@@ -7,7 +7,7 @@
  * @description
  * Finds a list of separators in a phone number string
  * @param {String} phone The phone number to breakdown
- * @return {Array} Returns an array of separators found in the phone number
+ * @return {String[]} Returns an array of separators found in the phone number
  * @example
  * import { findSeparators } from 'phone-fns'
  *

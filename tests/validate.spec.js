@@ -1,19 +1,18 @@
-import test from 'tape'
+import { test } from 'node:test'
+import assert from 'node:assert/strict'
 import validate from '../src/validate.js'
 
-test('Test simple type', t => {
-  t.ok(validate('555-444-3333'), 'Results returned back ok')
-  t.ok(validate('4445556666'))
-  t.ok(validate(4445556666))
-  t.end()
+test('Test simple type', () => {
+  assert.ok(validate('555-444-3333'), 'Results returned back ok')
+  assert.ok(validate('4445556666'))
+  assert.ok(validate(4445556666))
 })
 
-test('Test complex type', t => {
-  t.ok(validate('(555) 444 3333'), 'Results returned back ok')
-  t.end()
+test('Test complex type', () => {
+  assert.ok(validate('(555) 444 3333'), 'Results returned back ok')
 })
 
-test('Test handles wide range of phone numbers', t => {
+test('Test handles wide range of phone numbers', () => {
   const validPhoneNumbers = [
     '010.1234.5678', // Number with dots
     '10 9876 5432', // South Korea number without country code
@@ -30,12 +29,11 @@ test('Test handles wide range of phone numbers', t => {
   ]
 
   validPhoneNumbers.forEach(phone => {
-    t.ok(validate(phone), `Valid phone number: ${phone}`)
+    assert.ok(validate(phone), `Valid phone number: ${phone}`)
   })
-  t.end()
 })
 
-test('Handles Invalid range of phone numbers', t => {
+test('Handles Invalid range of phone numbers', () => {
   const invalidPhoneNumbers = [
     '123', // Too short
     '010-1234', // Missing last part of mobile number
@@ -52,7 +50,49 @@ test('Handles Invalid range of phone numbers', t => {
   ]
 
   invalidPhoneNumbers.forEach(phone => {
-    t.notOk(validate(phone), `Invalid phone number: ${phone}`)
+    assert.equal(validate(phone), false, `Invalid phone number: ${phone}`)
   })
-  t.end()
+})
+
+test('Accepts every extension marker breakdown supports', () => {
+  for (const phone of ['555-444-3333 x 12', '555-444-3333x12', '555-444-3333 ext 12', '555-444-3333 ext. 12', '555-444-3333 extension 12', '555-444-3333 #12']) {
+    assert.equal(validate(phone), true, `Valid extension: ${phone}`)
+  }
+})
+
+test('Extensions do not count towards the digit total', () => {
+  assert.equal(validate('+1 555 444 3333 x 123456'), true, '11 digits plus a 6 digit extension')
+  assert.equal(validate('555 444 3333 x 12345678'), false, 'Extensions are at most 7 digits')
+  assert.equal(validate('5554443333 x'), false, 'Marker with no extension')
+  assert.equal(validate('x 5554443333'), false, 'Marker before the number')
+})
+
+test('Country codes must follow a single + and cannot start with 0', () => {
+  assert.equal(validate('+0 555 444 3333'), false, '+0')
+  assert.equal(validate('++1 555 444 3333'), false, 'Doubled +')
+  assert.equal(validate('555+444-3333'), false, '+ in the middle')
+})
+
+test('Parentheses must be balanced and used once', () => {
+  assert.equal(validate('(555)444-3333'), true, 'Digits directly against parentheses')
+  assert.equal(validate('(555 444 3333'), false, 'Missing )')
+  assert.equal(validate('555) 444-3333'), false, 'Missing (')
+  assert.equal(validate('(1)(2)3456789012'), false, 'More than one set')
+  assert.equal(validate('(55555) 444-3333'), false, 'More than 4 digits inside')
+})
+
+test('Groups are split by a single separator', () => {
+  assert.equal(validate('555--444--3333'), false, 'Doubled dashes')
+  assert.equal(validate('555. 444. 3333'), false, 'Mixed doubled separators')
+  assert.equal(validate('-555-444-3333'), false, 'Leading separator')
+  assert.equal(validate('555-444-3333-'), false, 'Trailing separator')
+  assert.equal(validate('5 5 5 4 4 4 3 3 3 3'), false, 'More than 6 groups')
+  assert.equal(validate('+33 1 23 45 67 89'), true, '6 groups')
+})
+
+test('Rejects placeholders and empty input', () => {
+  assert.equal(validate('555-___-____'), false, 'Placeholders')
+  assert.equal(validate(''), false, 'Empty string')
+  assert.equal(validate(null), false, 'null')
+  assert.equal(validate(undefined), false, 'undefined')
 })

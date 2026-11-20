@@ -5,7 +5,7 @@
  * @category Function
  * @sig String -> String
  * @description Strips all of the special characters from the given string but leaves extension and country code characters in place
- * @param {String} phone The phone number to trim and strip down
+ * @param {String|Number} phone The phone number to trim and strip down
  * @return {String} Returns the newly created phone number string
  *
  * @example
@@ -16,9 +16,9 @@
  * normalize('555.444.3333 x 123') // => '5554443333x123'
  */
 export default function normalize (phone) {
-  if (!phone) {
+  if (phone == null) {
     return ''
   }
 
-  return phone.replace(/[\s.\-()]/g, '').trim()
+  return String(phone).replace(/[\s.\-()]/g, '').trim()
 }

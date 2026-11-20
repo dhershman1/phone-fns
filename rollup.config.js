@@ -1,55 +1,43 @@
-import babel from '@rollup/plugin-babel'
-import filesize from 'rollup-plugin-filesize'
+import { gzipSync } from 'node:zlib'
 import terser from '@rollup/plugin-terser'
-import { nodeResolve } from '@rollup/plugin-node-resolve'
+import { dts } from 'rollup-plugin-dts'
+
+/**
+ * Tiny replacement for rollup-plugin-filesize: logs the minified and gzipped size of each bundle
+ * @returns {import('rollup').Plugin}
+ */
+function filesize () {
+  return {
+    name: 'filesize',
+    writeBundle (options, bundle) {
+      for (const chunk of Object.values(bundle)) {
+        if (chunk.type !== 'chunk') continue
+
+        const size = (n) => `${(n / 1024).toFixed(2)} KB`
+
+        console.log(`${options.file}: ${size(Buffer.byteLength(chunk.code))} (gzip: ${size(gzipSync(chunk.code).length)})`)
+      }
+    }
+  }
+}
+
+// Also declares the global `phoneFns` for the IIFE build loaded with a script tag
+const typesFooter = 'export as namespace phoneFns'
 
 export default [{
   input: './src/index.js',
-  plugins: [
-    babel({ babelHelpers: 'bundled', presets: [['@babel/preset-env', { targets: { ie: '11' } }]] }),
-    terser(),
-    filesize({
-      showMinifiedSize: false
-    })
-  ],
-  external: [
-    'kyanite'
-  ],
-  output: {
-    file: 'dist/phone-fns.min.js',
-    format: 'es',
-    name: 'phoneFns'
-  }
+  plugins: [terser(), filesize()],
+  output: [
+    { file: 'dist/phone-fns.min.js', format: 'es' },
+    { file: 'dist/phone-fns.min.cjs', format: 'cjs' },
+    { file: 'dist/phone-fns.iife.min.js', format: 'iife', name: 'phoneFns' }
+  ]
 }, {
-  input: './src/index.js',
-  plugins: [
-    babel({ babelHelpers: 'bundled', presets: [['@babel/preset-env', { targets: { ie: '11' } }]] }),
-    terser(),
-    filesize({
-      showMinifiedSize: false
-    })
-  ],
-  external: [
-    'kyanite'
-  ],
-  output: {
-    file: 'dist/phone-fns.min.cjs',
-    format: 'cjs',
-    name: 'phoneFns'
-  }
-}, {
-  input: './src/index.js',
-  plugins: [
-    babel({ babelHelpers: 'bundled', presets: [['@babel/preset-env', { targets: { ie: '11' } }]] }),
-    terser(),
-    nodeResolve({ browser: true }),
-    filesize({
-      showMinifiedSize: false
-    })
-  ],
-  output: {
-    file: 'dist/phone-fns.iife.min.js',
-    format: 'iife',
-    name: 'phoneFns'
-  }
+  // Bundles the declarations tsc generates from our JSDoc (see tsconfig.json) into one file per module format
+  input: './.types/index.d.ts',
+  plugins: [dts()],
+  output: [
+    { file: 'dist/phone-fns.d.ts', format: 'es', footer: typesFooter },
+    { file: 'dist/phone-fns.d.cts', format: 'es', footer: typesFooter }
+  ]
 }]

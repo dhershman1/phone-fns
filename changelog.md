@@ -1,5 +1,92 @@
 # Changelog
 
+## v5.0.0
+
+### Breaking Changes
+
+- Phone-Fns is no longer transpiled down to ES5 with Babel
+  - The bundles in `dist/` now ship modern JavaScript
+  - Internet Explorer and other legacy browsers are no longer supported out of the box. If you still need them, transpile `phone-fns` as part of your own build
+- Removed the deprecated `isValid` function
+  - Use `validate` or `isValidWithFormat` instead
+- `breakdown` now reads the original input instead of only its digits
+  - Extensions are only picked up when they have a marker: `x`, `ext`, `ext.`, `extension`, or `#`
+    - Trailing digits with no marker (e.g. `'55544433338989'`) no longer become an extension
+  - A country code is picked up from a leading `+` (1-3 digits), or from an 11 digit number that starts with `1`
+    - `breakdown('+1 555-444-3333')` now returns `countryCode: '1', areaCode: '555', ...` instead of `areaCode: '155', ...`
+  - Always returns a `countryCode` key (an empty string when there isn't one)
+  - 7 digit numbers now return `areaCode: ''` instead of `areaCode: undefined`
+  - Throws `The phone number provided could not be broken down` for input it can't handle (empty, `null`, too short or too long, or containing letters) instead of crashing with a `TypeError`
+- `isValidWithFormat` (and so `breakdownWithFormat`) now strictly matches the format
+  - `isValidWithFormat` uses the same placeholders as `format`: `N` for numbers and `C` for country code. Both must be digits. Previously only `N` was checked, and a space would pass as a digit
+  - Every other character in the format must match the phone number exactly, so `'555.444.3333'` no longer passes `'NNN-NNN-NNNN'`, and `'+2 ...'` no longer passes `'+1 ...'`
+  - `breakdownWithFormat` keeps its own `C`, `A`, `L`, `N`, and `X` placeholders, and every one of them must now be a digit
+- `uglify` now keeps every digit
+  - It used to drop the first digit after any letter, e.g. `uglify('5554443333x123')` returned `'555444333323'`; it now returns `'5554443333123'`
+- `validate` now checks how the number is written instead of only its digits. It stays country neutral and doesn't apply any country specific numbering rules
+  - Groups must be split by a single space, dot, or dash, so `'555--444-3333'` and `'-555-444-3333'` are no longer valid
+  - Parentheses must be balanced, used at most once, and wrap 1-4 digits, so `'(555 444-3333'` is no longer valid
+  - A `+` must be the first character and be followed by a country code that doesn't start with `0`
+  - Numbers can be written in at most 6 groups, so `'5 5 5 4 4 4 3 3 3 3'` is no longer valid
+  - Extensions accept the same markers as `breakdown` (`x`, `ext`, `ext.`, `extension`, `#`), can be up to 7 digits, and no longer count towards the 10-15 digit limit
+  - `_` placeholders are not valid
+- `format` no longer runs the phone number through `isValid`
+  - Any phone whose digit count matches the number of `C`/`N` placeholders in the layout is formatted; otherwise it's returned unchanged, as before
+  - Only `C` and `N` (any case) count as placeholders in the layout, so layouts can contain other letters, e.g. `'NNN-NNN-NNNN ext NNN'`
+- `format` always returns a string
+  - When a number is passed in that doesn't fit the layout it's now returned as a string (e.g. `format('NNN', 12345) // => '12345'`) instead of the original number
+- TypeScript types are now generated from the source and describe the real exports
+  - The types no longer use `export =`, so `import phoneFns from 'phone-fns'` is now a type error. There has never been a default export at runtime, use `import * as phoneFns from 'phone-fns'` or named imports instead
+  - `Breakdown` can be imported as a type: `import type { Breakdown } from 'phone-fns'`
+  - The `phoneFns` global for the IIFE (script tag) build is still declared
+- `Breakdown` type: `countryCode` is no longer optional
+
+### Changed
+
+- Simplified the build: one Rollup config now produces the ESM, CommonJS, and IIFE bundles
+- Bundle sizes are now reported by a small inline Rollup plugin instead of `rollup-plugin-filesize`
+- `scripts/create-export.js` now uses `node:fs` instead of `globby`
+- Type definitions are generated from the JSDoc in `src/` instead of being written by hand
+  - They are built into `dist/phone-fns.d.ts` (ESM) and `dist/phone-fns.d.cts` (CommonJS), replacing the `types/` folder
+  - Hovering any function in your editor now shows its full documentation and examples
+  - Curried functions keep their real parameter names in both forms, e.g. `format(layout)` returns `(phone) => string`
+- `breakdown`, `format`, `normalize`, `isValidWithFormat`, `uglify`, and `validate` types now accept numbers as well as strings, matching what they already accepted at runtime
+
+### Fixed
+
+- `main` in `package.json` now points at the CommonJS build, so tools that don't read `exports` can `require` the package again
+- The fallback `default` condition in `exports` now points at the ESM build instead of the IIFE build, which has no exports
+- Function descriptions in the docs now render their markdown (lists and inline code) via jsdoc's `plugins/markdown`
+- Docs build now finds `changelog.md` on case-sensitive file systems (Linux), so the changelog appears in the generated docs again
+- `format` now treats a lowercase `c` as a country code placeholder, as the docs already said it would
+- `normalize` no longer crashes when given a number
+- `breakdownWithFormat` documentation example showed the wrong output for its curried call
+
+### Chore
+
+- Replaced `standard` with `neostandard` (ESLint 10 flat config)
+  - Linting now covers `tests/`, `scripts/`, and config files, not just `src/`
+- Removed Babel (`@babel/core`, `@babel/preset-env`, `@rollup/plugin-babel`, `.babelrc`)
+- Removed `rollup-plugin-filesize`, `@rollup/plugin-node-resolve`, `npm-run-all`, and `globby`
+- Replaced `tape` and `tap-on` with Node's built-in test runner (`node:test` and `node:assert`)
+- Updated `rollup` to v4.68.5, `@rollup/plugin-terser` to v1.0.2, `jsdoc` to v4.0.5, and `c8` to v12
+- Updated `pinet` to v2.0.0
+- Added npm `overrides` so `c8` uses patched versions of `glob` and `minimatch`
+- Regenerated `package-lock.json`, which clears the large majority of dev dependency security advisories
+- Added `typescript` v7 and `rollup-plugin-dts` to generate and bundle type definitions, with a root `tsconfig.json`
+  - `npm run build` now type checks `src/` (`checkJs` + `strict`) before bundling, so type errors in the JSDoc fail the build
+  - `@typescript/typescript6` is also installed because `rollup-plugin-dts` needs the TypeScript compiler API, which TypeScript 7 doesn't ship yet
+  - `npm run build:types` calls TypeScript 7 by path, since that package also installs an older `tsc` command that takes over `npx tsc`
+- JSDoc site generation now skips `src/_internals` and `src/index.js`, which use TypeScript only type syntax
+- `eslint.config.js`, `tsconfig.json`, and `.gitattributes` are no longer published to npm
+- CI updates:
+  - Node matrix is now 22.x and 24.x (Node 18 and 20 are end-of-life)
+  - Updated `actions/checkout`, `actions/setup-node`, and `codecov/codecov-action` to v7
+  - Uses `setup-node`'s built-in npm cache and always runs `npm ci`
+  - Added a build step, read-only workflow permissions, and a single coverage upload per run
+  - Pull requests into `development` now run CI as well
+  - Removed the CodeQL workflow
+
 ## v4.1.2
 
 ### Fixed
